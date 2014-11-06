@@ -10,7 +10,6 @@
         <mui:LinkGroup DisplayName="welcome">
             <mui:LinkGroup.Links>
                 <mui:Link DisplayName="home" Source="/Pages/Home.xaml" />
-                <mui:Link DisplayName="news" Source="/Pages/News.xaml" />
             </mui:LinkGroup.Links>
         </mui:LinkGroup>
         <mui:LinkGroup DisplayName="Start a Quiz">

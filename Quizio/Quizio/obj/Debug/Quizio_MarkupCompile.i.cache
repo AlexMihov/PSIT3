@@ -10,11 +10,11 @@ none
 false
 DEBUG;TRACE
 C:\Users\Admin\Desktop\ZHAW\semester 3\psit3\Projekt\PSIT3\Quizio\Quizio\App.xaml
-151331181252
+141504151058
 
-2347092898
+23391226083
 131008754321
-MainWindow.xaml;Pages\Dialogs\help.xaml;Pages\Friends.xaml;Pages\News.xaml;Pages\News\LastWeek.xaml;Pages\News\Today.xaml;Pages\News\Yesterday.xaml;Pages\Settings\Profile.xaml;Pages\Pvp.xaml;Pages\Rankings.xaml;Pages\RegularGame.xaml;Pages\Settings\About.xaml;Pages\Settings\Appearance.xaml;Pages\Home.xaml;Pages\SettingsPage.xaml;
+MainWindow.xaml;Pages\Dialogs\Login.xaml;Pages\Friends.xaml;Pages\News\LastWeek.xaml;Pages\News\Today.xaml;Pages\News\Yesterday.xaml;Pages\Settings\Profile.xaml;Pages\Pvp.xaml;Pages\Rankings.xaml;Pages\RegularGame.xaml;Pages\Settings\About.xaml;Pages\Settings\Appearance.xaml;Pages\Home.xaml;Pages\SettingsPage.xaml;
 
 False
 

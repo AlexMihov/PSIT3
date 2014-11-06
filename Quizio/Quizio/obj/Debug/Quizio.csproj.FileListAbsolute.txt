@@ -19,10 +19,8 @@ C:\Users\Admin\Desktop\ZHAW\semester 3\psit3\Projekt\PSIT3\Quizio\Quizio\obj\Deb
 C:\Users\Admin\Desktop\ZHAW\semester 3\psit3\Projekt\PSIT3\Quizio\Quizio\obj\Debug\Quizio.g.resources
 C:\Users\Admin\Desktop\ZHAW\semester 3\psit3\Projekt\PSIT3\Quizio\Quizio\obj\Debug\Quizio.exe
 C:\Users\Admin\Desktop\ZHAW\semester 3\psit3\Projekt\PSIT3\Quizio\Quizio\obj\Debug\Quizio.pdb
-C:\Users\Admin\Desktop\ZHAW\semester 3\psit3\Projekt\PSIT3\Quizio\Quizio\obj\Debug\Pages\News.baml
 C:\Users\Admin\Desktop\ZHAW\semester 3\psit3\Projekt\PSIT3\Quizio\Quizio\obj\Debug\Pages\Pvp.baml
 C:\Users\Admin\Desktop\ZHAW\semester 3\psit3\Projekt\PSIT3\Quizio\Quizio\obj\Debug\Pages\RegularGame.baml
-C:\Users\Admin\Desktop\ZHAW\semester 3\psit3\Projekt\PSIT3\Quizio\Quizio\obj\Debug\Pages\News.g.cs
 C:\Users\Admin\Desktop\ZHAW\semester 3\psit3\Projekt\PSIT3\Quizio\Quizio\obj\Debug\Pages\Pvp.g.cs
 C:\Users\Admin\Desktop\ZHAW\semester 3\psit3\Projekt\PSIT3\Quizio\Quizio\obj\Debug\Pages\RegularGame.g.cs
 C:\Users\Admin\Desktop\ZHAW\semester 3\psit3\Projekt\PSIT3\Quizio\Quizio\obj\Debug\Pages\News\LastWeek.baml
@@ -37,8 +35,6 @@ C:\Users\Admin\Desktop\ZHAW\semester 3\psit3\Projekt\PSIT3\Quizio\Quizio\obj\Deb
 C:\Users\Admin\Desktop\ZHAW\semester 3\psit3\Projekt\PSIT3\Quizio\Quizio\obj\Debug\Pages\Rankings.g.cs
 C:\Users\Admin\Desktop\ZHAW\semester 3\psit3\Projekt\PSIT3\Quizio\Quizio\obj\Debug\Pages\Settings\Profile.baml
 C:\Users\Admin\Desktop\ZHAW\semester 3\psit3\Projekt\PSIT3\Quizio\Quizio\obj\Debug\Pages\Settings\Profile.g.cs
-C:\Users\Admin\Desktop\ZHAW\semester 3\psit3\Projekt\PSIT3\Quizio\Quizio\obj\Debug\Pages\Dialogs\help.baml
-C:\Users\Admin\Desktop\ZHAW\semester 3\psit3\Projekt\PSIT3\Quizio\Quizio\obj\Debug\Pages\Dialogs\help.g.cs
 C:\Users\Alex\Documents\GitHub\PSIT3\Quizio\Quizio\obj\Debug\Quizio.exe
 C:\Users\Alex\Documents\GitHub\PSIT3\Quizio\Quizio\obj\Debug\Quizio.pdb
 C:\Users\Alex\Documents\GitHub\PSIT3\Quizio\Quizio\bin\Debug\Quizio.exe
@@ -80,3 +76,5 @@ C:\Users\Alex\Documents\GitHub\PSIT3\Quizio\Quizio\obj\Debug\Pages\SettingsPage.
 C:\Users\Alex\Documents\GitHub\PSIT3\Quizio\Quizio\obj\Debug\App.g.cs
 C:\Users\Alex\Documents\GitHub\PSIT3\Quizio\Quizio\obj\Debug\Quizio_MarkupCompile.cache
 C:\Users\Alex\Documents\GitHub\PSIT3\Quizio\Quizio\obj\Debug\Quizio.g.resources
+C:\Users\Admin\Desktop\ZHAW\semester 3\psit3\Projekt\PSIT3\Quizio\Quizio\obj\Debug\Pages\Dialogs\Login.baml
+C:\Users\Admin\Desktop\ZHAW\semester 3\psit3\Projekt\PSIT3\Quizio\Quizio\obj\Debug\Pages\Dialogs\Login.g.cs

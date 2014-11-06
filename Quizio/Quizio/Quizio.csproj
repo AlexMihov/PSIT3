@@ -57,7 +57,11 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="REST.cs" />
+    <Compile Include="Models\User.cs" />
+    <Compile Include="Pages\Dialogs\Login.xaml.cs">
+      <DependentUpon>Login.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Utilities\REST.cs" />
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -66,15 +70,11 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Page Include="Pages\Dialogs\help.xaml">
+    <Page Include="Pages\Dialogs\Login.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Pages\Friends.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Pages\News.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -110,14 +110,8 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Compile Include="Pages\Dialogs\help.xaml.cs">
-      <DependentUpon>help.xaml</DependentUpon>
-    </Compile>
     <Compile Include="Pages\Friends.xaml.cs">
       <DependentUpon>Friends.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Pages\News.xaml.cs">
-      <DependentUpon>News.xaml</DependentUpon>
     </Compile>
     <Compile Include="Pages\News\LastWeek.xaml.cs">
       <DependentUpon>LastWeek.xaml</DependentUpon>
@@ -170,7 +164,9 @@
   <ItemGroup>
     <None Include="packages.config" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="Controllers\" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
