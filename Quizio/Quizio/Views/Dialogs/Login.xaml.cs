@@ -21,9 +21,9 @@ namespace Quizio.Pages.Dialogs
     /// </summary>
     public partial class Login : ModernDialog
     {
-        public string UserName { get; set; }
-        public string Password { get; set; }
-        public bool granted { get; set; }
+        public string UserName { get; private set; }
+        public string Password { get; private set; }
+        public bool granted { get; private set; }
 
         public Login()
         {
@@ -44,8 +44,13 @@ namespace Quizio.Pages.Dialogs
             {
                 granted = true;
                 this.DialogResult = true;
+                this.Close();
             }
-            this.Close();
+            else
+            {
+                ModernDialog.ShowMessage("Invalid Username/Password combination!", "Error", MessageBoxButton.OK);
+            }
+            
         }
     }
 }

@@ -58,7 +58,7 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Models\User.cs" />
-    <Compile Include="Pages\Dialogs\Login.xaml.cs">
+    <Compile Include="Views\Dialogs\Login.xaml.cs">
       <DependentUpon>Login.xaml</DependentUpon>
     </Compile>
     <Compile Include="Utilities\REST.cs" />
@@ -70,93 +70,93 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Page Include="Pages\Dialogs\Login.xaml">
+    <Page Include="Views\Dialogs\Login.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Pages\Friends.xaml">
+    <Page Include="Views\Friends.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Pages\News\LastWeek.xaml">
+    <Page Include="Views\News\LastWeek.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Pages\News\Today.xaml">
+    <Page Include="Views\News\Today.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Pages\News\Yesterday.xaml">
+    <Page Include="Views\News\Yesterday.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Pages\Settings\Profile.xaml">
+    <Page Include="Views\Settings\Profile.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Pages\Pvp.xaml">
+    <Page Include="Views\Pvp.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Pages\Rankings.xaml">
+    <Page Include="Views\Rankings.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Pages\RegularGame.xaml">
+    <Page Include="Views\RegularGame.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Pages\Settings\About.xaml">
+    <Page Include="Views\Settings\About.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Compile Include="Pages\Friends.xaml.cs">
+    <Compile Include="Views\Friends.xaml.cs">
       <DependentUpon>Friends.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Pages\News\LastWeek.xaml.cs">
+    <Compile Include="Views\News\LastWeek.xaml.cs">
       <DependentUpon>LastWeek.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Pages\News\Today.xaml.cs">
+    <Compile Include="Views\News\Today.xaml.cs">
       <DependentUpon>Today.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Pages\News\Yesterday.xaml.cs">
+    <Compile Include="Views\News\Yesterday.xaml.cs">
       <DependentUpon>Yesterday.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Pages\Settings\Profile.xaml.cs">
+    <Compile Include="Views\Settings\Profile.xaml.cs">
       <DependentUpon>Profile.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Pages\Pvp.xaml.cs">
+    <Compile Include="Views\Pvp.xaml.cs">
       <DependentUpon>Pvp.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Pages\Rankings.xaml.cs">
+    <Compile Include="Views\Rankings.xaml.cs">
       <DependentUpon>Rankings.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Pages\RegularGame.xaml.cs">
+    <Compile Include="Views\RegularGame.xaml.cs">
       <DependentUpon>RegularGame.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Pages\Settings\About.xaml.cs">
+    <Compile Include="Views\Settings\About.xaml.cs">
       <DependentUpon>About.xaml</DependentUpon>
     </Compile>
-    <Page Include="Pages\Settings\Appearance.xaml">
+    <Page Include="Views\Settings\Appearance.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Compile Include="Pages\Settings\Appearance.xaml.cs">
+    <Compile Include="Views\Settings\Appearance.xaml.cs">
       <DependentUpon>Appearance.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Pages\Settings\AppearanceViewModel.cs" />
-    <Page Include="Pages\Home.xaml">
+    <Compile Include="Views\Settings\AppearanceViewModel.cs" />
+    <Page Include="Views\Home.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Pages\SettingsPage.xaml">
+    <Page Include="Views\SettingsPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Compile Include="Pages\Home.xaml.cs">
+    <Compile Include="Views\Home.xaml.cs">
       <DependentUpon>Home.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Pages\SettingsPage.xaml.cs">
+    <Compile Include="Views\SettingsPage.xaml.cs">
       <DependentUpon>SettingsPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -165,7 +165,7 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Controllers\" />
+    <Folder Include="ViewModels\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

@@ -31,7 +31,6 @@ namespace Quizio
             }
             else
             {
-                MessageBox.Show("Invalid Username/Password!", "Error", MessageBoxButton.OK);
                 Current.Shutdown(-1);
             }
         }
