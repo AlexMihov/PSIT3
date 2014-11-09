@@ -1,4 +1,4 @@
-﻿using Quizio.ViewModels;
+﻿using Quizio.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -14,16 +14,21 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace Quizio.Pages
+namespace Quizio.Views
 {
     /// <summary>
-    /// Interaction logic for RegularGame.xaml
+    /// Interaction logic for SoloGame.xaml
     /// </summary>
-    public partial class RegularGame : UserControl
+    public partial class SoloGame : UserControl
     {
-        public RegularGame()
+        public string Difficulty {get; set;}
+        public string Category {get; set;}
+
+        public SoloGame(string category, string difficulty)
         {
             InitializeComponent();
+            this.Category = "dini mum";
+            this.Difficulty = difficulty;
         }
     }
 }

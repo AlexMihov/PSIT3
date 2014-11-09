@@ -1,16 +1,3 @@
-C:\Users\Admin\Desktop\ZHAW\semester 3\psit3\Projekt\PSIT3\Quizio\Quizio\bin\Debug\Quizio.exe
-C:\Users\Admin\Desktop\ZHAW\semester 3\psit3\Projekt\PSIT3\Quizio\Quizio\bin\Debug\Quizio.pdb
-C:\Users\Admin\Desktop\ZHAW\semester 3\psit3\Projekt\PSIT3\Quizio\Quizio\bin\Debug\FirstFloor.ModernUI.dll
-C:\Users\Admin\Desktop\ZHAW\semester 3\psit3\Projekt\PSIT3\Quizio\Quizio\bin\Debug\FirstFloor.ModernUI.xml
-C:\Users\Admin\Desktop\ZHAW\semester 3\psit3\Projekt\PSIT3\Quizio\Quizio\obj\Debug\Quizio.csprojResolveAssemblyReference.cache
-C:\Users\Admin\Desktop\ZHAW\semester 3\psit3\Projekt\PSIT3\Quizio\Quizio\obj\Debug\MainWindow.baml
-C:\Users\Admin\Desktop\ZHAW\semester 3\psit3\Projekt\PSIT3\Quizio\Quizio\obj\Debug\App.baml
-C:\Users\Admin\Desktop\ZHAW\semester 3\psit3\Projekt\PSIT3\Quizio\Quizio\obj\Debug\MainWindow.g.cs
-C:\Users\Admin\Desktop\ZHAW\semester 3\psit3\Projekt\PSIT3\Quizio\Quizio\obj\Debug\App.g.cs
-C:\Users\Admin\Desktop\ZHAW\semester 3\psit3\Projekt\PSIT3\Quizio\Quizio\obj\Debug\Quizio_MarkupCompile.cache
-C:\Users\Admin\Desktop\ZHAW\semester 3\psit3\Projekt\PSIT3\Quizio\Quizio\obj\Debug\Quizio.g.resources
-C:\Users\Admin\Desktop\ZHAW\semester 3\psit3\Projekt\PSIT3\Quizio\Quizio\obj\Debug\Quizio.exe
-C:\Users\Admin\Desktop\ZHAW\semester 3\psit3\Projekt\PSIT3\Quizio\Quizio\obj\Debug\Quizio.pdb
 C:\Users\Alex\Documents\GitHub\PSIT3\Quizio\Quizio\obj\Debug\Quizio.exe
 C:\Users\Alex\Documents\GitHub\PSIT3\Quizio\Quizio\obj\Debug\Quizio.pdb
 C:\Users\Alex\Documents\GitHub\PSIT3\Quizio\Quizio\bin\Debug\Quizio.exe
@@ -52,6 +39,11 @@ C:\Users\Alex\Documents\GitHub\PSIT3\Quizio\Quizio\obj\Debug\Pages\SettingsPage.
 C:\Users\Alex\Documents\GitHub\PSIT3\Quizio\Quizio\obj\Debug\App.g.cs
 C:\Users\Alex\Documents\GitHub\PSIT3\Quizio\Quizio\obj\Debug\Quizio_MarkupCompile.cache
 C:\Users\Alex\Documents\GitHub\PSIT3\Quizio\Quizio\obj\Debug\Quizio.g.resources
+C:\Users\Admin\Desktop\ZHAW\semester 3\psit3\Projekt\PSIT3\Quizio\Quizio\bin\Debug\Quizio.exe
+C:\Users\Admin\Desktop\ZHAW\semester 3\psit3\Projekt\PSIT3\Quizio\Quizio\bin\Debug\Quizio.pdb
+C:\Users\Admin\Desktop\ZHAW\semester 3\psit3\Projekt\PSIT3\Quizio\Quizio\bin\Debug\FirstFloor.ModernUI.dll
+C:\Users\Admin\Desktop\ZHAW\semester 3\psit3\Projekt\PSIT3\Quizio\Quizio\bin\Debug\FirstFloor.ModernUI.xml
+C:\Users\Admin\Desktop\ZHAW\semester 3\psit3\Projekt\PSIT3\Quizio\Quizio\obj\Debug\MainWindow.baml
 C:\Users\Admin\Desktop\ZHAW\semester 3\psit3\Projekt\PSIT3\Quizio\Quizio\obj\Debug\Views\Dialogs\Login.baml
 C:\Users\Admin\Desktop\ZHAW\semester 3\psit3\Projekt\PSIT3\Quizio\Quizio\obj\Debug\Views\Friends.baml
 C:\Users\Admin\Desktop\ZHAW\semester 3\psit3\Projekt\PSIT3\Quizio\Quizio\obj\Debug\Views\News\LastWeek.baml
@@ -60,11 +52,13 @@ C:\Users\Admin\Desktop\ZHAW\semester 3\psit3\Projekt\PSIT3\Quizio\Quizio\obj\Deb
 C:\Users\Admin\Desktop\ZHAW\semester 3\psit3\Projekt\PSIT3\Quizio\Quizio\obj\Debug\Views\Settings\Profile.baml
 C:\Users\Admin\Desktop\ZHAW\semester 3\psit3\Projekt\PSIT3\Quizio\Quizio\obj\Debug\Views\Pvp.baml
 C:\Users\Admin\Desktop\ZHAW\semester 3\psit3\Projekt\PSIT3\Quizio\Quizio\obj\Debug\Views\Rankings.baml
-C:\Users\Admin\Desktop\ZHAW\semester 3\psit3\Projekt\PSIT3\Quizio\Quizio\obj\Debug\Views\RegularGame.baml
 C:\Users\Admin\Desktop\ZHAW\semester 3\psit3\Projekt\PSIT3\Quizio\Quizio\obj\Debug\Views\Settings\About.baml
 C:\Users\Admin\Desktop\ZHAW\semester 3\psit3\Projekt\PSIT3\Quizio\Quizio\obj\Debug\Views\Settings\Appearance.baml
 C:\Users\Admin\Desktop\ZHAW\semester 3\psit3\Projekt\PSIT3\Quizio\Quizio\obj\Debug\Views\Home.baml
 C:\Users\Admin\Desktop\ZHAW\semester 3\psit3\Projekt\PSIT3\Quizio\Quizio\obj\Debug\Views\SettingsPage.baml
+C:\Users\Admin\Desktop\ZHAW\semester 3\psit3\Projekt\PSIT3\Quizio\Quizio\obj\Debug\Views\SoloGame.baml
+C:\Users\Admin\Desktop\ZHAW\semester 3\psit3\Projekt\PSIT3\Quizio\Quizio\obj\Debug\App.baml
+C:\Users\Admin\Desktop\ZHAW\semester 3\psit3\Projekt\PSIT3\Quizio\Quizio\obj\Debug\MainWindow.g.cs
 C:\Users\Admin\Desktop\ZHAW\semester 3\psit3\Projekt\PSIT3\Quizio\Quizio\obj\Debug\Views\Dialogs\Login.g.cs
 C:\Users\Admin\Desktop\ZHAW\semester 3\psit3\Projekt\PSIT3\Quizio\Quizio\obj\Debug\Views\Friends.g.cs
 C:\Users\Admin\Desktop\ZHAW\semester 3\psit3\Projekt\PSIT3\Quizio\Quizio\obj\Debug\Views\News\LastWeek.g.cs
@@ -78,3 +72,12 @@ C:\Users\Admin\Desktop\ZHAW\semester 3\psit3\Projekt\PSIT3\Quizio\Quizio\obj\Deb
 C:\Users\Admin\Desktop\ZHAW\semester 3\psit3\Projekt\PSIT3\Quizio\Quizio\obj\Debug\Views\Settings\Appearance.g.cs
 C:\Users\Admin\Desktop\ZHAW\semester 3\psit3\Projekt\PSIT3\Quizio\Quizio\obj\Debug\Views\Home.g.cs
 C:\Users\Admin\Desktop\ZHAW\semester 3\psit3\Projekt\PSIT3\Quizio\Quizio\obj\Debug\Views\SettingsPage.g.cs
+C:\Users\Admin\Desktop\ZHAW\semester 3\psit3\Projekt\PSIT3\Quizio\Quizio\obj\Debug\Views\SoloGame.g.cs
+C:\Users\Admin\Desktop\ZHAW\semester 3\psit3\Projekt\PSIT3\Quizio\Quizio\obj\Debug\App.g.cs
+C:\Users\Admin\Desktop\ZHAW\semester 3\psit3\Projekt\PSIT3\Quizio\Quizio\obj\Debug\GeneratedInternalTypeHelper.g.cs
+C:\Users\Admin\Desktop\ZHAW\semester 3\psit3\Projekt\PSIT3\Quizio\Quizio\obj\Debug\Quizio_MarkupCompile.cache
+C:\Users\Admin\Desktop\ZHAW\semester 3\psit3\Projekt\PSIT3\Quizio\Quizio\obj\Debug\Quizio_MarkupCompile.lref
+C:\Users\Admin\Desktop\ZHAW\semester 3\psit3\Projekt\PSIT3\Quizio\Quizio\obj\Debug\Views\RegularGame.baml
+C:\Users\Admin\Desktop\ZHAW\semester 3\psit3\Projekt\PSIT3\Quizio\Quizio\obj\Debug\Quizio.g.resources
+C:\Users\Admin\Desktop\ZHAW\semester 3\psit3\Projekt\PSIT3\Quizio\Quizio\obj\Debug\Quizio.exe
+C:\Users\Admin\Desktop\ZHAW\semester 3\psit3\Projekt\PSIT3\Quizio\Quizio\obj\Debug\Quizio.pdb
