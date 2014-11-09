@@ -27,7 +27,7 @@ namespace Quizio.Views
         public SoloGame(string category, string difficulty)
         {
             InitializeComponent();
-            this.Category = "dini mum";
+            this.Category = category;
             this.Difficulty = difficulty;
         }
     }

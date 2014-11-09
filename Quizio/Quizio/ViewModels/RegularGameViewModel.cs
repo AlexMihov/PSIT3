@@ -3,6 +3,7 @@ using Quizio.Models;
 using Quizio.Views;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -37,6 +38,7 @@ namespace Quizio.ViewModels
         private bool _canExecute;
         public void Play()
         {
+            Debug.WriteLine(RegularGame.SelectedCategory, RegularGame.Difficulty);
             var wnd = new ModernWindow
             {
                 Style = (Style)App.Current.Resources["EmptyWindow"],
@@ -46,6 +48,7 @@ namespace Quizio.ViewModels
                 Width= 1200
             };
             wnd.Show();
+            this._canExecute = false;
         }
     }
 }
