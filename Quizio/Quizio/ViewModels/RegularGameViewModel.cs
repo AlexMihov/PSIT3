@@ -1,8 +1,12 @@
 ﻿using FirstFloor.ModernUI.Windows.Controls;
+using Microsoft.Practices.Prism.Commands;
+using Microsoft.Practices.Prism.Mvvm;
 using Quizio.Models;
-using Quizio.Views;
+using Quizio.Views.SoloGame;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
+using System.ComponentModel;
 using System.Diagnostics;
 using System.Linq;
 using System.Text;
@@ -12,66 +16,39 @@ using System.Windows.Input;
 
 namespace Quizio.ViewModels
 {
-    class RegularGameViewModel
+    public class RegularGameViewModel : BindableBase
     {
-        public RegularGame RegularGame { get; set; }
+        private Quiz selectedQuiz;
 
-        public RegularGameViewModel()
+        public Quiz SelectedQuiz
         {
-            _canExecute = true;
-            this.RegularGame = new RegularGame();
-            this.Categories = new[] {"Mathematik", "Astronomie", "Sprachen", "Literatur", "Tiere", "Seismologie", "Biologie", "Physik" };
-            this.Difficulties = new[] { "Einfach", "Mittel", "Schwer", "Godlike" };
+            get { return this.selectedQuiz; }
+            set { SetProperty(ref this.selectedQuiz, value); }
         }
 
-        public IEnumerable<string> Categories { get; set; }
-        public IEnumerable<string> Difficulties { get; set; }
+        public List<Category> Categories { get; set; }
 
-        private ICommand _clickCommand;
-        public ICommand PlayCommand
+        public RegularGameViewModel(List<Category> categories)
         {
-            get
+            this.PlayCommand = new DelegateCommand(this.Play);
+            this.Categories = categories;
+        }
+
+        public ICommand PlayCommand { get; private set; }
+
+        private void Play()
+        {
+            if (selectedQuiz != null)
             {
-                return _clickCommand ?? (_clickCommand = new CommandHandler(() => Play(), _canExecute));
+                var wnd = new SoloGameWindow(new SoloGameViewModel(selectedQuiz));
+                App.Current.MainWindow.Hide(); //hide the mainwindow -> show after game ends or when user cancels the game
+                wnd.Show();
+            }
+            else
+            {
+                ModernDialog.ShowMessage("Bitte wähle ein Quiz aus", "ERROR", MessageBoxButton.OK);
             }
         }
-        private bool _canExecute;
-        public void Play()
-        {
-            Debug.WriteLine(RegularGame.SelectedCategory, RegularGame.Difficulty);
-            var wnd = new ModernWindow
-            {
-                Style = (Style)App.Current.Resources["EmptyWindow"],
-                Content = new SoloGame(RegularGame.SelectedCategory, RegularGame.Difficulty),
-                Title = "Solo Game",
-                Height = 600,
-                Width= 1200
-            };
-            wnd.Show();
-            this._canExecute = false;
-        }
-    }
-}
 
-public class CommandHandler : ICommand
-{
-    private Action _action;
-    private bool _canExecute;
-    public CommandHandler(Action action, bool canExecute)
-    {
-        _action = action;
-        _canExecute = canExecute;
-    }
-
-    public bool CanExecute(object parameter)
-    {
-        return _canExecute;
-    }
-
-    public event EventHandler CanExecuteChanged;
-
-    public void Execute(object parameter)
-    {
-        _action();
     }
 }

@@ -14,14 +14,14 @@
         </mui:LinkGroup>
         <mui:LinkGroup DisplayName="Quiz Spielen">
             <mui:LinkGroup.Links>
-                <mui:Link DisplayName="Einzelspieler" Source="/Views/RegularGame.xaml" />
-                <mui:Link DisplayName="Mehrspieler" Source="/Views/Pvp.xaml" />
+                <mui:Link DisplayName="Einzelspieler" Source="/Views/GameSelection/RegularGame.xaml" />
+                <mui:Link DisplayName="Mehrspieler" Source="/Views/GameSelection/PvpGame.xaml" />
             </mui:LinkGroup.Links>
         </mui:LinkGroup>
         <mui:LinkGroup DisplayName="Soziale Daten">
             <mui:LinkGroup.Links>
-                <mui:Link DisplayName="Friends" Source="/Views/Friends.xaml" />
-                <mui:Link DisplayName="Rankings" Source="/Views/Rankings.xaml" />
+                <mui:Link DisplayName="Freunde" Source="/Views/SocialData/Friends.xaml" />
+                <mui:Link DisplayName="Rankings" Source="/Views/SocialData/Rankings.xaml" />
             </mui:LinkGroup.Links>
         </mui:LinkGroup>
         <mui:LinkGroup DisplayName="Einstellungen" GroupKey="settings">

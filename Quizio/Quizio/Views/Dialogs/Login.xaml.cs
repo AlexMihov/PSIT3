@@ -14,7 +14,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace Quizio.Pages.Dialogs
+namespace Quizio.Views.Dialogs
 {
     /// <summary>
     /// Interaction logic for Login.xaml
@@ -40,7 +40,7 @@ namespace Quizio.Pages.Dialogs
             UserName = userName.Text;
             Password = password.Password;
 
-            if (UserName == "admin" && Password == "admin")
+            if (UserName != "" && Password != "") // To Be implemented: check with DB
             {
                 granted = true;
                 this.DialogResult = true;

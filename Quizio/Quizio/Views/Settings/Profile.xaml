@@ -1,4 +1,4 @@
-﻿<UserControl x:Class="Quizio.Pages.Profile"
+﻿<UserControl x:Class="Quizio.Views.Profile"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
@@ -9,9 +9,27 @@
     <Grid>
         <ScrollViewer>
             <StackPanel MinWidth="200">
-                <TextBlock Text="Profile" Style="{StaticResource Heading2}" />
-                <TextBlock Text="Name: Muster" />
-                <TextBlock Text="Vorname: Hans"/>
+                <TextBlock Text="Profil" Style="{StaticResource Heading2}" />
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition></RowDefinition>
+                        <RowDefinition></RowDefinition>
+                        <RowDefinition></RowDefinition>
+                        <RowDefinition></RowDefinition>
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition></ColumnDefinition>
+                        <ColumnDefinition></ColumnDefinition>
+                    </Grid.ColumnDefinitions>
+                    <Label Grid.Row="0" Grid.Column="0"  Content="Name" FontWeight="Bold" Margin="0,20"></Label>
+                    <TextBox Grid.Row="0" Grid.Column="1" Text="{Binding CurrentUser.Username, Mode=TwoWay}"  Margin="0,20"/>
+                    <Label Grid.Row="1" Grid.Column="0"  Content="Location" FontWeight="Bold" Margin="0,20"></Label>
+                    <TextBox Grid.Row="1" Grid.Column="1" Text="{Binding CurrentUser.Location, Mode=TwoWay}"  Margin="0,20"/>
+                    <Label Grid.Row="2" Grid.Column="0"  Content="Status" FontWeight="Bold"  Margin="0,20"></Label>
+                    <TextBox Grid.Row="2" Grid.Column="1" Text="{Binding CurrentUser.Status, Mode=TwoWay}"  Margin="0,20"/>
+                    <mui:ModernButton Grid.Row="3" Grid.Column="0" Content="Speichern" Margin="0,20"/>
+                    <mui:ModernButton Grid.Row="3" Grid.Column="1" Content="Abbrechen" Margin="0,20"/>
+                </Grid>
             </StackPanel>
         </ScrollViewer>
     </Grid>
