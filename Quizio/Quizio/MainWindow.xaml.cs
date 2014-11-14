@@ -1,5 +1,7 @@
 ﻿using FirstFloor.ModernUI.Windows.Controls;
-using Quizio.Pages.Dialogs;
+using Microsoft.Practices.Prism.Mvvm;
+using Microsoft.Practices.Prism;
+using Quizio.Views.Dialogs;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -14,25 +16,19 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using Quizio.ViewModels;
 
 namespace Quizio
 {
     /// <summary>
     /// Interaction logic for MainWindow.xaml
     /// </summary>
-    public partial class MainWindow : ModernWindow
+    public partial class MainWindow : ModernWindow, IView
     {
-        private string UserName;
-
-        public MainWindow()
+        public MainWindow(MainViewModel mvm)
         {
             InitializeComponent();
-        }
-
-        public MainWindow(string user)
-        {
-            InitializeComponent();
-            this.UserName = user;
+            this.DataContext = mvm;
         }
     }
 }

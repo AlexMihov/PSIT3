@@ -92,22 +92,16 @@
     <Compile Include="Models\User.cs" />
     <Compile Include="ViewModels\MainViewModel.cs" />
     <Compile Include="ViewModels\RegularGameViewModel.cs" />
-    <Compile Include="ViewModels\SoloGamePlayViewModel.cs" />
-    <Compile Include="ViewModels\SoloGameResultViewModel.cs" />
     <Compile Include="ViewModels\SoloGameViewModel.cs" />
     <Compile Include="Views\Dialogs\Login.xaml.cs">
       <DependentUpon>Login.xaml</DependentUpon>
     </Compile>
     <Compile Include="Utilities\REST.cs" />
-    <Compile Include="ViewModels\IPageViewModel.cs" />
-    <Compile Include="Views\SoloGame\SoloGamePlay.xaml.cs">
-      <DependentUpon>SoloGamePlay.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Views\SoloGame\SoloGameResult.xaml.cs">
-      <DependentUpon>SoloGameResult.xaml</DependentUpon>
-    </Compile>
     <Compile Include="Views\SoloGame\SoloGameWindow.xaml.cs">
       <DependentUpon>SoloGameWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\SoloGame\SoloQuizGame.xaml.cs">
+      <DependentUpon>SoloQuizGame.xaml</DependentUpon>
     </Compile>
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
@@ -186,15 +180,11 @@
       <DependentUpon>SettingsPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Page Include="Views\SoloGame\SoloGamePlay.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Views\SoloGame\SoloGameResult.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
     <Page Include="Views\SoloGame\SoloGameWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\SoloGame\SoloQuizGame.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
