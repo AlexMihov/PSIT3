@@ -9,17 +9,17 @@ namespace Quizio.Models
     public class User
     {
         public string Username { get; set; }
-<<<<<<< HEAD
+<<<<<<< Updated upstream
+<<<<<<< Updated upstream
+=======
+=======
 
         public string Location { get; set; }
 
         public string Status { get; set; }
 
         public IEnumerable<Friend> Friends { get; set; }
-=======
-<<<<<<< Updated upstream
-=======
->>>>>>> 925372401c3fb132665a76daad52bb52bc22e7b1
+>>>>>>> Stashed changes
 
         public string Location { get; set; }
 

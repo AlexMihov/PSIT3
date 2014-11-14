@@ -107,21 +107,20 @@
     <Compile Include="Models\User.cs" />
     <Compile Include="ViewModels\MainViewModel.cs" />
     <Compile Include="ViewModels\RegularGameViewModel.cs" />
-<<<<<<< HEAD
-=======
+<<<<<<< Updated upstream
 <<<<<<< Updated upstream
     <Compile Include="ViewModels\SoloGamePlayViewModel.cs" />
     <Compile Include="ViewModels\SoloGameResultViewModel.cs" />
 =======
 >>>>>>> Stashed changes
->>>>>>> 925372401c3fb132665a76daad52bb52bc22e7b1
+=======
+>>>>>>> Stashed changes
     <Compile Include="ViewModels\SoloGameViewModel.cs" />
     <Compile Include="Views\Dialogs\Login.xaml.cs">
       <DependentUpon>Login.xaml</DependentUpon>
     </Compile>
     <Compile Include="Utilities\REST.cs" />
-<<<<<<< HEAD
-=======
+<<<<<<< Updated upstream
 <<<<<<< Updated upstream
     <Compile Include="ViewModels\IPageViewModel.cs" />
     <Compile Include="Views\SoloGame\SoloGamePlay.xaml.cs">
@@ -133,16 +132,17 @@
     <Compile Include="Views\SoloGame\SoloGameWindow.xaml.cs">
       <DependentUpon>SoloGameWindow.xaml</DependentUpon>
 =======
->>>>>>> 925372401c3fb132665a76daad52bb52bc22e7b1
+=======
+>>>>>>> Stashed changes
     <Compile Include="Views\SoloGame\SoloGameWindow.xaml.cs">
       <DependentUpon>SoloGameWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\SoloGame\SoloQuizGame.xaml.cs">
       <DependentUpon>SoloQuizGame.xaml</DependentUpon>
-<<<<<<< HEAD
+<<<<<<< Updated upstream
+>>>>>>> Stashed changes
 =======
 >>>>>>> Stashed changes
->>>>>>> 925372401c3fb132665a76daad52bb52bc22e7b1
     </Compile>
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
@@ -221,8 +221,7 @@
       <DependentUpon>SettingsPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
-<<<<<<< HEAD
-=======
+<<<<<<< Updated upstream
 <<<<<<< Updated upstream
     <Page Include="Views\SoloGame\SoloGamePlay.xaml">
       <SubType>Designer</SubType>
@@ -234,16 +233,17 @@
     </Page>
     <Page Include="Views\SoloGame\SoloGameWindow.xaml">
 =======
->>>>>>> 925372401c3fb132665a76daad52bb52bc22e7b1
+=======
+>>>>>>> Stashed changes
     <Page Include="Views\SoloGame\SoloGameWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\SoloGame\SoloQuizGame.xaml">
-<<<<<<< HEAD
+<<<<<<< Updated upstream
+>>>>>>> Stashed changes
 =======
 >>>>>>> Stashed changes
->>>>>>> 925372401c3fb132665a76daad52bb52bc22e7b1
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -254,8 +254,7 @@
   <ItemGroup>
     <Folder Include="Views\MultiplayerGame\" />
   </ItemGroup>
-<<<<<<< HEAD
-=======
+<<<<<<< Updated upstream
 <<<<<<< Updated upstream
   <ItemGroup>
     <BootstrapperPackage Include=".NETFramework,Version=v4.5">
@@ -276,7 +275,8 @@
   </ItemGroup>
 =======
 >>>>>>> Stashed changes
->>>>>>> 925372401c3fb132665a76daad52bb52bc22e7b1
+=======
+>>>>>>> Stashed changes
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

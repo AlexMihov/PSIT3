@@ -1,9 +1,5 @@
 ﻿using FirstFloor.ModernUI.Windows.Controls;
-<<<<<<< HEAD
-using Microsoft.Practices.Prism.Mvvm;
-using Microsoft.Practices.Prism;
-using Quizio.Views.Dialogs;
-=======
+<<<<<<< Updated upstream
 <<<<<<< Updated upstream
 using Quizio.Pages.Dialogs;
 using Quizio.ViewModels;
@@ -12,7 +8,11 @@ using Microsoft.Practices.Prism.Mvvm;
 using Microsoft.Practices.Prism;
 using Quizio.Views.Dialogs;
 >>>>>>> Stashed changes
->>>>>>> 925372401c3fb132665a76daad52bb52bc22e7b1
+=======
+using Microsoft.Practices.Prism.Mvvm;
+using Microsoft.Practices.Prism;
+using Quizio.Views.Dialogs;
+>>>>>>> Stashed changes
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -36,8 +36,7 @@ namespace Quizio
     /// </summary>
     public partial class MainWindow : ModernWindow, IView
     {
-<<<<<<< HEAD
-=======
+<<<<<<< Updated upstream
 <<<<<<< Updated upstream
 
         public MainWindow(MainViewModel mv)
@@ -45,15 +44,16 @@ namespace Quizio
             InitializeComponent();
             this.DataContext = mv;
 =======
->>>>>>> 925372401c3fb132665a76daad52bb52bc22e7b1
+=======
+>>>>>>> Stashed changes
         public MainWindow(MainViewModel mvm)
         {
             InitializeComponent();
             this.DataContext = mvm;
-<<<<<<< HEAD
+<<<<<<< Updated upstream
+>>>>>>> Stashed changes
 =======
 >>>>>>> Stashed changes
->>>>>>> 925372401c3fb132665a76daad52bb52bc22e7b1
         }
     }
 }

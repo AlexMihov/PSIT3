@@ -1,8 +1,5 @@
 ﻿using Quizio.Models;
-<<<<<<< HEAD
-using Quizio.ViewModels;
-using Quizio.Views.Dialogs;
-=======
+<<<<<<< Updated upstream
 <<<<<<< Updated upstream
 using Quizio.Pages.Dialogs;
 using Quizio.ViewModels;
@@ -10,7 +7,10 @@ using Quizio.ViewModels;
 using Quizio.ViewModels;
 using Quizio.Views.Dialogs;
 >>>>>>> Stashed changes
->>>>>>> 925372401c3fb132665a76daad52bb52bc22e7b1
+=======
+using Quizio.ViewModels;
+using Quizio.Views.Dialogs;
+>>>>>>> Stashed changes
 using System;
 using System.Collections.Generic;
 using System.Configuration;
@@ -35,8 +35,7 @@ namespace Quizio
 
             if (login.ShowDialog() == true && login.granted)
             {
-<<<<<<< HEAD
-=======
+<<<<<<< Updated upstream
 <<<<<<< Updated upstream
                 //data retrieve simulation
                 string userName = login.userName.Text;
@@ -53,7 +52,8 @@ namespace Quizio
                 //data retrieve simulation end
                 var mvm = new MainViewModel(currentUser, categories, notifications, rankings);
 =======
->>>>>>> 925372401c3fb132665a76daad52bb52bc22e7b1
+=======
+>>>>>>> Stashed changes
                 //data retrieve simulation (to be fetched from DB)
                 string name = login.userName.Text;
                 string currentStatus = "I love Quizio";
@@ -136,6 +136,10 @@ namespace Quizio
                 MainViewModel mvm = new MainViewModel(user, categories, notifications, rankings);
                 //data retrieve simulation end
 
+<<<<<<< Updated upstream
+>>>>>>> Stashed changes
+=======
+>>>>>>> Stashed changes
                 var mainWindow = new MainWindow(mvm);
                 //Re-enable normal shutdown mode.
                 Current.ShutdownMode = ShutdownMode.OnMainWindowClose;
