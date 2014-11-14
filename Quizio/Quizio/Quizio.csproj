@@ -12,6 +12,21 @@
     <AssemblyName>Quizio</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
+    <PublishUrl>publish\</PublishUrl>
+    <Install>true</Install>
+    <InstallFrom>Disk</InstallFrom>
+    <UpdateEnabled>false</UpdateEnabled>
+    <UpdateMode>Foreground</UpdateMode>
+    <UpdateInterval>7</UpdateInterval>
+    <UpdateIntervalUnits>Days</UpdateIntervalUnits>
+    <UpdatePeriodically>false</UpdatePeriodically>
+    <UpdateRequired>false</UpdateRequired>
+    <MapFileExtensions>true</MapFileExtensions>
+    <ApplicationRevision>0</ApplicationRevision>
+    <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
+    <IsWebBootstrapper>false</IsWebBootstrapper>
+    <UseApplicationTrust>false</UseApplicationTrust>
+    <BootstrapperEnabled>true</BootstrapperEnabled>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -92,16 +107,42 @@
     <Compile Include="Models\User.cs" />
     <Compile Include="ViewModels\MainViewModel.cs" />
     <Compile Include="ViewModels\RegularGameViewModel.cs" />
+<<<<<<< HEAD
+=======
+<<<<<<< Updated upstream
+    <Compile Include="ViewModels\SoloGamePlayViewModel.cs" />
+    <Compile Include="ViewModels\SoloGameResultViewModel.cs" />
+=======
+>>>>>>> Stashed changes
+>>>>>>> 925372401c3fb132665a76daad52bb52bc22e7b1
     <Compile Include="ViewModels\SoloGameViewModel.cs" />
     <Compile Include="Views\Dialogs\Login.xaml.cs">
       <DependentUpon>Login.xaml</DependentUpon>
     </Compile>
     <Compile Include="Utilities\REST.cs" />
+<<<<<<< HEAD
+=======
+<<<<<<< Updated upstream
+    <Compile Include="ViewModels\IPageViewModel.cs" />
+    <Compile Include="Views\SoloGame\SoloGamePlay.xaml.cs">
+      <DependentUpon>SoloGamePlay.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\SoloGame\SoloGameResult.xaml.cs">
+      <DependentUpon>SoloGameResult.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\SoloGame\SoloGameWindow.xaml.cs">
+      <DependentUpon>SoloGameWindow.xaml</DependentUpon>
+=======
+>>>>>>> 925372401c3fb132665a76daad52bb52bc22e7b1
     <Compile Include="Views\SoloGame\SoloGameWindow.xaml.cs">
       <DependentUpon>SoloGameWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\SoloGame\SoloQuizGame.xaml.cs">
       <DependentUpon>SoloQuizGame.xaml</DependentUpon>
+<<<<<<< HEAD
+=======
+>>>>>>> Stashed changes
+>>>>>>> 925372401c3fb132665a76daad52bb52bc22e7b1
     </Compile>
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
@@ -180,11 +221,29 @@
       <DependentUpon>SettingsPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
+<<<<<<< HEAD
+=======
+<<<<<<< Updated upstream
+    <Page Include="Views\SoloGame\SoloGamePlay.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\SoloGame\SoloGameResult.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\SoloGame\SoloGameWindow.xaml">
+=======
+>>>>>>> 925372401c3fb132665a76daad52bb52bc22e7b1
     <Page Include="Views\SoloGame\SoloGameWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\SoloGame\SoloQuizGame.xaml">
+<<<<<<< HEAD
+=======
+>>>>>>> Stashed changes
+>>>>>>> 925372401c3fb132665a76daad52bb52bc22e7b1
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -195,6 +254,29 @@
   <ItemGroup>
     <Folder Include="Views\MultiplayerGame\" />
   </ItemGroup>
+<<<<<<< HEAD
+=======
+<<<<<<< Updated upstream
+  <ItemGroup>
+    <BootstrapperPackage Include=".NETFramework,Version=v4.5">
+      <Visible>False</Visible>
+      <ProductName>Microsoft .NET Framework 4.5 %28x86 and x64%29</ProductName>
+      <Install>true</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Client.3.5">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1 Client Profile</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.3.5.SP1">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+  </ItemGroup>
+=======
+>>>>>>> Stashed changes
+>>>>>>> 925372401c3fb132665a76daad52bb52bc22e7b1
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

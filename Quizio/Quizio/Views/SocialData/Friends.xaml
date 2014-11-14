@@ -1,0 +1,47 @@
+﻿<UserControl x:Class="Quizio.Views.Friends"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:mui="http://firstfloorsoftware.com/ModernUI"
+             mc:Ignorable="d" 
+             d:DesignHeight="300" d:DesignWidth="700">
+    <Grid Style="{StaticResource ContentRoot}">
+        <ScrollViewer>
+            <StackPanel MinWidth="200">
+                <TextBlock Text="Verwalte deine Freunde" Style="{StaticResource Heading2}" />
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto" />
+                        <ColumnDefinition Width="Auto" />
+                    </Grid.ColumnDefinitions>
+                    <StackPanel Grid.Column="0" Grid.Row="0" Margin="0,10" HorizontalAlignment="Left" Width="300">
+                        <Label Content="Deine Freunde:" FontWeight="Bold"></Label>
+                        <ListBox x:Name="friends" ItemsSource="{Binding Path=CurrentUser.Friends}" Height="Auto" SelectedIndex="0"
+                                 Margin="0,0,-98,0" VerticalAlignment="Top" Width="200" HorizontalAlignment="Left">
+                            <ListBox.ItemTemplate>
+                                <DataTemplate>
+                                    <TextBlock Text="{Binding Name}"/>
+                                </DataTemplate>
+                            </ListBox.ItemTemplate>
+                        </ListBox>
+                    </StackPanel>
+                    <StackPanel Grid.Column="1" Grid.Row="0" Margin="0,10" HorizontalAlignment="Right" Width="300">
+                        <Label Content="{Binding ElementName=friends, Path=SelectedItem.Name}" FontWeight="Bold"/>
+                        <TextBlock>
+                            <Run Text="Status: "></Run>
+                            <Run Text="{Binding ElementName=friends, Path=SelectedItem.Status}"></Run>
+                        </TextBlock>
+                        <mui:ModernButton Content="Entfernen" Margin="0,10">
+                        </mui:ModernButton>
+                    </StackPanel>
+                </Grid>
+                <mui:ModernButton Content="Freund Hinzufügen" Margin="0,10">
+                </mui:ModernButton>
+            </StackPanel>
+        </ScrollViewer>
+    </Grid>
+</UserControl>

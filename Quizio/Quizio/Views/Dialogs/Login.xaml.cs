@@ -40,7 +40,15 @@ namespace Quizio.Views.Dialogs
             UserName = userName.Text;
             Password = password.Password;
 
+<<<<<<< HEAD
             if (UserName != "" && Password != "") // To Be implemented: check with DB
+=======
+<<<<<<< Updated upstream
+            if (UserName != "" && Password != "")
+=======
+            if (UserName != "" && Password != "") // To Be implemented: check with DB
+>>>>>>> Stashed changes
+>>>>>>> 925372401c3fb132665a76daad52bb52bc22e7b1
             {
                 granted = true;
                 this.DialogResult = true;

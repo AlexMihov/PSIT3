@@ -1,6 +1,16 @@
 ﻿using Quizio.Models;
+<<<<<<< HEAD
 using Quizio.ViewModels;
 using Quizio.Views.Dialogs;
+=======
+<<<<<<< Updated upstream
+using Quizio.Pages.Dialogs;
+using Quizio.ViewModels;
+=======
+using Quizio.ViewModels;
+using Quizio.Views.Dialogs;
+>>>>>>> Stashed changes
+>>>>>>> 925372401c3fb132665a76daad52bb52bc22e7b1
 using System;
 using System.Collections.Generic;
 using System.Configuration;
@@ -25,6 +35,25 @@ namespace Quizio
 
             if (login.ShowDialog() == true && login.granted)
             {
+<<<<<<< HEAD
+=======
+<<<<<<< Updated upstream
+                //data retrieve simulation
+                string userName = login.userName.Text;
+
+                User currentUser = new User(userName, "zh", "ich lieb quizio", new List<Friend>());
+
+                List<Category> categories = new List<Category>();
+
+                List<Notification> notifications = new List<Notification>();
+
+                List<Ranking> rankings = new List<Ranking>();
+
+
+                //data retrieve simulation end
+                var mvm = new MainViewModel(currentUser, categories, notifications, rankings);
+=======
+>>>>>>> 925372401c3fb132665a76daad52bb52bc22e7b1
                 //data retrieve simulation (to be fetched from DB)
                 string name = login.userName.Text;
                 string currentStatus = "I love Quizio";

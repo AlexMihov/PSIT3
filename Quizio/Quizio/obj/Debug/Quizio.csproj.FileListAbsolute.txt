@@ -89,6 +89,16 @@ C:\Users\Admin\Desktop\ZHAW\semester 3\psit3\Projekt\PSIT3\Quizio\Quizio\obj\Deb
 C:\Users\Admin\Desktop\ZHAW\semester 3\psit3\Projekt\PSIT3\Quizio\Quizio\obj\Debug\Quizio.exe
 C:\Users\Admin\Desktop\ZHAW\semester 3\psit3\Projekt\PSIT3\Quizio\Quizio\obj\Debug\Quizio.pdb
 C:\Users\Admin\Desktop\ZHAW\semester 3\psit3\Projekt\PSIT3\Quizio\Quizio\obj\Debug\Quizio.csprojResolveAssemblyReference.cache
+<<<<<<< HEAD
+=======
+<<<<<<< Updated upstream
+C:\Users\Admin\Desktop\ZHAW\semester 3\psit3\Projekt\PSIT3\Quizio\Quizio\obj\Debug\Views\SocialData\Friends.baml
+C:\Users\Admin\Desktop\ZHAW\semester 3\psit3\Projekt\PSIT3\Quizio\Quizio\obj\Debug\Views\GameSelection\PvpGame.baml
+C:\Users\Admin\Desktop\ZHAW\semester 3\psit3\Projekt\PSIT3\Quizio\Quizio\obj\Debug\Views\SocialData\Rankings.baml
+C:\Users\Admin\Desktop\ZHAW\semester 3\psit3\Projekt\PSIT3\Quizio\Quizio\obj\Debug\Views\SoloGame\SoloGamePlay.baml
+C:\Users\Admin\Desktop\ZHAW\semester 3\psit3\Projekt\PSIT3\Quizio\Quizio\obj\Debug\Views\SoloGame\SoloGameResult.baml
+=======
+>>>>>>> 925372401c3fb132665a76daad52bb52bc22e7b1
 C:\Users\Admin\Desktop\ZHAW\semester 3\psit3\Projekt\PSIT3\Quizio\Quizio\bin\Debug\Newtonsoft.Json.dll
 C:\Users\Admin\Desktop\ZHAW\semester 3\psit3\Projekt\PSIT3\Quizio\Quizio\bin\Debug\Newtonsoft.Json.xml
 C:\Users\Admin\Desktop\ZHAW\semester 3\psit3\Projekt\PSIT3\Quizio\Quizio\obj\Debug\Views\SoloGame\SoloGameWindow.baml
@@ -98,8 +108,50 @@ C:\Users\Admin\Desktop\ZHAW\semester 3\psit3\Projekt\PSIT3\Quizio\Quizio\obj\Deb
 C:\Users\Admin\Desktop\ZHAW\semester 3\psit3\Projekt\PSIT3\Quizio\Quizio\obj\Debug\Views\SocialData\Friends.baml
 C:\Users\Admin\Desktop\ZHAW\semester 3\psit3\Projekt\PSIT3\Quizio\Quizio\obj\Debug\Views\GameSelection\PvpGame.baml
 C:\Users\Admin\Desktop\ZHAW\semester 3\psit3\Projekt\PSIT3\Quizio\Quizio\obj\Debug\Views\SocialData\Rankings.baml
+<<<<<<< HEAD
+=======
+>>>>>>> Stashed changes
+>>>>>>> 925372401c3fb132665a76daad52bb52bc22e7b1
 C:\Users\Admin\Desktop\ZHAW\semester 3\psit3\Projekt\PSIT3\Quizio\Quizio\obj\Debug\Views\SocialData\Friends.g.cs
 C:\Users\Admin\Desktop\ZHAW\semester 3\psit3\Projekt\PSIT3\Quizio\Quizio\obj\Debug\Views\GameSelection\PvpGame.g.cs
 C:\Users\Admin\Desktop\ZHAW\semester 3\psit3\Projekt\PSIT3\Quizio\Quizio\obj\Debug\Views\SocialData\Rankings.g.cs
 C:\Users\Admin\Desktop\ZHAW\semester 3\psit3\Projekt\PSIT3\Quizio\Quizio\obj\Debug\Views\GameSelection\RegularGame.g.cs
+<<<<<<< HEAD
 C:\Users\Admin\Desktop\ZHAW\semester 3\psit3\Projekt\PSIT3\Quizio\Quizio\obj\Debug\Views\GameSelection\RegularGame.baml
+=======
+<<<<<<< Updated upstream
+C:\Users\Admin\Desktop\ZHAW\semester 3\psit3\Projekt\PSIT3\Quizio\Quizio\obj\Debug\Views\SoloGame\SoloGamePlay.g.cs
+C:\Users\Admin\Desktop\ZHAW\semester 3\psit3\Projekt\PSIT3\Quizio\Quizio\obj\Debug\Views\SoloGame\SoloGameResult.g.cs
+C:\Users\Admin\Desktop\ZHAW\semester 3\psit3\Projekt\PSIT3\Quizio\Quizio\obj\Debug\Views\SoloGame\SoloGameWindow.g.cs
+C:\Users\Admin\Desktop\ZHAW\semester 3\psit3\Projekt\PSIT3\Quizio\Quizio\bin\Debug\Microsoft.Practices.Prism.Composition.dll
+C:\Users\Admin\Desktop\ZHAW\semester 3\psit3\Projekt\PSIT3\Quizio\Quizio\bin\Debug\Microsoft.Practices.Prism.Interactivity.dll
+C:\Users\Admin\Desktop\ZHAW\semester 3\psit3\Projekt\PSIT3\Quizio\Quizio\bin\Debug\Microsoft.Practices.Prism.Mvvm.Desktop.dll
+C:\Users\Admin\Desktop\ZHAW\semester 3\psit3\Projekt\PSIT3\Quizio\Quizio\bin\Debug\Microsoft.Practices.Prism.Mvvm.dll
+C:\Users\Admin\Desktop\ZHAW\semester 3\psit3\Projekt\PSIT3\Quizio\Quizio\bin\Debug\Microsoft.Practices.Prism.PubSubEvents.dll
+C:\Users\Admin\Desktop\ZHAW\semester 3\psit3\Projekt\PSIT3\Quizio\Quizio\bin\Debug\Microsoft.Practices.Prism.SharedInterfaces.dll
+C:\Users\Admin\Desktop\ZHAW\semester 3\psit3\Projekt\PSIT3\Quizio\Quizio\bin\Debug\Microsoft.Practices.ServiceLocation.dll
+C:\Users\Admin\Desktop\ZHAW\semester 3\psit3\Projekt\PSIT3\Quizio\Quizio\bin\Debug\Newtonsoft.Json.dll
+C:\Users\Admin\Desktop\ZHAW\semester 3\psit3\Projekt\PSIT3\Quizio\Quizio\bin\Debug\System.Windows.Interactivity.dll
+C:\Users\Admin\Desktop\ZHAW\semester 3\psit3\Projekt\PSIT3\Quizio\Quizio\bin\Debug\Microsoft.Practices.Prism.Composition.xml
+C:\Users\Admin\Desktop\ZHAW\semester 3\psit3\Projekt\PSIT3\Quizio\Quizio\bin\Debug\Microsoft.Practices.Prism.Interactivity.xml
+C:\Users\Admin\Desktop\ZHAW\semester 3\psit3\Projekt\PSIT3\Quizio\Quizio\bin\Debug\Microsoft.Practices.Prism.Mvvm.xml
+C:\Users\Admin\Desktop\ZHAW\semester 3\psit3\Projekt\PSIT3\Quizio\Quizio\bin\Debug\Microsoft.Practices.Prism.SharedInterfaces.xml
+C:\Users\Admin\Desktop\ZHAW\semester 3\psit3\Projekt\PSIT3\Quizio\Quizio\bin\Debug\Microsoft.Practices.ServiceLocation.pdb
+C:\Users\Admin\Desktop\ZHAW\semester 3\psit3\Projekt\PSIT3\Quizio\Quizio\bin\Debug\Microsoft.Practices.ServiceLocation.xml
+C:\Users\Admin\Desktop\ZHAW\semester 3\psit3\Projekt\PSIT3\Quizio\Quizio\bin\Debug\Newtonsoft.Json.xml
+C:\Users\Admin\Desktop\ZHAW\semester 3\psit3\Projekt\PSIT3\Quizio\Quizio\bin\Debug\de\System.Windows.Interactivity.resources.dll
+C:\Users\Admin\Desktop\ZHAW\semester 3\psit3\Projekt\PSIT3\Quizio\Quizio\bin\Debug\en\System.Windows.Interactivity.resources.dll
+C:\Users\Admin\Desktop\ZHAW\semester 3\psit3\Projekt\PSIT3\Quizio\Quizio\bin\Debug\es\System.Windows.Interactivity.resources.dll
+C:\Users\Admin\Desktop\ZHAW\semester 3\psit3\Projekt\PSIT3\Quizio\Quizio\bin\Debug\fr\System.Windows.Interactivity.resources.dll
+C:\Users\Admin\Desktop\ZHAW\semester 3\psit3\Projekt\PSIT3\Quizio\Quizio\bin\Debug\it\System.Windows.Interactivity.resources.dll
+C:\Users\Admin\Desktop\ZHAW\semester 3\psit3\Projekt\PSIT3\Quizio\Quizio\bin\Debug\ja\System.Windows.Interactivity.resources.dll
+C:\Users\Admin\Desktop\ZHAW\semester 3\psit3\Projekt\PSIT3\Quizio\Quizio\bin\Debug\ko\System.Windows.Interactivity.resources.dll
+C:\Users\Admin\Desktop\ZHAW\semester 3\psit3\Projekt\PSIT3\Quizio\Quizio\bin\Debug\ru\System.Windows.Interactivity.resources.dll
+C:\Users\Admin\Desktop\ZHAW\semester 3\psit3\Projekt\PSIT3\Quizio\Quizio\bin\Debug\zh-Hans\System.Windows.Interactivity.resources.dll
+C:\Users\Admin\Desktop\ZHAW\semester 3\psit3\Projekt\PSIT3\Quizio\Quizio\bin\Debug\zh-Hant\System.Windows.Interactivity.resources.dll
+C:\Users\Admin\Desktop\ZHAW\semester 3\psit3\Projekt\PSIT3\Quizio\Quizio\obj\Debug\Views\GameSelection\RegularGame.baml
+C:\Users\Admin\Desktop\ZHAW\semester 3\psit3\Projekt\PSIT3\Quizio\Quizio\obj\Debug\Views\SoloGame\SoloGameWindow.baml
+=======
+C:\Users\Admin\Desktop\ZHAW\semester 3\psit3\Projekt\PSIT3\Quizio\Quizio\obj\Debug\Views\GameSelection\RegularGame.baml
+>>>>>>> Stashed changes
+>>>>>>> 925372401c3fb132665a76daad52bb52bc22e7b1
