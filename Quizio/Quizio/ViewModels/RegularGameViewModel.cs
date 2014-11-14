@@ -1,6 +1,9 @@
 ﻿using FirstFloor.ModernUI.Windows.Controls;
+using Microsoft.Practices.Prism.Commands;
+using Microsoft.Practices.Prism.Mvvm;
 using Quizio.Models;
 using Quizio.Views;
+using Quizio.Views.SoloGame;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -12,66 +15,24 @@ using System.Windows.Input;
 
 namespace Quizio.ViewModels
 {
-    class RegularGameViewModel
+    public class RegularGameViewModel : BindableBase
     {
-        public RegularGame RegularGame { get; set; }
+        public IEnumerable<Category> Categories { get; set; }
 
-        public RegularGameViewModel()
+        public Quiz SelectedQuiz { get; set; }
+
+        public RegularGameViewModel(List<Category> categories)
         {
-            _canExecute = true;
-            this.RegularGame = new RegularGame();
-            this.Categories = new[] {"Mathematik", "Astronomie", "Sprachen", "Literatur", "Tiere", "Seismologie", "Biologie", "Physik" };
-            this.Difficulties = new[] { "Einfach", "Mittel", "Schwer", "Godlike" };
+            this.Categories = categories;
+            this.PlayCommand = new DelegateCommand(Play);
         }
 
-        public IEnumerable<string> Categories { get; set; }
-        public IEnumerable<string> Difficulties { get; set; }
-
-        private ICommand _clickCommand;
-        public ICommand PlayCommand
-        {
-            get
-            {
-                return _clickCommand ?? (_clickCommand = new CommandHandler(() => Play(), _canExecute));
-            }
-        }
-        private bool _canExecute;
+        public ICommand PlayCommand { get; set; }
+        
         public void Play()
         {
-            Debug.WriteLine(RegularGame.SelectedCategory, RegularGame.Difficulty);
-            var wnd = new ModernWindow
-            {
-                Style = (Style)App.Current.Resources["EmptyWindow"],
-                Content = new SoloGame(RegularGame.SelectedCategory, RegularGame.Difficulty),
-                Title = "Solo Game",
-                Height = 600,
-                Width= 1200
-            };
-            wnd.Show();
-            this._canExecute = false;
+            var soloVM = new SoloGameViewModel(SelectedQuiz);
+            var wnd = new SoloGameWindow(soloVM);
         }
-    }
-}
-
-public class CommandHandler : ICommand
-{
-    private Action _action;
-    private bool _canExecute;
-    public CommandHandler(Action action, bool canExecute)
-    {
-        _action = action;
-        _canExecute = canExecute;
-    }
-
-    public bool CanExecute(object parameter)
-    {
-        return _canExecute;
-    }
-
-    public event EventHandler CanExecuteChanged;
-
-    public void Execute(object parameter)
-    {
-        _action();
     }
 }

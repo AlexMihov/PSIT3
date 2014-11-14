@@ -40,7 +40,7 @@ namespace Quizio.Pages.Dialogs
             UserName = userName.Text;
             Password = password.Password;
 
-            if (UserName == "admin" && Password == "admin")
+            if (UserName != "" && Password != "")
             {
                 granted = true;
                 this.DialogResult = true;

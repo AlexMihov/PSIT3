@@ -1,5 +1,6 @@
 ﻿using FirstFloor.ModernUI.Windows.Controls;
 using Quizio.Pages.Dialogs;
+using Quizio.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -22,17 +23,11 @@ namespace Quizio
     /// </summary>
     public partial class MainWindow : ModernWindow
     {
-        private string UserName;
 
-        public MainWindow()
+        public MainWindow(MainViewModel mv)
         {
             InitializeComponent();
-        }
-
-        public MainWindow(string user)
-        {
-            InitializeComponent();
-            this.UserName = user;
+            this.DataContext = mv;
         }
     }
 }

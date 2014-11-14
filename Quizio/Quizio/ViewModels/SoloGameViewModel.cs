@@ -14,9 +14,13 @@ namespace Quizio.ViewModels
 {
     public class SoloGameViewModel : BindableBase, IPageViewModel
     {
-        private ICommand _changePageCommand;
         private IPageViewModel _currentPageViewModel;
-        private List<IPageViewModel> _pageViewModels;
+
+        public IPageViewModel CurrentPageViewModel
+        {
+            get { return this._currentPageViewModel; }
+            set { SetProperty(ref this._currentPageViewModel, value); }
+        }
 
         private Question currentQuestion;
 
@@ -33,12 +37,8 @@ namespace Quizio.ViewModels
             this.Quiz = quiz;
             this.QuestionsRemaining = Quiz.Questions.Count;
 
-            // Add available pages
-            PageViewModels.Add(new SoloGamePlayViewModel());
-            PageViewModels.Add(new SoloGameResultViewModel());
-
             // Set starting page
-            CurrentPageViewModel = PageViewModels[0];
+            CurrentPageViewModel = new SoloGamePlayViewModel();
         }
 
         internal void OnWindowClosing(object sender, CancelEventArgs e)
@@ -53,7 +53,7 @@ namespace Quizio.ViewModels
             this.QuestionsRemaining = Quiz.Questions.Count;
             if (this.QuestionsRemaining == 0)
             {
-                CurrentPageViewModel = PageViewModels[1];
+                CurrentPageViewModel = new SoloGameResultViewModel();
             }
         }
 
@@ -61,61 +61,6 @@ namespace Quizio.ViewModels
         {
 
         }
- 
-        #region Properties / Commands
- 
-        public ICommand ChangePageCommand
-        {
-            get
-            {
-                if (_changePageCommand == null)
-                {
-                    _changePageCommand = new RelayCommand(
-                        p => ChangeViewModel((IPageViewModel)p),
-                        p => p is IPageViewModel);
-                }
- 
-                return _changePageCommand;
-            }
-        }
- 
-        public List<IPageViewModel> PageViewModels
-        {
-            get
-            {
-                if (_pageViewModels == null)
-                    _pageViewModels = new List<IPageViewModel>();
- 
-                return _pageViewModels;
-            }
-        }
- 
-        public IPageViewModel CurrentPageViewModel
-        {
-            get
-            {
-                return _currentPageViewModel;
-            }
-            set
-            {
-                SetProperty(ref _currentPageViewModel, value);
-            }
-        }
- 
-        #endregion
- 
-        #region Methods
- 
-        private void ChangeViewModel(IPageViewModel viewModel)
-        {
-            if (!PageViewModels.Contains(viewModel))
-                PageViewModels.Add(viewModel);
- 
-            CurrentPageViewModel = PageViewModels
-                .FirstOrDefault(vm => vm == viewModel);
-        }
- 
-        #endregion
 
         }
     }

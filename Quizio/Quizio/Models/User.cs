@@ -6,13 +6,22 @@ using System.Threading.Tasks;
 
 namespace Quizio.Models
 {
-    class User
+    public class User
     {
-        private string Username;
+        public string Username { get; set; }
 
-        public User(string username)
+        public string Location { get; set; }
+
+        public string Status { get; set; }
+
+        public List<Friend> Friends { get; set; }
+
+        public User(string username, string loc, string stat, List<Friend> friends)
         {
             this.Username = username;
+            this.Location = loc;
+            this.Status = stat;
+            this.Friends = friends;
         }
     }
 }
