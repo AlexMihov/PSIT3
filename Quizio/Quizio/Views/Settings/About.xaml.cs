@@ -13,7 +13,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace Quizio.Views.Settings
+namespace Quizio.Pages.Settings
 {
     /// <summary>
     /// Interaction logic for About.xaml

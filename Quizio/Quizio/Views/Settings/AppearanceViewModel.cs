@@ -7,7 +7,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Media;
 
-namespace Quizio.Views.Settings
+namespace Quizio.Pages.Settings
 {
     /// <summary>
     /// A simple view model for configuring theme, font and accent colors.
