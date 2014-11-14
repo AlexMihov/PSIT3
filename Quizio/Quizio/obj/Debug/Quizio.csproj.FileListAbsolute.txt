@@ -81,3 +81,16 @@ C:\Users\Admin\Desktop\ZHAW\semester 3\psit3\Projekt\PSIT3\Quizio\Quizio\obj\Deb
 C:\Users\Admin\Desktop\ZHAW\semester 3\psit3\Projekt\PSIT3\Quizio\Quizio\obj\Debug\Quizio.g.resources
 C:\Users\Admin\Desktop\ZHAW\semester 3\psit3\Projekt\PSIT3\Quizio\Quizio\obj\Debug\Quizio.exe
 C:\Users\Admin\Desktop\ZHAW\semester 3\psit3\Projekt\PSIT3\Quizio\Quizio\obj\Debug\Quizio.pdb
+C:\Users\Admin\Desktop\ZHAW\semester 3\psit3\Projekt\PSIT3\Quizio\Quizio\obj\Debug\Quizio.csprojResolveAssemblyReference.cache
+C:\Users\Admin\Desktop\ZHAW\semester 3\psit3\Projekt\PSIT3\Quizio\Quizio\obj\Debug\Views\SocialData\Friends.baml
+C:\Users\Admin\Desktop\ZHAW\semester 3\psit3\Projekt\PSIT3\Quizio\Quizio\obj\Debug\Views\GameSelection\PvpGame.baml
+C:\Users\Admin\Desktop\ZHAW\semester 3\psit3\Projekt\PSIT3\Quizio\Quizio\obj\Debug\Views\SocialData\Rankings.baml
+C:\Users\Admin\Desktop\ZHAW\semester 3\psit3\Projekt\PSIT3\Quizio\Quizio\obj\Debug\Views\SoloGame\SoloGamePlay.baml
+C:\Users\Admin\Desktop\ZHAW\semester 3\psit3\Projekt\PSIT3\Quizio\Quizio\obj\Debug\Views\SoloGame\SoloGameResult.baml
+C:\Users\Admin\Desktop\ZHAW\semester 3\psit3\Projekt\PSIT3\Quizio\Quizio\obj\Debug\Views\SocialData\Friends.g.cs
+C:\Users\Admin\Desktop\ZHAW\semester 3\psit3\Projekt\PSIT3\Quizio\Quizio\obj\Debug\Views\GameSelection\PvpGame.g.cs
+C:\Users\Admin\Desktop\ZHAW\semester 3\psit3\Projekt\PSIT3\Quizio\Quizio\obj\Debug\Views\SocialData\Rankings.g.cs
+C:\Users\Admin\Desktop\ZHAW\semester 3\psit3\Projekt\PSIT3\Quizio\Quizio\obj\Debug\Views\GameSelection\RegularGame.g.cs
+C:\Users\Admin\Desktop\ZHAW\semester 3\psit3\Projekt\PSIT3\Quizio\Quizio\obj\Debug\Views\SoloGame\SoloGamePlay.g.cs
+C:\Users\Admin\Desktop\ZHAW\semester 3\psit3\Projekt\PSIT3\Quizio\Quizio\obj\Debug\Views\SoloGame\SoloGameResult.g.cs
+C:\Users\Admin\Desktop\ZHAW\semester 3\psit3\Projekt\PSIT3\Quizio\Quizio\obj\Debug\Views\SoloGame\SoloGameWindow.g.cs
