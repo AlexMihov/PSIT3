@@ -107,13 +107,17 @@
     <Compile Include="Models\User.cs" />
     <Compile Include="ViewModels\MainViewModel.cs" />
     <Compile Include="ViewModels\RegularGameViewModel.cs" />
+<<<<<<< Updated upstream
     <Compile Include="ViewModels\SoloGamePlayViewModel.cs" />
     <Compile Include="ViewModels\SoloGameResultViewModel.cs" />
+=======
+>>>>>>> Stashed changes
     <Compile Include="ViewModels\SoloGameViewModel.cs" />
     <Compile Include="Views\Dialogs\Login.xaml.cs">
       <DependentUpon>Login.xaml</DependentUpon>
     </Compile>
     <Compile Include="Utilities\REST.cs" />
+<<<<<<< Updated upstream
     <Compile Include="ViewModels\IPageViewModel.cs" />
     <Compile Include="Views\SoloGame\SoloGamePlay.xaml.cs">
       <DependentUpon>SoloGamePlay.xaml</DependentUpon>
@@ -123,6 +127,13 @@
     </Compile>
     <Compile Include="Views\SoloGame\SoloGameWindow.xaml.cs">
       <DependentUpon>SoloGameWindow.xaml</DependentUpon>
+=======
+    <Compile Include="Views\SoloGame\SoloGameWindow.xaml.cs">
+      <DependentUpon>SoloGameWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\SoloGame\SoloQuizGame.xaml.cs">
+      <DependentUpon>SoloQuizGame.xaml</DependentUpon>
+>>>>>>> Stashed changes
     </Compile>
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
@@ -201,6 +212,7 @@
       <DependentUpon>SettingsPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
+<<<<<<< Updated upstream
     <Page Include="Views\SoloGame\SoloGamePlay.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -210,6 +222,13 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\SoloGame\SoloGameWindow.xaml">
+=======
+    <Page Include="Views\SoloGame\SoloGameWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\SoloGame\SoloQuizGame.xaml">
+>>>>>>> Stashed changes
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -220,6 +239,7 @@
   <ItemGroup>
     <Folder Include="Views\MultiplayerGame\" />
   </ItemGroup>
+<<<<<<< Updated upstream
   <ItemGroup>
     <BootstrapperPackage Include=".NETFramework,Version=v4.5">
       <Visible>False</Visible>
@@ -237,6 +257,8 @@
       <Install>false</Install>
     </BootstrapperPackage>
   </ItemGroup>
+=======
+>>>>>>> Stashed changes
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

@@ -9,6 +9,15 @@ namespace Quizio.Models
     public class User
     {
         public string Username { get; set; }
+<<<<<<< Updated upstream
+=======
+
+        public string Location { get; set; }
+
+        public string Status { get; set; }
+
+        public IEnumerable<Friend> Friends { get; set; }
+>>>>>>> Stashed changes
 
         public string Location { get; set; }
 
@@ -21,6 +30,13 @@ namespace Quizio.Models
             this.Username = username;
             this.Location = loc;
             this.Status = stat;
+            this.Friends = friends;
+        }
+
+        public User(string username, string status, List<Friend> friends)
+        {
+            this.Username = username;
+            this.Status = status;
             this.Friends = friends;
         }
     }

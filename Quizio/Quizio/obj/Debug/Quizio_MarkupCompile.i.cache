@@ -10,11 +10,19 @@ none
 false
 DEBUG;TRACE
 C:\Users\Admin\Desktop\ZHAW\semester 3\psit3\Projekt\PSIT3\Quizio\Quizio\App.xaml
+<<<<<<< Updated upstream
 14602577075
 
 36423188935
 211654573961
 MainWindow.xaml;Views\Dialogs\Login.xaml;Views\SocialData\Friends.xaml;Views\Settings\Profile.xaml;Views\GameSelection\PvpGame.xaml;Views\SocialData\Rankings.xaml;Views\GameSelection\RegularGame.xaml;Views\Settings\About.xaml;Views\Settings\Appearance.xaml;Views\Home.xaml;Views\SettingsPage.xaml;Views\SoloGame\SoloGamePlay.xaml;Views\SoloGame\SoloGameResult.xaml;Views\SoloGame\SoloGameWindow.xaml;
+=======
+12178628393
+
+331788642145
+211654573961
+MainWindow.xaml;Views\Dialogs\Login.xaml;Views\SocialData\Friends.xaml;Views\Settings\Profile.xaml;Views\GameSelection\PvpGame.xaml;Views\SocialData\Rankings.xaml;Views\GameSelection\RegularGame.xaml;Views\Settings\About.xaml;Views\Settings\Appearance.xaml;Views\Home.xaml;Views\SettingsPage.xaml;Views\SoloGame\SoloGameWindow.xaml;
+>>>>>>> Stashed changes
 
 False
 

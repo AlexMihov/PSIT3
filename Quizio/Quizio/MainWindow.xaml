@@ -15,7 +15,11 @@
         <mui:LinkGroup DisplayName="Quiz Spielen">
             <mui:LinkGroup.Links>
                 <mui:Link DisplayName="Einzelspieler" Source="/Views/GameSelection/RegularGame.xaml" />
+<<<<<<< Updated upstream
                 <mui:Link DisplayName="Mehrspieler" Source="/Views/GameSelection/Pvp.xaml" />
+=======
+                <mui:Link DisplayName="Mehrspieler" Source="/Views/GameSelection/PvpGame.xaml" />
+>>>>>>> Stashed changes
             </mui:LinkGroup.Links>
         </mui:LinkGroup>
         <mui:LinkGroup DisplayName="Soziale Daten">
