@@ -52,6 +52,29 @@
 
  });
 
+  router.get('/getCategories', function(req, res) {
+     printLogStart("get categories", req);
+
+     connection.query('SELECT category_id as id, name, description FROM category', function(err, rows, fields) {
+         if (err) throw err;
+           var result = rows;
+
+           result.map(function(item){
+            item.quizies = [];
+           });
+          
+           connection.query('SELECT quiz_id as id, title, description, category_category_id as category FROM quiz', function(err, rows, fields) {
+              if (err) throw err;
+              rows.forEach(function(item){
+                result[item.category].quizies.push({id:item.id,title:item.title,description:item.description});
+              });
+              res.json(result);
+              printLogSuccess("Categories successfully fetched");
+            });
+     });
+
+ });
+
 
 
  /***
