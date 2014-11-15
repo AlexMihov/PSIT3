@@ -8,14 +8,19 @@ namespace Quizio.Models
 {
     public class Category
     {
-        public string CategoryName { get; set; }
+        public string Name { get; set; }
+
+        public string Description { get; set; } 
 
         public List<Quiz> Quizies { get; set; }
 
-        public Category(string categoryName, List<Quiz> quizies)
+        public Category(string name, string description, List<Quiz> quizies)
         {
-            this.CategoryName = categoryName;
+            this.Name = name;
+            this.Description = description;
             this.Quizies = quizies;
         }
+
+        public Category(string name, List<Quiz> quizies) : this(name, "", quizies) { }
     }
 }

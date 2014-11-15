@@ -10,7 +10,7 @@ namespace Quizio
 {
     class REST
     {
-        public string get(string url)
+        public static string get(string url)
         {
             WebRequest wrGETURL = WebRequest.Create(url);
             Stream objStream = wrGETURL.GetResponse().GetResponseStream();
