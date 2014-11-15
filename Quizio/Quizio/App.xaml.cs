@@ -66,10 +66,10 @@ namespace Quizio
                 rankings.Add(r5);
 
                 List<Answer> answers = new List<Answer>();
-                Answer ans1 = new Answer(true, "25");
-                Answer ans2 = new Answer(false, "20");
-                Answer ans3 = new Answer(false, "200");
-                Answer ans4 = new Answer(false, "15");
+                Answer ans1 = new Answer("25", true);
+                Answer ans2 = new Answer("20", false);
+                Answer ans3 = new Answer("200", false);
+                Answer ans4 = new Answer("15", false);
                 answers.Add(ans1);
                 answers.Add(ans2);
                 answers.Add(ans3);

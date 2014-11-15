@@ -11,6 +11,7 @@
  var app = express(); // define our app using express
  var bodyParser = require('body-parser');
  var mysql = require('mysql');
+ var async = require('async');
 
  app.use(bodyParser.json());
  app.use(bodyParser.urlencoded({
@@ -74,6 +75,44 @@
      });
 
  });
+
+  router.get('/quiz/:quizID/questions', function(req,res){
+    printLogStart("get questions from quiz "+ req.params.quizID, req);
+    var sql = 'SELECT question_id as id, question, hint ' +
+            'FROM question '+
+            'WHERE quiz_quiz_id = ' + connection.escape(req.params.quizID);
+
+    connection.query(sql, function(err, rows, fields){
+      if(err) throw err;
+      var questions = rows;
+
+      var getAnswers = function(item, callback){
+        item.answers = [];
+        var itemsql = 'SELECT a.answer_id as id, a.answer, q.value ' +
+                  'FROM answer a ' +
+            'INNER JOIN answerofquestion q ' +
+                    'ON (a.answer_id = q.answer_answer_id)' +
+                 'WHERE q.question_question_id = ' + connection.escape(item.id);
+        connection.query(itemsql, function(err, rows, fields){
+          if(err) throw err;
+          rows.forEach(function(answer){
+            if(answer.value == 0){ answer.value = false;}
+            else {answer.value = true;}
+            item['answers'].push(answer);
+          });
+          console.log(item);
+          callback(null, item);
+        });
+      };
+
+
+      async.map(questions, getAnswers, function(err, results){
+        console.log("results: " ,results);
+        res.json(results);
+        printLogSuccess("Questions successfully fetched");
+      });
+    });
+  });
 
 
 

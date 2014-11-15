@@ -9,6 +9,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
+using Quizio.Utilities;
 
 namespace Quizio.ViewModels
 {
@@ -28,9 +29,16 @@ namespace Quizio.ViewModels
 
         public Quiz Quiz { get; set; }
 
+        public List<Question> Questions { get; set; }
+
         public SoloGameViewModel(Quiz quiz)
         {
             this.Quiz = quiz;
+            QuestionDAO dao = new QuestionDAO();
+            Questions = dao.loadQuestionsOfQuiz(Quiz.Id);
+
+
+
             this.QuestionsRemaining = Quiz.Questions.Count;
 
             // Add available pages

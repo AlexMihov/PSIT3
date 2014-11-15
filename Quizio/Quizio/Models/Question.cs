@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -14,7 +15,8 @@ namespace Quizio.Models
         public string QuestionString { get; set; }
         public List<Answer> Answers { get; set; }
 
-        public Question(List<Answer> answers, string hint, string question, int id) 
+        [JsonConstructor]
+        public Question(int id, string question, string hint, List<Answer> answers) 
         {
             Id = id;
             Hint = hint;
@@ -23,7 +25,7 @@ namespace Quizio.Models
         }
 
         public Question(List<Answer> answers, string hint, string question)
-            : this(answers, hint, question, 0)
+            : this(0, question, hint, answers)
         {
             this.Answers = answers;
             this.Hint = hint;

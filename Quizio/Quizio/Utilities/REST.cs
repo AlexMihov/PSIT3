@@ -10,6 +10,7 @@ namespace Quizio
 {
     class REST
     {
+        public const string APIURL = "http://localhost:10300/api";
         public static string get(string url)
         {
             WebRequest wrGETURL = WebRequest.Create(url);
