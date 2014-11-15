@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -10,18 +11,23 @@ namespace Quizio.Models
     {
         public List<Question> Questions { get; set; }
         public int Id { get; set; }
-        public string Name { get; set; }
+        public string Title { get; set; }
+        public string Description { get; set; }
 
-        public Quiz(string name, List<Question> questions, int id) 
+        public Quiz(int id, string title, string description, List<Question> questions) 
         {
-            this.Name = name;
-            this.Questions = questions;
             this.Id = id;
+            this.Title = title;
+            this.Description = description;
+            this.Questions = questions;
         }
 
-        public Quiz(string name, List<Question> questions) : this(name, questions, 0){ }
+        public Quiz(string title, string description, List<Question> questions) : this(0, title, description, questions){ }
 
-        public Quiz(string name, int id) : this(name, new List<Question>(), id){} 
+        [JsonConstructor]
+        public Quiz(int id, string title, string description) : this(id, title, description, new List<Question>()){}
+
+        public Quiz(string title, List<Question> questions) : this(0, title, "", questions) { }
 
         public Question getRandomQuestion()
         {

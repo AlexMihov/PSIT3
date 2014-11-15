@@ -1,4 +1,5 @@
 ﻿using Quizio.Models;
+using Quizio.Utilities;
 using Quizio.ViewModels;
 using Quizio.Views.Dialogs;
 using System;
@@ -98,11 +99,12 @@ namespace Quizio
                 quizies2.Add(qu33);
                 quizies2.Add(qu44);
 
-                List<Category> categories = new List<Category>();
-                Category ct1 = new Category("Mathematik",quizies1);
-                Category ct2 = new Category("English", quizies2);
-                categories.Add(ct1);
-                categories.Add(ct2);
+                CategoryDAO catDao = new CategoryDAO();
+                List<Category> categories = catDao.loadCategories();
+                //Category ct1 = new Category("Mathematik",quizies1);
+                //Category ct2 = new Category("English", quizies2);
+                //categories.Add(ct1);
+                //categories.Add(ct2);
 
                 MainViewModel mvm = new MainViewModel(user, categories, notifications, rankings);
                 //data retrieve simulation end
