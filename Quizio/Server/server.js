@@ -66,8 +66,12 @@
           
            connection.query('SELECT quiz_id as id, title, description, category_category_id as category FROM quiz', function(err, rows, fields) {
               if (err) throw err;
-              rows.forEach(function(item){
-                result[item.category].quizies.push({id:item.id,title:item.title,description:item.description});
+              rows.forEach(function(quiz){
+                result.forEach(function(category){
+                  if(category.id == quiz.category){
+                    category.quizies.push({id:quiz.id,title:quiz.title,description:quiz.description});
+                  }
+                });
               });
               res.json(result);
               printLogSuccess("Categories successfully fetched");
