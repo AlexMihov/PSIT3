@@ -9,14 +9,19 @@ namespace Quizio.Models
     public class Quiz
     {
         public List<Question> Questions { get; set; }
+        public int Id { get; set; }
+        public string Name { get; set; }
 
-        public string QuizName { get; set; }
-
-        public Quiz(string quizName, List<Question> questions)
+        public Quiz(string name, List<Question> questions, int id) 
         {
-            this.QuizName = quizName;
+            this.Name = name;
             this.Questions = questions;
+            this.Id = id;
         }
+
+        public Quiz(string name, List<Question> questions) : this(name, questions, 0){ }
+
+        public Quiz(string name, int id) : this(name, new List<Question>(), id){} 
 
         public Question getRandomQuestion()
         {
