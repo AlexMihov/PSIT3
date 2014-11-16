@@ -1,3 +1,3 @@
-Quizio/Quizio/bin
-Quizio/Quizio/obj
+Quizio/Quizio/bin/*
+Quizio/Quizio/obj/*
 .DS_Store
