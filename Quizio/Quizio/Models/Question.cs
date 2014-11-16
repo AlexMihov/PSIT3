@@ -48,6 +48,22 @@ namespace Quizio.Models
             return toReturn;
         }
 
+        public Answer GetAnswerByText(string answerText)
+        {
+            Answer toReturn = Answers.FirstOrDefault();
+            IEnumerator<Answer> it = Answers.GetEnumerator();
+            while (it.MoveNext())
+            {
+                Answer currentAnswer = it.Current;
+                if (currentAnswer.IsTrue && currentAnswer.AnswerText.Equals(answerText))
+                {
+                    toReturn = currentAnswer;
+                    break;
+                }
+            }
+            return toReturn;
+        }
+
         public bool checkAnswer(string answerText)
         {
             bool toReturn = false;

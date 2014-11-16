@@ -7,51 +7,43 @@
              mc:Ignorable="d" 
              d:DesignHeight="300" d:DesignWidth="700">
     <Grid Style="{StaticResource ContentRoot}">
-        <ScrollViewer>
             <StackPanel MinWidth="200">
-                <TextBlock Text="Resultat" Style="{StaticResource Heading2}"/>
                 <TextBlock Text="Richtig Beantwortete Fragen: " Style="{StaticResource Heading2}" Margin="0,20">
-                    <Run Text="{Binding CorrectAnswers}"></Run>
+                    <Run Text="{Binding CorrectUserInputs.Count, Mode=OneWay}"></Run>
                 </TextBlock>
-                <TextBlock Text="Falsch Beantwortete Fragen:" Style="{StaticResource Heading2}"></TextBlock>
-                <Grid Margin="0,10">
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="Auto"></RowDefinition>
-                    </Grid.RowDefinitions>
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="300"></ColumnDefinition>
-                        <ColumnDefinition Width="200"></ColumnDefinition>
-                    </Grid.ColumnDefinitions>
-                    <ItemsControl x:Name="wrong" ItemsSource="{Binding WrongQuestions}" VerticalAlignment="Bottom" HorizontalAlignment="Left">
+                <TextBlock Text="Falsch Beantwortete Fragen: " Style="{StaticResource Heading2}">
+                    <Run Text="{Binding FalseUserInputs.Count, Mode=OneWay}"></Run>
+                </TextBlock>
+                <ScrollViewer MaxHeight="300" MinHeight="200">
+                    <ItemsControl x:Name="wrong" ItemsSource="{Binding FalseUserInputs}" VerticalAlignment="Bottom" HorizontalAlignment="Left">
                         <ItemsControl.ItemTemplate>
                             <DataTemplate>
-                                <StackPanel Grid.Row="0" Grid.Column="0">
-                                    <TextBlock TextWrapping="Wrap">
+                            <Grid Margin="0,10">
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="Auto"></RowDefinition>
+                                    <RowDefinition Height="Auto"></RowDefinition>
+                                </Grid.RowDefinitions>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="400"></ColumnDefinition>
+                                    <ColumnDefinition Width="300"></ColumnDefinition>
+                                </Grid.ColumnDefinitions>
+                                <TextBlock  Grid.Column="0" Grid.Row="0" TextWrapping="Wrap" HorizontalAlignment="Left">
                                         <Run Text="Frage: "></Run>
-                                        <Run Text="{Binding QuestionString}"></Run>
-                                    </TextBlock>
-                                    <TextBlock>
+                                        <Run Text="{Binding QuestionText}"></Run>
+                                </TextBlock>
+                                <TextBlock Grid.Column="0" Grid.Row="1" HorizontalAlignment="Left">
                                         <Run Text="Korrekte Antwort: "></Run>
-                                        <Run Text="{Binding GetCorrectAnswer}"></Run>
-                                    </TextBlock>
-                                </StackPanel>
-                            </DataTemplate>
-                        </ItemsControl.ItemTemplate>
-                    </ItemsControl>
-                    <ItemsControl ItemsSource="{Binding UserInput}" VerticalAlignment="Bottom" HorizontalAlignment="Right">
-                        <ItemsControl.ItemTemplate>
-                            <DataTemplate>
-                                <StackPanel Grid.Row="0" Grid.Column="1">
-                                    <TextBlock>
+                                        <Run FontWeight="Bold" Text="{Binding CorrectAnswer.AnswerText}"></Run>
+                                </TextBlock>
+                                <TextBlock Grid.Column="1" Grid.Row="1" HorizontalAlignment="Center">
                                         <Run Text="Deine Antwort: "></Run>
-                                        <Run Text="{Binding ., Mode=TwoWay}"></Run>
-                                    </TextBlock>
-                                </StackPanel>
-                            </DataTemplate>
+                                        <Run FontWeight="Bold" Text="{Binding GivenAnswer.AnswerText}"></Run>
+                                </TextBlock>
+                            </Grid>
+                        </DataTemplate>
                         </ItemsControl.ItemTemplate>
                     </ItemsControl>
-                </Grid>
+                </ScrollViewer>
             </StackPanel>
-        </ScrollViewer>
     </Grid>
 </UserControl>

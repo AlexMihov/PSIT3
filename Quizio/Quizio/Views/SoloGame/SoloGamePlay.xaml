@@ -37,7 +37,7 @@
                         <ItemsControl x:Name="Answers" ItemsSource="{Binding CurrentQuestion.Answers}">
                             <ItemsControl.ItemTemplate>
                                 <DataTemplate>
-                                    <mui:ModernButton CommandParameter="{Binding AbswerText}" Command="{Binding ElementName=Answers, Path=DataContext.NextQuestion}" Content="{Binding AnswerText}" Margin="100,20,0,0" HorizontalAlignment="Left">
+                                    <mui:ModernButton CommandParameter="{Binding AnswerText}" Command="{Binding ElementName=Answers, Path=DataContext.NextQuestion}" Content="{Binding AnswerText}" Margin="100,20,0,0" HorizontalAlignment="Left">
                                     </mui:ModernButton>
                                 </DataTemplate>
                             </ItemsControl.ItemTemplate>

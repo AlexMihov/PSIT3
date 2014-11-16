@@ -61,9 +61,8 @@ namespace Quizio.ViewModels
             }
         }
 
-        public int CorrectAnswers { get; private set; }
-        public List<Question> WrongQuestions { get; private set; }
-        public List<string> UserInput { get; private set; }
+        public List<UserInput> CorrectUserInputs { get; set; }
+        public List<UserInput> FalseUserInputs { get; set; }
 
         public SoloGameViewModel(Quiz quiz)
         {
@@ -71,9 +70,9 @@ namespace Quizio.ViewModels
             QuestionDAO dao = new QuestionDAO();
             this.Quiz.Questions = dao.loadQuestionsOfQuiz(quiz.Id);
             this.QuestionsDone = 1;
-            this.WrongQuestions = new List<Question>();
-            this.UserInput = new List<string>();
-            this.CorrectAnswers = 0;
+
+            this.CorrectUserInputs = new List<UserInput>();
+            this.FalseUserInputs = new List<UserInput>();
 
             this.NextQuestion = new DelegateCommand<object>(this.GetNextQuestion);
 
@@ -103,12 +102,13 @@ namespace Quizio.ViewModels
 
             if (!CurrentQuestion.checkAnswer(answerText))
             {
-                this.WrongQuestions.Add(CurrentQuestion);
-                this.UserInput.Add(answerText);
+                this.FalseUserInputs.Add(new UserInput(CurrentQuestion.QuestionString,
+                    CurrentQuestion.GetAnswerByText(answerText), CurrentQuestion.GetCorrectAnswer()));
             }
             else
             {
-                this.CorrectAnswers++;
+                Answer ans = CurrentQuestion.GetCorrectAnswer();
+                this.CorrectUserInputs.Add(new UserInput(CurrentQuestion.QuestionString, ans, ans));
             }
             this.QuestionsDone++;
             getRandomQuestion();

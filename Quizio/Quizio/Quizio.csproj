@@ -107,6 +107,7 @@
     <Compile Include="Models\Quiz.cs" />
     <Compile Include="Models\Ranking.cs" />
     <Compile Include="Models\User.cs" />
+    <Compile Include="Models\UserInput.cs" />
     <Compile Include="Utilities\CategoryDAO.cs" />
     <Compile Include="Utilities\QuestionDAO.cs" />
     <Compile Include="ViewModels\MainViewModel.cs" />
