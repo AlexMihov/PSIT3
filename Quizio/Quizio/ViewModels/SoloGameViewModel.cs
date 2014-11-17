@@ -12,6 +12,7 @@ using System.Windows.Input;
 using Quizio.Utilities;
 using System.Windows;
 using Quizio.Views.SoloGame;
+using FirstFloor.ModernUI.Windows.Controls;
 
 namespace Quizio.ViewModels
 {
@@ -28,6 +29,7 @@ namespace Quizio.ViewModels
         }
 
         public ICommand NextQuestion { get; private set; }
+        public ICommand CloseAndSave { get; private set; }
 
         public Quiz Quiz { get; private set; }
 
@@ -75,6 +77,7 @@ namespace Quizio.ViewModels
             this.FalseUserInputs = new List<UserInput>();
 
             this.NextQuestion = new DelegateCommand<object>(this.GetNextQuestion);
+            this.CloseAndSave = new DelegateCommand<object>(this.SaveAndClose);
 
             QuestionsRemaining = Quiz.Questions.Count;
 
@@ -112,6 +115,14 @@ namespace Quizio.ViewModels
             }
             this.QuestionsDone++;
             getRandomQuestion();
+        }
+
+        private void SaveAndClose(object parameter)
+        {
+            if (parameter is System.Windows.Window)
+            {
+                (parameter as System.Windows.Window).Close();
+            }
         }
 
         public void SwitchView(string viewName)
