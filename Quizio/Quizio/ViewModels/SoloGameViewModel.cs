@@ -13,11 +13,13 @@ using Quizio.Utilities;
 using System.Windows;
 using Quizio.Views.SoloGame;
 using FirstFloor.ModernUI.Windows.Controls;
+using System.Windows.Threading;
 
 namespace Quizio.ViewModels
 {
     public class SoloGameViewModel : BindableBase
     {
+        #region Datafields which raises PropertyChanged to View
         private FrameworkElement _contentControlView;
         public FrameworkElement ContentControlView
         {
@@ -27,11 +29,6 @@ namespace Quizio.ViewModels
                 SetProperty(ref this._contentControlView, value);
             }
         }
-
-        public ICommand NextQuestion { get; private set; }
-        public ICommand CloseAndSave { get; private set; }
-
-        public Quiz Quiz { get; private set; }
 
         private Question _currentQuestion;
         public Question CurrentQuestion
@@ -63,42 +60,107 @@ namespace Quizio.ViewModels
             }
         }
 
+        private int _timerTickCount;
+        public int TimerTickCount
+        {
+            get { return this._timerTickCount; }
+            set
+            {
+                SetProperty(ref this._timerTickCount, value);
+            }
+        }
+
+        private int _timerTickCountDown;
+        public int TimerTickCountDown
+        {
+            get { return this._timerTickCountDown; }
+            set
+            {
+                SetProperty(ref this._timerTickCountDown, value);
+            }
+        }
+        #endregion
+
+        #region Shared Datafields without raising events
+        public Quiz Quiz { get; private set; }
+
         public List<UserInput> CorrectUserInputs { get; set; }
         public List<UserInput> FalseUserInputs { get; set; }
+        public List<UserInput> TimedOutUserInputs { get; set; }
+
+        private List<int> timeNeeded;
+        public int TimeNeededSum { get; set; }
+
+        public ICommand NextQuestion { get; private set; }
+        public ICommand CloseAndSave { get; private set; }
+
+        private DispatcherTimer myTimer;
+        private static int ANSWERTIME = 10;
+        #endregion
 
         public SoloGameViewModel(Quiz quiz)
         {
             this.Quiz = quiz;
             QuestionDAO dao = new QuestionDAO();
-            this.Quiz.Questions = dao.loadQuestionsOfQuiz(quiz.Id);
-            this.QuestionsDone = 1;
-
-            this.CorrectUserInputs = new List<UserInput>();
-            this.FalseUserInputs = new List<UserInput>();
-
-            this.NextQuestion = new DelegateCommand<object>(this.GetNextQuestion);
-            this.CloseAndSave = new DelegateCommand<object>(this.SaveAndClose);
-
+            Quiz.Questions = dao.loadQuestionsOfQuiz(quiz.Id);
+            QuestionsDone = 1;
             QuestionsRemaining = Quiz.Questions.Count;
 
+            CorrectUserInputs = new List<UserInput>();
+            FalseUserInputs = new List<UserInput>();
+            TimedOutUserInputs = new List<UserInput>();
+            timeNeeded = new List<int>();
+
+            NextQuestion = new DelegateCommand<object>(this.GetNextQuestion);
+            CloseAndSave = new DelegateCommand<object>(this.SaveAndClose);
+
+            TimerTickCount = 0;
+            TimerTickCountDown = ANSWERTIME;
+            myTimer = new DispatcherTimer();
+            myTimer.Interval = new TimeSpan(0, 0, 1);
+            myTimer.Tick += new EventHandler(Timer_Tick);
+            
             getRandomQuestion();
 
             SwitchView("Play");
+            myTimer.Start();
         }
 
+        #region VM private functions
         private void getRandomQuestion()
         {
-            if (this.QuestionsDone == this.QuestionsRemaining)
+            if (this.QuestionsDone == this.QuestionsRemaining+1)
             {
+                TimeNeededSum = timeNeeded.Sum();
                 SwitchView("Result");
             }
             else
             {
                 this.CurrentQuestion = Quiz.getRandomQuestion();
                 Quiz.Questions.Remove(this.CurrentQuestion);
+                TimerTickCount = 0;
+                TimerTickCountDown = ANSWERTIME;
+                myTimer.Interval = new TimeSpan(0, 0, 1);
+                myTimer.Start();
             }
         }
 
+        private void SwitchView(string viewName)
+        {
+            switch (viewName)
+            {
+                case "Play":
+                    ContentControlView = new SoloGamePlay();
+                    break;
+
+                case "Result":
+                    ContentControlView = new SoloGameResult();
+                    break;
+            }
+        }
+        #endregion
+
+        #region Command-Functions for Buttons
         private void GetNextQuestion(object parameter)
         {
             string answerText = (string)parameter;
@@ -113,6 +175,10 @@ namespace Quizio.ViewModels
                 Answer ans = CurrentQuestion.GetCorrectAnswer();
                 this.CorrectUserInputs.Add(new UserInput(CurrentQuestion.QuestionString, ans, ans));
             }
+
+            myTimer.Stop();
+            timeNeeded.Add(TimerTickCount);
+
             this.QuestionsDone++;
             getRandomQuestion();
         }
@@ -124,24 +190,33 @@ namespace Quizio.ViewModels
                 (parameter as System.Windows.Window).Close();
             }
         }
+        #endregion
 
-        public void SwitchView(string viewName)
-        {
-            switch (viewName)
-            {
-                case "Play":
-                    ContentControlView = new SoloGamePlay();
-                    break;
-
-                case "Result":
-                    ContentControlView = new SoloGameResult();
-                    break;
-            }
-        }
-
+        #region EventHandlers for VM
         internal void OnWindowClosing(object sender, CancelEventArgs e)
         {
             App.Current.MainWindow.Show();
         }
+
+        private void Timer_Tick(object sender, EventArgs e)
+        {
+            DispatcherTimer timer = (DispatcherTimer)sender;
+            if (++TimerTickCount == ANSWERTIME)
+            {
+                timer.Stop();
+
+                timeNeeded.Add(TimerTickCount);
+
+                Answer timedOutAnswer = new Answer("Timeout", false);
+                Answer ans = CurrentQuestion.GetCorrectAnswer();
+                UserInput timedOutInput = new UserInput(CurrentQuestion.QuestionString, timedOutAnswer, ans);
+                TimedOutUserInputs.Add(timedOutInput);
+
+                this.QuestionsDone++;
+                getRandomQuestion();
+            }
+            TimerTickCountDown = ANSWERTIME - TimerTickCount;
+        }
+        #endregion
     }
 }

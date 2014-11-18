@@ -29,6 +29,7 @@ namespace Quizio
                 //data retrieve simulation (to be fetched from DB)
                 string name = login.userName.Text;
                 string currentStatus = "I love Quizio";
+                string location = "Jerusalem";
 
                 Friend hans = new Friend("Hans", "Muster bedumtsch");
                 Friend fritz = new Friend("Fritz", "Ritz bedumtsch");
@@ -42,11 +43,12 @@ namespace Quizio
                 friends.Add(michel);
 
                 User user = new User(name, currentStatus, friends);
+                user.Location = location;
 
                 List<Notification> notifications = new List<Notification>();
                 Notification first = new Notification("Hans hat gerade ein Quiz gegen Michel gewonnen.");
                 Notification second = new Notification("Fritz hat dich zu einem Quiz herausgefordert!");
-                Notification third = new Notification("Michel hat sein Status zu 'Sichelfetischist' geändert.");
+                Notification third = new Notification("Michel hat sein Status zu 'in Love' geändert.");
                 Notification fourth = new Notification("Glückwunsch, du bist gerade in den Rankings auf die Top 3 gestiegen!");
                 notifications.Add(first);
                 notifications.Add(second);
@@ -54,11 +56,11 @@ namespace Quizio
                 notifications.Add(fourth);
 
                 List<Ranking> rankings = new List<Ranking>();
-                Ranking r1 = new Ranking(1, "XXXPornoUser", 1065013205);
+                Ranking r1 = new Ranking(1, "XXX", 1065013205);
                 Ranking r2 = new Ranking(2, name, 106501320);
                 Ranking r3 = new Ranking(3, "KillaWieCam", 10650132);
                 Ranking r4 = new Ranking(4, "BeschteWosGiz", 10013205);
-                Ranking r5 = new Ranking(5, "BinMoslemWeisch_aKaBMW", 6513205);
+                Ranking r5 = new Ranking(5, "BMW", 6513205);
                 rankings.Add(r1);
                 rankings.Add(r2);
                 rankings.Add(r3);

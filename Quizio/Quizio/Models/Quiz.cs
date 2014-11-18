@@ -33,7 +33,9 @@ namespace Quizio.Models
         {
             int size = Questions.Count;
             var rnd = new Random();
-            int num = rnd.Next(1, size);
+            int num = rnd.Next(0, size);
+            if (size == 1)
+                num = 0;
             return Questions.ElementAt(num);
         }
     }
