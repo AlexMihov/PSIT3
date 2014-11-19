@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -14,9 +15,10 @@ namespace Quizio.Models
 
         public int Points { get; set; }
 
-        public Ranking(int pos, string name, int points)
+        [JsonConstructor]
+        public Ranking(int position, string name, int points)
         {
-            this.Position = pos;
+            this.Position = position;
             this.PlayerName = name;
             this.Points = points;
         }

@@ -55,17 +55,19 @@ namespace Quizio
                 notifications.Add(third);
                 notifications.Add(fourth);
 
-                List<Ranking> rankings = new List<Ranking>();
-                Ranking r1 = new Ranking(1, "XXX", 1065013205);
-                Ranking r2 = new Ranking(2, name, 106501320);
-                Ranking r3 = new Ranking(3, "KillaWieCam", 10650132);
-                Ranking r4 = new Ranking(4, "BeschteWosGiz", 10013205);
-                Ranking r5 = new Ranking(5, "BMW", 6513205);
-                rankings.Add(r1);
-                rankings.Add(r2);
-                rankings.Add(r3);
-                rankings.Add(r4);
-                rankings.Add(r5);
+                RankingDAO rankingDAO = new RankingDAO();
+                List<Ranking> rankings = rankingDAO.loadRankings();
+
+                //Ranking r1 = new Ranking(1, "XXX", 1065013205);
+                //Ranking r2 = new Ranking(2, name, 106501320);
+                //Ranking r3 = new Ranking(3, "KillaWieCam", 10650132);
+                //Ranking r4 = new Ranking(4, "BeschteWosGiz", 10013205);
+                //Ranking r5 = new Ranking(5, "BMW", 6513205);
+                //rankings.Add(r1);
+                //rankings.Add(r2);
+                //rankings.Add(r3);
+                //rankings.Add(r4);
+                //rankings.Add(r5);
 
                 List<Answer> answers = new List<Answer>();
                 Answer ans1 = new Answer("25", true);

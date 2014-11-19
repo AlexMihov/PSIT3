@@ -110,6 +110,7 @@
     <Compile Include="Models\UserInput.cs" />
     <Compile Include="Utilities\CategoryDAO.cs" />
     <Compile Include="Utilities\QuestionDAO.cs" />
+    <Compile Include="Utilities\RankingDAO.cs" />
     <Compile Include="ViewModels\MainViewModel.cs" />
     <Compile Include="ViewModels\RegularGameViewModel.cs" />
     <Compile Include="ViewModels\SoloGameViewModel.cs" />

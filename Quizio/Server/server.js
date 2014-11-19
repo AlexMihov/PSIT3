@@ -109,7 +109,6 @@
         });
       };
 
-
       async.map(questions, getAnswers, function(err, results){
         console.log("results: " ,results);
         res.json(results);
@@ -117,6 +116,28 @@
       });
     });
   });
+
+	router.get('/getRankings', function(req, res) {
+		printLogStart("get rankings", req);
+
+		connection.query('SELECT x.name as name, y.points as points '+
+						'FROM Quizio.player as x '+
+						'INNER JOIN Quizio.ranking as y '+
+						'ON x.player_id = y.player_id '+
+						'ORDER BY y.points DESC;', function(err, rows, fields) {
+
+			if (err) throw err;
+			var result = rows;
+			var count = 0;
+			result.map(function(item){
+				item.position = ++count;
+			});
+			res.json(result);
+			printLogSuccess("Rankings successfully fetched");
+        });
+
+	});
+
 
 
 
