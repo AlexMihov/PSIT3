@@ -205,6 +205,35 @@
 
  });
 
+ router.put('/updateRanking/:id/:toAdd', function(req, res) {
+     printLogStart("updating ranking data", req);
+     var playerID = req.params.id;
+     var toAdd = req.params.toAdd | 0;
+
+     var sqlSelect = "SELECT points FROM ranking WHERE player_id = " + connection.escape(playerID);
+
+     connection.query(sqlSelect, function(err, rows, fields){
+     	if (err) throw err;
+     	var oldPoints = rows[0].points | 0;
+     	var newPoints = oldPoints + toAdd;
+
+     	var sqlUpdate = "UPDATE ranking SET points = " + connection.escape(newPoints) + 
+     					" WHERE player_id = " + connection.escape(playerID);
+
+     	connection.query(sqlUpdate, function(err, rows, fields) {
+        if (err) throw err;
+        res.json({
+            status: "OK",
+            affectedRows: rows.affectedRows,
+            changedRows: rows.changedRows
+        });
+        printLogSuccess("Ranking successfully updated");
+     	});
+
+     });
+
+ });
+
 
 
  // REGISTER OUR ROUTES -------------------------------
