@@ -44,6 +44,7 @@ namespace Quizio
 
                 User user = new User(name, currentStatus, friends);
                 user.Location = location;
+                user.Id = 2;
 
                 List<Notification> notifications = new List<Notification>();
                 Notification first = new Notification("Hans hat gerade ein Quiz gegen Michel gewonnen.");
@@ -58,57 +59,8 @@ namespace Quizio
                 RankingDAO rankingDAO = new RankingDAO();
                 List<Ranking> rankings = rankingDAO.loadRankings();
 
-                //Ranking r1 = new Ranking(1, "XXX", 1065013205);
-                //Ranking r2 = new Ranking(2, name, 106501320);
-                //Ranking r3 = new Ranking(3, "KillaWieCam", 10650132);
-                //Ranking r4 = new Ranking(4, "BeschteWosGiz", 10013205);
-                //Ranking r5 = new Ranking(5, "BMW", 6513205);
-                //rankings.Add(r1);
-                //rankings.Add(r2);
-                //rankings.Add(r3);
-                //rankings.Add(r4);
-                //rankings.Add(r5);
-
-                List<Answer> answers = new List<Answer>();
-                Answer ans1 = new Answer("25", true);
-                Answer ans2 = new Answer("20", false);
-                Answer ans3 = new Answer("200", false);
-                Answer ans4 = new Answer("15", false);
-                answers.Add(ans1);
-                answers.Add(ans2);
-                answers.Add(ans3);
-                answers.Add(ans4);
-
-                List<Question> questions = new List<Question>();
-                Question qs1 = new Question(answers, "x quadratisch", "Eine Zahl mit sich selbst Multipliziert ergibt in der Quersumme 7");
-                questions.Add(qs1);
-
-                List<Quiz> quizies1 = new List<Quiz>();
-                Quiz qu1 = new Quiz("Gleichungen", questions);
-                Quiz qu2 = new Quiz("Satzaufgaben", questions);
-                Quiz qu3 = new Quiz("Prosa", questions);
-                Quiz qu4 = new Quiz("Relationale Algebra", questions);
-                quizies1.Add(qu1);
-                quizies1.Add(qu2);
-                quizies1.Add(qu3);
-                quizies1.Add(qu4);
-
-                List<Quiz> quizies2 = new List<Quiz>();
-                Quiz qu11 = new Quiz("Thesaurus", questions);
-                Quiz qu22 = new Quiz("Vokabulary", questions);
-                Quiz qu33 = new Quiz("Grammar", questions);
-                Quiz qu44 = new Quiz("True or false", questions);
-                quizies2.Add(qu11);
-                quizies2.Add(qu22);
-                quizies2.Add(qu33);
-                quizies2.Add(qu44);
-
                 CategoryDAO catDao = new CategoryDAO();
                 List<Category> categories = catDao.loadCategories();
-                //Category ct1 = new Category("Mathematik",quizies1);
-                //Category ct2 = new Category("English", quizies2);
-                //categories.Add(ct1);
-                //categories.Add(ct2);
 
                 MainViewModel mvm = new MainViewModel(user, categories, notifications, rankings);
                 //data retrieve simulation end

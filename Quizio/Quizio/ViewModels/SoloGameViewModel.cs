@@ -83,6 +83,7 @@ namespace Quizio.ViewModels
 
         #region Shared Datafields without raising events
         public Quiz Quiz { get; private set; }
+        private User user;
 
         public List<UserInput> CorrectUserInputs { get; set; }
         public List<UserInput> FalseUserInputs { get; set; }
@@ -98,8 +99,9 @@ namespace Quizio.ViewModels
         private static int ANSWERTIME = 10;
         #endregion
 
-        public SoloGameViewModel(Quiz quiz)
+        public SoloGameViewModel(User currentUser, Quiz quiz)
         {
+            this.user = currentUser;
             this.Quiz = quiz;
             QuestionDAO dao = new QuestionDAO();
             Quiz.Questions = dao.loadQuestionsOfQuiz(quiz.Id);
@@ -185,6 +187,9 @@ namespace Quizio.ViewModels
 
         private void SaveAndClose(object parameter)
         {
+            RankingDAO rankingDao = new RankingDAO();
+            int pointsToAdd = CorrectUserInputs.Count * ((QuestionsRemaining * ANSWERTIME) - TimeNeededSum);
+            rankingDao.updateRanking(user, pointsToAdd);
             if (parameter is System.Windows.Window)
             {
                 (parameter as System.Windows.Window).Close();

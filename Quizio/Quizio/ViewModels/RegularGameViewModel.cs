@@ -19,6 +19,7 @@ namespace Quizio.ViewModels
     public class RegularGameViewModel : BindableBase
     {
         private Quiz selectedQuiz;
+        private User user;
 
         public Quiz SelectedQuiz
         {
@@ -28,8 +29,9 @@ namespace Quizio.ViewModels
 
         public List<Category> Categories { get; set; }
 
-        public RegularGameViewModel(List<Category> categories)
+        public RegularGameViewModel(User user, List<Category> categories)
         {
+            this.user = user;
             this.PlayCommand = new DelegateCommand(this.Play);
             this.Categories = categories;
         }
@@ -40,7 +42,7 @@ namespace Quizio.ViewModels
         {
             if (selectedQuiz != null)
             {
-                var wnd = new SoloGameWindow(new SoloGameViewModel(selectedQuiz));
+                var wnd = new SoloGameWindow(new SoloGameViewModel(user, selectedQuiz));
                 App.Current.MainWindow.Hide(); //hide the mainwindow -> show after game ends or when user cancels the game
                 wnd.Show();
             }

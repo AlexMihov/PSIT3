@@ -25,7 +25,7 @@ namespace Quizio.ViewModels
             this.Categories = categories;
             this.Notifications = notifications;
             this.Rankings = rankings;
-            this.RegularGameViewModel = new RegularGameViewModel(categories);
+            this.RegularGameViewModel = new RegularGameViewModel(user, categories);
         }
     }
 }

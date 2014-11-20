@@ -28,6 +28,25 @@ namespace Quizio
             }
             return JSON;
         }
+
+        public static void put(string url)
+        {
+            WebRequest wrPutURL = WebRequest.Create(url);
+            wrPutURL.Method = "PUT";
+            Stream objStream = wrPutURL.GetResponse().GetResponseStream();
+
+            StreamReader objReader = new StreamReader(objStream);
+
+            string sLine = "";
+            string JSON = "";
+            while (sLine != null)
+            {
+                sLine = objReader.ReadLine();
+                if (sLine != null)
+                    JSON += sLine;
+            }
+            //return JSON; only if check for affected Rows
+        }
     }
 
 
