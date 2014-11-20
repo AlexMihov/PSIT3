@@ -1,13 +1,17 @@
-﻿using Quizio.Models;
+﻿using Microsoft.Practices.Prism.Commands;
+using Microsoft.Practices.Prism.Mvvm;
+using Quizio.Models;
+using Quizio.Utilities;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Input;
 
 namespace Quizio.ViewModels
 {
-    public class MainViewModel
+    public class MainViewModel : BindableBase
     {
         public User CurrentUser { get; private set; }
 
@@ -15,9 +19,16 @@ namespace Quizio.ViewModels
 
         public IEnumerable<Category> Categories { get; set; }
 
-        public IEnumerable<Ranking> Rankings { get; set; }
+        private IEnumerable<Ranking> _rankings;
+        public IEnumerable<Ranking> Rankings
+        {
+            get { return this._rankings; }
+            set { SetProperty(ref this._rankings, value); }
+        }
 
         public RegularGameViewModel RegularGameViewModel { get; set; }
+
+        public ICommand ReloadRankings { get; set; }
 
         public MainViewModel(User user, List<Category> categories,  List<Notification> notifications, List<Ranking> rankings)
         {
@@ -26,6 +37,14 @@ namespace Quizio.ViewModels
             this.Notifications = notifications;
             this.Rankings = rankings;
             this.RegularGameViewModel = new RegularGameViewModel(user, categories);
+
+            this.ReloadRankings = new DelegateCommand(reloadRankings);
+        }
+
+        private void reloadRankings()
+        {   
+            RankingDAO rankingDao = new RankingDAO();
+            Rankings = rankingDao.loadRankings();
         }
     }
 }
