@@ -117,6 +117,23 @@
     });
   });
 
+
+  router.get('/friends/:userID', function(req,res){
+    printLogStart("get friends for user " + req.params.userID, req);
+
+    var sql = 'SELECT  p.player_id as Id, p.name, p.origin, p.status ' +
+              'FROM friend f ' +
+              'INNER JOIN player p ' +
+              'ON (p.player_id = f.player_friend_id) ' +
+              'WHERE f.player_player_id = ' + connection.escape(req.params.userID);
+
+    connection.query(sql, function(err, rows, fields){
+      if(err) throw err;
+      res.json(rows);
+      printLogSuccess("Friends successfully fetched");
+    });
+  });
+
 	router.get('/getRankings', function(req, res) {
 		printLogStart("get rankings", req);
 
@@ -204,6 +221,7 @@
      });
 
  });
+
 
  router.put('/updateRanking/:id/:toAdd', function(req, res) {
      printLogStart("updating ranking data", req);
