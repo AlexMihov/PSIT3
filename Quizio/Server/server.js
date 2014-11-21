@@ -174,15 +174,8 @@
      var playerEmail = req.body.email;
      var playerOrigin = req.body.origin;
 
-     /*var sql = "INSERT INTO player  ('player_id`,
-         `name`,
-         `password`,
-         `email`,
-         `origin`)
-     VALUES
-         (null, " + connection.escape(playerName) + ", " + connection.escape(playerPW) + ", " + connection.escape(playerEmail) + ", " + connection.escape(playerOrigin) +")
-     ";*/
-     var sql = "Select * from player"
+     var sql = "INSERT INTO player  ('player_id', 'name', 'password', 'email', 'origin')" +
+                    "VALUES (null, " + connection.escape(playerName) + ", " + connection.escape(playerPW) + ", " + connection.escape(playerEmail) + ", " + connection.escape(playerOrigin) +")";
 
      connection.query(sql, function(err, rows, fields) {
          if (err) throw err;
@@ -193,6 +186,29 @@
          printLogSuccess("player successfully added");
      });
  });
+
+  router.post('/insertFriend', function(req, res) {
+     printLogStart("insert player", req);
+     var playerName = req.body.name;
+     var playerPW = req.body.password;
+     var playerEmail = req.body.email;
+     var playerOrigin = req.body.origin;
+
+     var sql = "INSERT INTO player  ('player_id', 'name', 'password', 'email', 'origin')" +
+                    "VALUES (null, " + connection.escape(playerName) + ", " + connection.escape(playerPW) + ", " + connection.escape(playerEmail) + ", " + connection.escape(playerOrigin) +")";
+
+     connection.query(sql, function(err, rows, fields) {
+         if (err) throw err;
+         res.json({
+             status: "OK",
+             affectedRows: rows.affectedRows,
+         });
+         printLogSuccess("player successfully added");
+     });
+ });
+
+
+
 
 
 
