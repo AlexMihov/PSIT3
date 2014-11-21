@@ -188,24 +188,29 @@
  });
 
   router.post('/insertFriend', function(req, res) {
-     printLogStart("insert player", req);
-     var playerName = req.body.name;
-     var playerPW = req.body.password;
-     var playerEmail = req.body.email;
-     var playerOrigin = req.body.origin;
+    printLogStart("insert friend", req);
+    var playerId = parseInt(req.body.playerId, 10);
+    var friendId = parseInt(req.body.friendId, 10);
 
-     var sql = "INSERT INTO player  ('player_id', 'name', 'password', 'email', 'origin')" +
-                    "VALUES (null, " + connection.escape(playerName) + ", " + connection.escape(playerPW) + ", " + connection.escape(playerEmail) + ", " + connection.escape(playerOrigin) +")";
+    var sql = "INSERT INTO friend (player_player_id, player_friend_id) " +
+                   "VALUES (" + connection.escape(playerId) + ", " + connection.escape(friendId) +")";
 
-     connection.query(sql, function(err, rows, fields) {
-         if (err) throw err;
-         res.json({
-             status: "OK",
-             affectedRows: rows.affectedRows,
-         });
-         printLogSuccess("player successfully added");
-     });
- });
+    connection.query(sql, function(err, rows, fields) {
+      if(err) {
+        if (err.code == 'ER_DUP_ENTRY') {
+          console.log(err);
+          res.status(409).send({error: "You have this friend already added!"});
+          err = null;
+        } else throw err;
+      } else {
+        res.json({
+        status: "OK",
+        affectedRows: rows.affectedRows,
+        });
+        printLogSuccess("friend successfully added");
+      }
+    });
+  });
 
 
 
