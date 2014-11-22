@@ -46,15 +46,8 @@ namespace Quizio
                 user.Location = location;
                 user.Id = 2;
 
-                List<Notification> notifications = new List<Notification>();
-                Notification first = new Notification("Hans hat gerade ein Quiz gegen Michel gewonnen.");
-                Notification second = new Notification("Fritz hat dich zu einem Quiz herausgefordert!");
-                Notification third = new Notification("Michel hat sein Status zu 'in Love' geändert.");
-                Notification fourth = new Notification("Glückwunsch, du bist gerade in den Rankings auf die Top 3 gestiegen!");
-                notifications.Add(first);
-                notifications.Add(second);
-                notifications.Add(third);
-                notifications.Add(fourth);
+                NotificationDAO natDAO = new NotificationDAO();
+                List<Notification> notifications = natDAO.loadNotifications(user.Id);
 
                 RankingDAO rankingDAO = new RankingDAO();
                 List<Ranking> rankings = rankingDAO.loadRankings();

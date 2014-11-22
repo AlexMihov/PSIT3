@@ -155,23 +155,15 @@
 
 	});
 
-	router.get('/notifications/:userID', function(req,res){
+	router.get('/getNotifications/:userID', function(req,res){
     printLogStart("get notifications for user " + req.params.userID, req);
-    var sql = 	'SELECT p2.name, p2.status '+
+    var sql = 	'SELECT p2.name AS FromFriend , p2.status AS Message '+
     			'FROM player p '+
     			'JOIN friend f '+
     			'ON (p.player_id = f.player_player_id) '+
     			'JOIN player p2 '+
     			'ON f.player_friend_id = p2.player_id '+
     			'WHERE p.player_id ='+connection.escape(req.params.userID);
-    /*var sql = 'SELECT p2.name, p2.status' +
-              'FROM player p ' +
-              'JOIN friend f ' +
-              'ON p.player_id = f.player_player_id ' +
-              'JOIN player p2' +
-              'ON f.player_friend_id = p2.player_id' +
-              'WHERE p.player_id = ' + connection.escape(req.params.userID);
-*/
 
     connection.query(sql, function(err, rows, fields){
       if(err) throw err;

@@ -9,18 +9,12 @@ namespace Quizio.Models
     public class Notification
     {
         public string Message { get; set; }
+        public string FromFriend { get; set; } 
 
-        public string Date { get; set; }
-
-        public Notification(string message)
+        public Notification(string message, string fromFriend)
         {
             this.Message = message;
-        }
-
-        public Notification(string message, string date)
-        {
-            this.Message = message;
-            this.Date = date;
+            this.FromFriend = fromFriend;
         }
     }
 }

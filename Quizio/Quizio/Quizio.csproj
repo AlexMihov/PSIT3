@@ -109,6 +109,7 @@
     <Compile Include="Models\User.cs" />
     <Compile Include="Models\UserInput.cs" />
     <Compile Include="Utilities\CategoryDAO.cs" />
+    <Compile Include="Utilities\NotificationDAO.cs" />
     <Compile Include="Utilities\QuestionDAO.cs" />
     <Compile Include="Utilities\RankingDAO.cs" />
     <Compile Include="ViewModels\MainViewModel.cs" />
