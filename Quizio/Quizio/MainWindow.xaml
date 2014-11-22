@@ -33,6 +33,6 @@
     
     <mui:ModernWindow.TitleLinks>
         <mui:Link DisplayName="Einstellungen" Source="/Views/SettingsPage.xaml" />
-        <mui:Link DisplayName="Hilfe" Source="http://google.com" />
+        <mui:Link DisplayName="Logout" Source="" />
     </mui:ModernWindow.TitleLinks>
 </mui:ModernWindow>

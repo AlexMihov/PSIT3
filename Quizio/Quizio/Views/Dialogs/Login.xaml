@@ -34,11 +34,14 @@
                         <TextBlock Margin="10,10,10,10" Grid.Column="0" Grid.Row="1">Password</TextBlock>
                         <PasswordBox Margin="10,10,10,10" Width="200" x:Name="password" Grid.Column="1" Grid.Row="1"></PasswordBox >
                         <StackPanel Margin="3,3,3,3" Orientation="Horizontal" Grid.Column="1" Grid.Row="2">
-                            <mui:ModernButton Content="Ok" Margin="10,10,10,10" Click="OK_Click" IsDefault="True"></mui:ModernButton>
+                            <mui:ModernButton x:Name="ok_button" Content="Ok" Margin="10,10,10,10" Click="OK_Click" IsDefault="True"></mui:ModernButton>
                             <mui:ModernButton Content="Registrieren" Margin="10,10,10,10" Click="Cancel_Click" IsCancel="True"></mui:ModernButton>
                         </StackPanel>
                     </Grid>
                 </Border>
+                <ProgressBar x:Name="loading" IsIndeterminate="True" HorizontalAlignment="Center" VerticalAlignment="Bottom" 
+                             Height="20" Width="300" IsEnabled="True" Visibility="Hidden">
+                </ProgressBar>
             </StackPanel>
         </ScrollViewer>
     </Grid>
