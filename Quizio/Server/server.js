@@ -7,26 +7,36 @@
   *            \/         \/
   */
 
- var express = require('express'); // call express
- var app = express(); // define our app using express
- var bodyParser = require('body-parser');
- var mysql = require('mysql');
- var async = require('async');
+ var
+   express = require('express'), // call express
+   bodyParser = require('body-parser'),
+   mysql = require('mysql'),
+   async = require('async'),
+   oauthserver = require('node-oauth2-server')
+   config = require('./config');
+
+var app = express(); // define our app using express
 
  app.use(bodyParser.json());
+
+ app.oauth = oauthserver({
+  model: require('./oauthmodel'), // See below for specification
+  grants: ['password'],
+  debug: true
+ });
+
  app.use(bodyParser.urlencoded({
      extended: true
  }));
- app.use('/', express.static(__dirname));
+
+ // Handle token grant requests
+ app.all('/oauth/token', app.oauth.grant());
+
+ //app.use('/', express.static(__dirname));
 
  //mysql configuration
 
- var connection = mysql.createConnection({
-     host: 'www.mihov.ch',
-     user: 'quiz_admin',
-     password: 'quizio12345',
-     database: 'Quizio'
- });
+ var connection = mysql.createConnection(config.db);
 
  connection.connect();
  var port = process.env.PORT || 10300;
@@ -231,9 +241,6 @@
 
 
 
-
-
-
  /***
   *    __________ ____ ______________
   *    \______   \    |   \__    ___/
@@ -290,11 +297,43 @@
 
  });
 
+ //DELETE
+
+  router.delete('/deleteFriend/', function(req, res) {
+    /* printLogStart("delte friend data", req);
+     var playerID = req.params.id;
+     var toAdd = req.params.toAdd | 0;
+
+     var sqlSelect = "SELECT points FROM ranking WHERE player_id = " + connection.escape(playerID);
+
+     connection.query(sqlSelect, function(err, rows, fields){
+      if (err) throw err;
+      var oldPoints = rows[0].points | 0;
+      var newPoints = oldPoints + toAdd;
+
+      var sqlUpdate = "UPDATE ranking SET points = " + connection.escape(newPoints) + 
+              " WHERE player_id = " + connection.escape(playerID);
+
+      connection.query(sqlUpdate, function(err, rows, fields) {
+        if (err) throw err;
+        res.json({
+            status: "OK",
+            affectedRows: rows.affectedRows,
+            changedRows: rows.changedRows
+        });
+        printLogSuccess("Ranking successfully updated");
+      });
+
+     });*/
+
+ });
+
 
 
  // REGISTER OUR ROUTES -------------------------------
  // all of our routes will be prefixed with /api
- app.use('/api', router);
+ app.use('/api', app.oauth.authorise(),router);
+ app.use(app.oauth.errorHandler());
 
  // START THE SERVER
  // =============================================================================
