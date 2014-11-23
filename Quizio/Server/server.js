@@ -12,25 +12,36 @@
    bodyParser = require('body-parser'),
    mysql = require('mysql'),
    async = require('async'),
-   oauthserver = require('node-oauth2-server')
    config = require('./config');
+   session = require('express-session')
+   morgan = require('morgan');
+
+var passport = require('passport')
+  , LocalStrategy = require('passport-local').Strategy;
 
 var app = express(); // define our app using express
 
+app.use(morgan('dev'))
+
  app.use(bodyParser.json());
 
- app.oauth = oauthserver({
-  model: require('./oauthmodel'), // See below for specification
-  grants: ['password'],
-  debug: true
- });
 
  app.use(bodyParser.urlencoded({
      extended: true
  }));
 
- // Handle token grant requests
- app.all('/oauth/token', app.oauth.grant());
+ app.use(session({ secret: 'keyboard cat' }));
+ app.use(passport.initialize());
+ app.use(passport.session());
+
+passport.serializeUser(function(user, done) {
+  done(null, user);
+});
+
+passport.deserializeUser(function(user, done) {
+  done(null, user);
+});
+
 
  //app.use('/', express.static(__dirname));
 
@@ -42,6 +53,35 @@ var app = express(); // define our app using express
  var port = process.env.PORT || 10300;
  var router = express.Router();
 
+
+  passport.use(new LocalStrategy(
+    function(username, password, done) {
+
+      connection.query('SELECT player_id, name, password, email, origin, status FROM player WHERE name= ' + connection.escape(username), function(err, rows, fields) {
+        if (err) { return done(err); }
+        if (rows[0] == null) {
+          return done(null, false, { message: 'Incorrect username.' });
+        }
+        if (password !== rows[0].password) {
+          return done(null, false, { message: 'Incorrect password.' });
+        }
+        return done(null, {id: rows[0].player_id, 
+                           name: username, 
+                           location: rows[0].origin,
+                           email: rows[0].email,
+                           status: rows[0].status});
+     });
+    }
+  ));
+
+  app.post('/login',
+    passport.authenticate('local', { successRedirect: '/loginsucces',
+                                     failureRedirect: '/login'})
+  );
+
+  app.use('/loginsucces', function(req, res){
+    res.json(req.user);
+  });
 
  /***
   *      ______________________________
@@ -194,6 +234,7 @@ var app = express(); // define our app using express
   *                      \/        \/
   */
 
+
  router.post('/insertPlayer', function(req, res) {
      printLogStart("insert player", req);
      var playerName = req.body.name;
@@ -332,8 +373,7 @@ var app = express(); // define our app using express
 
  // REGISTER OUR ROUTES -------------------------------
  // all of our routes will be prefixed with /api
- app.use('/api', app.oauth.authorise(),router);
- app.use(app.oauth.errorHandler());
+ app.use('/', router);
 
  // START THE SERVER
  // =============================================================================

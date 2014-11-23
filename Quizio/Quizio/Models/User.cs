@@ -34,9 +34,10 @@ namespace Quizio.Models
         }
 
         [JsonConstructor]
-        public User(string username, string status, string location, string email, List<Friend> friends)
+        public User(int id, string name, string status, string location, string email, List<Friend> friends)
         {
-            this.Username = username;
+            this.Id = id;
+            this.Username = name;
             this.Status = status;
             this.Location = location;
             this.Email = email;

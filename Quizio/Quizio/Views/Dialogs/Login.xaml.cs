@@ -77,26 +77,11 @@ namespace Quizio.Views.Dialogs
             }
             else
             {
-                if (UserName != "" && Password != "") // To Be implemented: check with DB
+                UserDAO userDao = new UserDAO();
+                User = userDao.logIn(UserName, Password);
+
+                if (User != null)
                 {
-                    string currentStatus = "I love Quizio";
-                    string location = "Jerusalem";
-
-                    Friend hans = new Friend("Hans", "Muster bedumtsch");
-                    Friend fritz = new Friend("Fritz", "Ritz bedumtsch");
-                    Friend rudolf = new Friend("Rudolf", "Liebt Golf bedumtsch");
-                    Friend michel = new Friend("Michel", "Mit der Sichel bedumtsch");
-
-                    Friends = new List<Friend>();
-                    Friends.Add(hans);
-                    Friends.Add(fritz);
-                    Friends.Add(rudolf);
-                    Friends.Add(michel);
-
-                    User = new User(UserName, currentStatus, Friends);
-                    User.Location = location;
-                    User.Id = 2;
-
                     NotificationDAO natDAO = new NotificationDAO();
                     Notifications = natDAO.loadNotifications(User.Id);
 
