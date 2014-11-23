@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -16,7 +17,9 @@ namespace Quizio.Models
 
         public string Status { get; set; }
 
-        public IEnumerable<Friend> Friends { get; set; }
+        public string Email { get; set; }
+
+        public List<Friend> Friends { get; set; }
 
         public User(string username)
         {
@@ -27,6 +30,16 @@ namespace Quizio.Models
         {
             this.Username = username;
             this.Status = status;
+            this.Friends = friends;
+        }
+
+        [JsonConstructor]
+        public User(string username, string status, string location, string email, List<Friend> friends)
+        {
+            this.Username = username;
+            this.Status = status;
+            this.Location = location;
+            this.Email = email;
             this.Friends = friends;
         }
     }
