@@ -1,4 +1,5 @@
 ﻿using Newtonsoft.Json;
+using Quizio.Utilities;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -43,5 +44,14 @@ namespace Quizio.Models
             this.Email = email;
             this.Friends = friends;
         }
+
+
+        public void loadFriends()
+        {
+            UserDAO dao = new UserDAO();
+            Friends = dao.loadFriends(Id);
+        
+        }
+
     }
 }

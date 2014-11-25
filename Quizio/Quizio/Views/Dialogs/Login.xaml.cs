@@ -85,6 +85,8 @@ namespace Quizio.Views.Dialogs
 
                     if (User != null)
                     {
+                        User.loadFriends();
+
                         NotificationDAO natDAO = new NotificationDAO();
                         Notifications = natDAO.loadNotifications(User.Id);
 
