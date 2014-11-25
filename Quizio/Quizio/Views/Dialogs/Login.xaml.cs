@@ -5,6 +5,7 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
+using System.Net;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
@@ -78,22 +79,29 @@ namespace Quizio.Views.Dialogs
             else
             {
                 UserDAO userDao = new UserDAO();
-                User = userDao.logIn(UserName, Password);
-
-                if (User != null)
+                try
                 {
-                    NotificationDAO natDAO = new NotificationDAO();
-                    Notifications = natDAO.loadNotifications(User.Id);
+                    User = userDao.logIn(UserName, Password);
 
-                    RankingDAO rankingDAO = new RankingDAO();
-                    Rankings = rankingDAO.loadRankings();
+                    if (User != null)
+                    {
+                        NotificationDAO natDAO = new NotificationDAO();
+                        Notifications = natDAO.loadNotifications(User.Id);
 
-                    CategoryDAO catDao = new CategoryDAO();
-                    Categories = catDao.loadCategories();
+                        RankingDAO rankingDAO = new RankingDAO();
+                        Rankings = rankingDAO.loadRankings();
+
+                        CategoryDAO catDao = new CategoryDAO();
+                        Categories = catDao.loadCategories();
+                    }
+                    else
+                    {
+                        e.Cancel = true; // cancel the worker if user/pw not correct
+                    }
                 }
-                else
+                catch (WebException ex)
                 {
-                    e.Cancel = true; // cancel the worker if user/pw not correct
+                    e.Result = ex.Message; // abusing e.Result as error messaging
                 }
             }
         }
@@ -106,10 +114,10 @@ namespace Quizio.Views.Dialogs
                 ModernDialog.ShowMessage("Invalid Username/Password combination!", "Error", MessageBoxButton.OK);
             }
 
-            else if (!(e.Error == null))
+            else if (e.Result != null)
             {
                 this.loading.Visibility = System.Windows.Visibility.Hidden;
-                ModernDialog.ShowMessage("Error: " + e.Error.Message, "Error", MessageBoxButton.OK);
+                ModernDialog.ShowMessage("Error: " + e.Result, "Error", MessageBoxButton.OK);
             }
 
             else

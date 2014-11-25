@@ -49,5 +49,7 @@
                     </ListBox>
             </StackPanel>
         </ScrollViewer>
-    </Grid>
+        <mui:ModernProgressRing Width="50" Height="50" IsEnabled="True" IsActive="{Binding ShowOrHide}" VerticalAlignment="Bottom" HorizontalAlignment="Center">
+        </mui:ModernProgressRing>
+     </Grid>
 </UserControl>
