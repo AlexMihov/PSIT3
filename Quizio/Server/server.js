@@ -103,6 +103,24 @@ passport.deserializeUser(function(user, done) {
 
  });
 
+   router.get('/player/by-name/:playername', function(req, res) {
+     printLogStart("get player by name", req);
+     var name = "%" + req.params.playername + "%";
+
+     var sql = "SELECT player_id as id, name, origin as location, status " +
+                 "FROM player " +
+                "WHERE name LIKE ?";
+
+     console.log(sql);
+
+     connection.query(sql, [name], function(err, rows, fields) {
+         if (err) throw err;
+         res.json(rows);
+         printLogSuccess("Plyers successfully fetched");
+     });
+
+ });
+
   router.get('/getCategories', function(req, res) {
      printLogStart("get categories", req);
 
@@ -171,7 +189,7 @@ passport.deserializeUser(function(user, done) {
   router.get('/friends/:userID', function(req,res){
     printLogStart("get friends for user " + req.params.userID, req);
 
-    var sql = 'SELECT  p.player_id as Id, p.name, p.origin, p.status ' +
+    var sql = 'SELECT  p.player_id as Id, p.name, p.origin as location, p.status ' +
               'FROM friend f ' +
               'INNER JOIN player p ' +
               'ON (p.player_id = f.player_friend_id) ' +

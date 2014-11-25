@@ -39,5 +39,14 @@ namespace Quizio.Utilities
             List<Friend> friends = JsonConvert.DeserializeObject<List<Friend>>(response);
             return friends;
         }
+
+        public List<Friend> searchFriends(string name){
+            string req = REST.APIURL + "/player/by-name/" + name;
+
+            string response = REST.get(req);
+
+            List<Friend> friends = JsonConvert.DeserializeObject<List<Friend>>(response);
+            return friends;
+        }
     }
 }
