@@ -3,14 +3,7 @@ using Microsoft.Practices.Prism.Commands;
 using Microsoft.Practices.Prism.Mvvm;
 using Quizio.Models;
 using Quizio.Views.SoloGame;
-using System;
 using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.ComponentModel;
-using System.Diagnostics;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Input;
 
@@ -44,6 +37,7 @@ namespace Quizio.ViewModels
             {
                 var wnd = new SoloGameWindow(new SoloGameViewModel(user, selectedQuiz));
                 App.Current.MainWindow.Hide(); //hide the mainwindow -> show after game ends or when user cancels the game
+                wnd.WindowStartupLocation = WindowStartupLocation.CenterScreen;
                 wnd.Show();
             }
             else

@@ -33,15 +33,13 @@ namespace Quizio.Views.Dialogs
         public bool granted { get; private set; }
 
         //datafields for mainviewmodel constructor
-        public List<Friend> Friends { get; private set; }
-        public User User { get; set; }
-        public List<Notification> Notifications { get; private set; }
-        public List<Ranking> Rankings { get; private set; }
-        public List<Category> Categories { get; private set; }
+        public ModelAggregator Aggregator { get; private set; }
         //end datafields for mainviewmodel constructor
 
         public Login()
         {
+            Aggregator = new ModelAggregator();
+
             bw = new BackgroundWorker();
             bw.WorkerSupportsCancellation = true;
             bw.DoWork += new DoWorkEventHandler(bw_DoWork);
@@ -78,30 +76,21 @@ namespace Quizio.Views.Dialogs
             }
             else
             {
-                UserDAO userDao = new UserDAO();
+                
                 try
                 {
-                    User = userDao.logIn(UserName, Password);
+                    Aggregator.logIn(UserName, Password);
 
-                    if (User != null)
+                    if (Aggregator.User != null)
                     {
-                        User.loadFriends();
-
-                        NotificationDAO natDAO = new NotificationDAO();
-                        Notifications = natDAO.loadNotifications(User.Id);
-
-                        RankingDAO rankingDAO = new RankingDAO();
-                        Rankings = rankingDAO.loadRankings();
-
-                        CategoryDAO catDao = new CategoryDAO();
-                        Categories = catDao.loadCategories();
+                        Aggregator.loadData();
                     }
                     else
                     {
                         e.Cancel = true; // cancel the worker if user/pw not correct
                     }
                 }
-                catch (WebException ex)
+                catch (Exception ex)
                 {
                     e.Result = ex.Message; // abusing e.Result as error messaging
                 }
@@ -119,7 +108,7 @@ namespace Quizio.Views.Dialogs
             else if (e.Result != null)
             {
                 this.loading.Visibility = System.Windows.Visibility.Hidden;
-                ModernDialog.ShowMessage("Error: " + e.Result, "Error", MessageBoxButton.OK);
+                ModernDialog.ShowMessage(e.Result as string, "Error", MessageBoxButton.OK);
             }
 
             else

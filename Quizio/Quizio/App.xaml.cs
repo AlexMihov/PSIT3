@@ -23,14 +23,16 @@ namespace Quizio
             Current.ShutdownMode = ShutdownMode.OnExplicitShutdown;
 
             var login = new Login();
+            login.WindowStartupLocation = WindowStartupLocation.CenterScreen;
 
             if (login.ShowDialog() == true && login.granted)
             {
-                MainViewModel mvm = new MainViewModel(login.User, login.Categories, login.Notifications, login.Rankings);
+                MainViewModel mvm = new MainViewModel(login.Aggregator);
                 var mainWindow = new MainWindow(mvm);
                 //Re-enable normal shutdown mode.
                 Current.ShutdownMode = ShutdownMode.OnMainWindowClose;
                 Current.MainWindow = mainWindow;
+                mainWindow.WindowStartupLocation = WindowStartupLocation.CenterScreen;
                 mainWindow.Show();
             }
             else

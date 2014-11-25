@@ -39,13 +39,13 @@ namespace Quizio.ViewModels
 
         private BackgroundWorker bw;
 
-        public MainViewModel(User user, List<Category> categories,  List<Notification> notifications, List<Ranking> rankings)
+        public MainViewModel(ModelAggregator aggregator)
         {
-            this.CurrentUser = user;
-            this.Categories = categories;
-            this.Notifications = notifications;
-            this.Rankings = rankings;
-            this.RegularGameViewModel = new RegularGameViewModel(user, categories);
+            this.CurrentUser = aggregator.User;
+            this.Categories = aggregator.Categories;
+            this.Notifications = aggregator.Notifications;
+            this.Rankings = aggregator.Rankings;
+            this.RegularGameViewModel = new RegularGameViewModel(CurrentUser, Categories as List<Category>);
 
             bw = new BackgroundWorker();
             bw.DoWork += new DoWorkEventHandler(bw_DoWork);
@@ -58,7 +58,10 @@ namespace Quizio.ViewModels
         private void reloadRankings()
         {
             ShowOrHide = true;
-            bw.RunWorkerAsync();
+            if (!bw.IsBusy)
+            {
+                bw.RunWorkerAsync();
+            }
         }
 
         private void bw_DoWork(object sender, DoWorkEventArgs e)
