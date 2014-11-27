@@ -25,7 +25,7 @@ namespace Quizio
             var login = new Login();
             login.WindowStartupLocation = WindowStartupLocation.CenterScreen;
 
-            if (login.ShowDialog() == true && login.granted)
+            if (login.ShowDialog().Value && login.granted)
             {
                 MainViewModel mvm = new MainViewModel(login.Aggregator);
                 var mainWindow = new MainWindow(mvm);

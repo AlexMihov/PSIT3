@@ -48,5 +48,10 @@ namespace Quizio.Utilities
             List<Friend> friends = JsonConvert.DeserializeObject<List<Friend>>(response);
             return friends;
         }
+
+        internal void updateUserSettings(User user)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

@@ -57,5 +57,15 @@ namespace Quizio.Models
             newGame.loadGameData(id);
             return newGame;
         }
+
+        public void updateUserSettings()
+        {
+            userDao.updateUserSettings(this.User);
+        }
+
+        internal void resetUserSettings(User toReset)
+        {
+            this.User = toReset;
+        }
     }
 }

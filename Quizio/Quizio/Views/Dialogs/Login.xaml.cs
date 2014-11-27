@@ -76,7 +76,6 @@ namespace Quizio.Views.Dialogs
             }
             else
             {
-                
                 try
                 {
                     Aggregator.logIn(UserName, Password);

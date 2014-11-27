@@ -22,6 +22,11 @@ namespace Quizio.Models
 
         public List<Friend> Friends { get; set; }
 
+        public User()
+        {
+
+        }
+
         public User(string username)
         {
             this.Username = username;

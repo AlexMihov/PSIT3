@@ -34,6 +34,7 @@ namespace Quizio.ViewModels
         }
 
         public RegularGameViewModel RegularGameViewModel { get; set; }
+        public ProfileViewModel ProfileViewModel { get; set; }
 
         public ICommand ReloadRankings { get; set; }
 
@@ -46,6 +47,7 @@ namespace Quizio.ViewModels
             this.Notifications = aggregator.Notifications;
             this.Rankings = aggregator.Rankings;
             this.RegularGameViewModel = new RegularGameViewModel(CurrentUser, Categories as List<Category>);
+            this.ProfileViewModel = new ProfileViewModel(aggregator);
 
             bw = new BackgroundWorker();
             bw.DoWork += new DoWorkEventHandler(bw_DoWork);
@@ -76,21 +78,19 @@ namespace Quizio.ViewModels
             }
             catch (Exception ex)
             {
-                throw ex;
+                e.Result = ex.Message; // e.Result abused as Exeptionmessanger
             }
         }
 
         private void bw_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
         {
-            if (!(e.Error == null))
+            this.ShowOrHide = false;
+
+            if (!(e.Result == null))
             {
-                this.ShowOrHide = false;
-                ModernDialog.ShowMessage("Error: " + e.Error.Message, "Error", MessageBoxButton.OK);
+                ModernDialog.ShowMessage(e.Result as string, "Error", MessageBoxButton.OK);
             }
-            else
-            {
-                this.ShowOrHide = false;
-            }
+            
         }
     }
 }
