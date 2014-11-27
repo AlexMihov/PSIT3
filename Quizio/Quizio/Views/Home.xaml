@@ -5,16 +5,18 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:mui="http://firstfloorsoftware.com/ModernUI"
              mc:Ignorable="d" 
-             d:DesignHeight="300" d:DesignWidth="300">
+             d:DesignHeight="300" d:DesignWidth="300"
+             DataContext="{Binding HomeViewModel}">
+    
     <Grid Style="{StaticResource ContentRoot}">
         <ScrollViewer>
             <StackPanel MinWidth="200">
                 <TextBlock>
                     <Run Text="Hallo, "></Run>
-                    <Run Text="{Binding CurrentUser.Username}" FontWeight="Bold"></Run>
+                    <Run Text="{Binding Aggregator.User.Username}" FontWeight="Bold"></Run>
                 </TextBlock>
                 <Label Content="Neuigkeiten:" Margin="0,10" FontWeight="Bold" />
-                <ItemsControl ItemsSource="{Binding Notifications}">
+                <ItemsControl ItemsSource="{Binding Aggregator.Notifications}">
                     <ItemsControl.ItemTemplate>
                         <DataTemplate>
                             <Grid>

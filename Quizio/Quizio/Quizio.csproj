@@ -116,8 +116,11 @@
     <Compile Include="Utilities\NotificationDAO.cs" />
     <Compile Include="Utilities\QuestionDAO.cs" />
     <Compile Include="Utilities\RankingDAO.cs" />
+    <Compile Include="ViewModels\FriendViewModel.cs" />
+    <Compile Include="ViewModels\HomeViewModel.cs" />
     <Compile Include="ViewModels\MainViewModel.cs" />
     <Compile Include="ViewModels\ProfileViewModel.cs" />
+    <Compile Include="ViewModels\RankingViewModel.cs" />
     <Compile Include="ViewModels\RegularGameViewModel.cs" />
     <Compile Include="ViewModels\SoloGameViewModel.cs" />
     <Compile Include="Views\Dialogs\Login.xaml.cs">

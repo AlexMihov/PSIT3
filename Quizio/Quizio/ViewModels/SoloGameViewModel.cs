@@ -19,7 +19,7 @@ namespace Quizio.ViewModels
 {
     public class SoloGameViewModel : BindableBase
     {
-        #region Datafields which raises PropertyChanged to View
+        #region Datafields with Raising Events
         private FrameworkElement _contentControlView;
         public FrameworkElement ContentControlView
         {
@@ -82,8 +82,7 @@ namespace Quizio.ViewModels
         #endregion
 
         #region Shared Datafields without raising events
-        public Quiz Quiz { get; private set; }
-        private User user;
+        public Game Game { get; set; }
 
         public List<UserInput> CorrectUserInputs { get; set; }
         public List<UserInput> FalseUserInputs { get; set; }
@@ -99,14 +98,12 @@ namespace Quizio.ViewModels
         private static int ANSWERTIME = 10;
         #endregion
 
-        public SoloGameViewModel(User currentUser, Quiz quiz)
+        public SoloGameViewModel(Game game)
         {
-            this.user = currentUser;
-            this.Quiz = quiz;
-            QuestionDAO dao = new QuestionDAO();
-            Quiz.Questions = dao.loadQuestionsOfQuiz(quiz.Id);
+            this.Game = game;
+            
             QuestionsDone = 1;
-            QuestionsRemaining = Quiz.Questions.Count;
+            QuestionsRemaining = Game.Quiz.Questions.Count;
 
             CorrectUserInputs = new List<UserInput>();
             FalseUserInputs = new List<UserInput>();
@@ -138,8 +135,8 @@ namespace Quizio.ViewModels
             }
             else
             {
-                this.CurrentQuestion = Quiz.getRandomQuestion();
-                Quiz.Questions.Remove(this.CurrentQuestion);
+                this.CurrentQuestion = Game.Quiz.getRandomQuestion();
+                Game.Quiz.Questions.Remove(this.CurrentQuestion);
                 TimerTickCount = 0;
                 TimerTickCountDown = ANSWERTIME;
                 myTimer.Interval = new TimeSpan(0, 0, 1);
@@ -187,9 +184,10 @@ namespace Quizio.ViewModels
 
         private void SaveAndClose(object parameter)
         {
-            RankingDAO rankingDao = new RankingDAO();
             int pointsToAdd = CorrectUserInputs.Count * ((QuestionsRemaining * ANSWERTIME) - TimeNeededSum);
-            rankingDao.updateRanking(user, pointsToAdd);
+
+            Game.updateRanking(pointsToAdd);
+
             if (parameter is System.Windows.Window)
             {
                 (parameter as System.Windows.Window).Close();

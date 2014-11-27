@@ -5,7 +5,9 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:mui="http://firstfloorsoftware.com/ModernUI"
              mc:Ignorable="d" 
-             d:DesignHeight="300" d:DesignWidth="700">
+             d:DesignHeight="300" d:DesignWidth="700"
+             DataContext="{Binding RankingViewModel}">
+    
     <Grid Style="{StaticResource ContentRoot}">
         <TextBlock Text="Rankings" Style="{StaticResource Heading2}" />
         <mui:ModernButton Content="refresh" Command="{Binding ReloadRankings}"
@@ -28,7 +30,7 @@
                     <Label Grid.Row="0" Grid.Column="1" Content="Player" HorizontalAlignment="Center"/>
                     <Label Grid.Row="0" Grid.Column="2" Content="Points" HorizontalAlignment="Right"/>
                 </Grid>
-                <ListBox ItemsSource="{Binding Rankings}" Width="620" Margin="0,20" HorizontalAlignment="Left">
+                <ListBox ItemsSource="{Binding Aggregator.Rankings}" Width="620" Margin="0,20" HorizontalAlignment="Left">
                         <ListBox.ItemTemplate>
                             <DataTemplate>
                                 <Grid>

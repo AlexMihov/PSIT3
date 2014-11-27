@@ -1,4 +1,5 @@
-﻿using Quizio.Utilities;
+﻿using Microsoft.Practices.Prism.Mvvm;
+using Quizio.Utilities;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -7,12 +8,21 @@ using System.Threading.Tasks;
 
 namespace Quizio.Models
 {
-    public class Game
+    public class Game : BindableBase
     {
-        public List<Question> Questions { get; set; }
+        private Quiz _quiz;
+        public Quiz Quiz
+        {
+            get { return this._quiz; }
+            set { SetProperty(ref this._quiz, value); }
+        }
 
+        public User User { get; set; }
+
+        #region DAO's
         private QuestionDAO questionDao;
         private RankingDAO rankingDao;
+        #endregion
 
         public Game()
         {
@@ -20,14 +30,15 @@ namespace Quizio.Models
             rankingDao = new RankingDAO();
         }
 
-        public void loadGameData(int id)
+        public void loadGameData(Quiz quiz)
         {
-            Questions = questionDao.loadQuestionsOfQuiz(id);
+            this.Quiz = quiz;
+            Quiz.Questions = questionDao.loadQuestionsOfQuiz(quiz.Id);
         }
 
-        public void updateRanking(User user, int pointsToAdd)
+        public void updateRanking(int pointsToAdd)
         {
-            rankingDao.updateRanking(user, pointsToAdd);
+            rankingDao.updateRanking(User, pointsToAdd);
         }
     }
 }
