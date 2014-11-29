@@ -2,6 +2,7 @@
 using Quizio.Models;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -52,6 +53,20 @@ namespace Quizio.Utilities
         internal void updateUserSettings(User user)
         {
             throw new NotImplementedException();
+        }
+
+        public void addNewFriend(int friendId)
+        {
+            string req = REST.APIURL + "/friends/" + friendId;
+            string res = REST.post(req, "");
+            Debug.WriteLine(res);
+        }
+
+        public void deleteFriend(int friendId)
+        {
+            string req = REST.APIURL + "/friends/" + friendId;
+            string res = REST.delete(req, "");
+            Debug.WriteLine(res);
         }
     }
 }

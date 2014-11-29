@@ -52,6 +52,35 @@ namespace Quizio.Models
             get { return this._selectedQuiz; }
             set { SetProperty(ref this._selectedQuiz, value); }
         }
+
+        private Friend _selectedFriend;
+        public Friend SelectedFriend
+        {
+            get { return this._selectedFriend; }
+            set { SetProperty(ref this._selectedFriend, value); }
+        }
+
+        private String _friendSearch;
+        public String FriendSearch
+        {
+            get { return this._friendSearch; }
+            set { SetProperty(ref this._friendSearch, value); }
+        }
+
+        private List<Friend> _searchResult;
+        public List<Friend> SearchResult
+        {
+            get { return this._searchResult; }
+            set { SetProperty(ref this._searchResult, value); }
+        }
+
+        private Friend _selectedResult;
+        public Friend SelectedResult
+        {
+            get { return this._selectedResult; }
+            set { SetProperty(ref this._selectedResult, value); }
+        }
+
         #endregion
 
         #region DAO's
@@ -125,27 +154,25 @@ namespace Quizio.Models
             User.loadFriends();
         }
         
-        public void addFriend(Friend friend)
+        public void addFriend()
         {
-            User.addFriend(friend);
-            userDao.addNewFriend(friend.Id);
+            User.addFriend(SelectedResult);
+            userDao.addNewFriend(SelectedResult.Id);
         }
 
-        public void deleteFriend(Friend friend)
+        public void deleteFriend()
         {
-            User.removeFriend(friend);
-            userDao.deleteFriend(friend.Id);
+            User.removeFriend(SelectedFriend);
+            userDao.deleteFriend(SelectedFriend.Id);
         }
 
-        public List<Friend> searchFriends(string search){
-            List<Friend> results = userDao.searchFriends(search);
-            return results;
+        public void searchFriends()
+        {
+            SearchResult = userDao.searchFriends(FriendSearch);
         }
         
         
         #endregion
 
-        
-        public 
     }
 }

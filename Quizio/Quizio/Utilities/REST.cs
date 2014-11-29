@@ -100,6 +100,88 @@ namespace Quizio
                 return "FATAL ERROR IN REST.logIn";
             }
         }
+
+        public static string post(string url, string json)
+        {
+            HttpWebRequest request = (HttpWebRequest)WebRequest.Create(url);
+            request.ContentType = "text/json";
+            request.Method = "POST";
+            request.CookieContainer = cookieContainer;
+
+            var streamWriter = new StreamWriter(request.GetRequestStream());
+            streamWriter.Write(json, 0, json.Length);
+            streamWriter.Flush();
+
+            try
+            {
+                Stream objStream = request.GetResponse().GetResponseStream();
+
+                StreamReader objReader = new StreamReader(objStream);
+
+                string sLine = "";
+                string JSON = "";
+                while (sLine != null)
+                {
+                    sLine = objReader.ReadLine();
+                    if (sLine != null)
+                        JSON += sLine;
+                }
+                return JSON;
+            }
+            catch (InvalidOperationException ioEx)
+            {
+                if (ioEx is WebException)
+                {
+                    if (ioEx.Message.Contains("404"))
+                    {
+                        return "404";
+                    }
+                }
+                return ioEx.ToString();
+            }
+
+         }
+
+        public static string delete(string url, string json)
+        {
+            HttpWebRequest request = (HttpWebRequest)WebRequest.Create(url);
+            request.ContentType = "text/json";
+            request.Method = "DELETE";
+            request.CookieContainer = cookieContainer;
+
+            var streamWriter = new StreamWriter(request.GetRequestStream());
+            streamWriter.Write(json, 0, json.Length);
+            streamWriter.Flush();
+
+            try
+            {
+                Stream objStream = request.GetResponse().GetResponseStream();
+
+                StreamReader objReader = new StreamReader(objStream);
+
+                string sLine = "";
+                string JSON = "";
+                while (sLine != null)
+                {
+                    sLine = objReader.ReadLine();
+                    if (sLine != null)
+                        JSON += sLine;
+                }
+                return JSON;
+            }
+            catch (InvalidOperationException ioEx)
+            {
+                if (ioEx is WebException)
+                {
+                    if (ioEx.Message.Contains("404"))
+                    {
+                        return "404";
+                    }
+                }
+                return ioEx.ToString();
+            }
+
+        }
     }
 
 

@@ -84,7 +84,6 @@ namespace Quizio.Views
             {
                 UserDAO userDao = new UserDAO();
                 SearchResult = userDao.searchFriends(UserSearch);
-
             }
         }
 
