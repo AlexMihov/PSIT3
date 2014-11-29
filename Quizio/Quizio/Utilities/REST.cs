@@ -101,6 +101,7 @@ namespace Quizio
             }
         }
 
+        /*
         public static string post(string url, string json)
         {
             HttpWebRequest request = (HttpWebRequest)WebRequest.Create(url);
@@ -108,9 +109,12 @@ namespace Quizio
             request.Method = "POST";
             request.CookieContainer = cookieContainer;
 
-            var streamWriter = new StreamWriter(request.GetRequestStream());
-            streamWriter.Write(json, 0, json.Length);
-            streamWriter.Flush();
+            byte[] postBytes = Encoding.UTF8.GetBytes(json);
+ 
+
+            Stream reqStream = request.GetRequestStream();
+            reqStream.Write(postBytes, 0, postBytes.Length);
+            reqStream.Flush();
 
             try
             {
@@ -140,45 +144,43 @@ namespace Quizio
                 return ioEx.ToString();
             }
 
-         }
+         }*/
+
+        public static string post(string url, string json)
+        {
+            var request = (HttpWebRequest)WebRequest.Create(url);
+            request.ContentType = "application/json";
+            request.Method = "POST";
+
+            using (var streamWriter = new StreamWriter(request.GetRequestStream()))
+            {
+                streamWriter.Write(json);
+            }
+
+            var response = (HttpWebResponse)request.GetResponse();
+            using (var streamReader = new StreamReader(response.GetResponseStream()))
+            {
+                string result = streamReader.ReadToEnd();
+                return result;
+            }
+        }
 
         public static string delete(string url, string json)
         {
-            HttpWebRequest request = (HttpWebRequest)WebRequest.Create(url);
-            request.ContentType = "text/json";
+            var request = (HttpWebRequest)WebRequest.Create(url);
+            request.ContentType = "application/json";
             request.Method = "DELETE";
-            request.CookieContainer = cookieContainer;
 
-            var streamWriter = new StreamWriter(request.GetRequestStream());
-            streamWriter.Write(json, 0, json.Length);
-            streamWriter.Flush();
-
-            try
+            using (var streamWriter = new StreamWriter(request.GetRequestStream()))
             {
-                Stream objStream = request.GetResponse().GetResponseStream();
-
-                StreamReader objReader = new StreamReader(objStream);
-
-                string sLine = "";
-                string JSON = "";
-                while (sLine != null)
-                {
-                    sLine = objReader.ReadLine();
-                    if (sLine != null)
-                        JSON += sLine;
-                }
-                return JSON;
+                streamWriter.Write(json);
             }
-            catch (InvalidOperationException ioEx)
+
+            var response = (HttpWebResponse)request.GetResponse();
+            using (var streamReader = new StreamReader(response.GetResponseStream()))
             {
-                if (ioEx is WebException)
-                {
-                    if (ioEx.Message.Contains("404"))
-                    {
-                        return "404";
-                    }
-                }
-                return ioEx.ToString();
+                string result = streamReader.ReadToEnd();
+                return result;
             }
 
         }

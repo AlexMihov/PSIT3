@@ -23,8 +23,8 @@
                     </Grid.ColumnDefinitions>
                     <StackPanel Grid.Column="0" Grid.Row="0" Margin="0,10" HorizontalAlignment="Left" Width="300">
                         <Label Content="Deine Freunde:" FontWeight="Bold"></Label>
-                        <ListBox x:Name="friends" ItemsSource="{Binding Path=Aggregator.User.Friends}" Height="Auto" SelectedIndex="0"
-                                 Margin="0,0,-98,0" VerticalAlignment="Top" Width="200" HorizontalAlignment="Left">
+                        <ListBox x:Name="friends" ItemsSource="{Binding Path=Aggregator.Friends}" Height="Auto" SelectedIndex="0"
+                                 Margin="0,0,-98,0" VerticalAlignment="Top" Width="200" HorizontalAlignment="Left" SelectedItem="{Binding Aggregator.SelectedFriend}">
                             <ListBox.ItemTemplate>
                                 <DataTemplate>
                                     <TextBlock Text="{Binding Name}"/>

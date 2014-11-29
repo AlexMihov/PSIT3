@@ -105,7 +105,7 @@ namespace Quizio.Models
 
         public void loadData()
         {
-            User.loadFriends();
+            loadFriends();
 
             Notifications = natDao.loadNotifications(User.Id);
 
@@ -113,8 +113,6 @@ namespace Quizio.Models
 
             Categories = catDao.loadCategories();
         }
-
-
 
         public void reloadRankings()
         {
@@ -151,19 +149,19 @@ namespace Quizio.Models
         #region related to FriendViewModel
         public void loadFriends()
         {
-            User.loadFriends();
+            Friends = userDao.loadFriends(User.Id);
         }
         
         public void addFriend()
-        {
-            User.addFriend(SelectedResult);
-            userDao.addNewFriend(SelectedResult.Id);
+        { 
+            userDao.addNewFriend(User.Id, SelectedResult.Id);
+            Friends.Add(SelectedResult);
         }
 
         public void deleteFriend()
         {
-            User.removeFriend(SelectedFriend);
-            userDao.deleteFriend(SelectedFriend.Id);
+            userDao.deleteFriend(User.Id, SelectedFriend.Id);
+            Friends.Remove(SelectedFriend);
         }
 
         public void searchFriends()

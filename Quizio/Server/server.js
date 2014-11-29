@@ -276,13 +276,16 @@ passport.deserializeUser(function(user, done) {
      });
  });
 
-  router.post('/insertFriend', function(req, res) {
+  router.post('/friend', function(req, res) {
     printLogStart("insert friend", req);
     var playerId = parseInt(req.body.playerId, 10);
     var friendId = parseInt(req.body.friendId, 10);
 
+    console.log(req.body);
+
     var sql = "INSERT INTO friend (player_player_id, player_friend_id) " +
                    "VALUES (" + connection.escape(playerId) + ", " + connection.escape(friendId) +")";
+
 
     connection.query(sql, function(err, rows, fields) {
       if(err) {
@@ -361,35 +364,26 @@ passport.deserializeUser(function(user, done) {
 
  //DELETE
 
-  router.delete('/deleteFriend/', function(req, res) {
-    /* printLogStart("delte friend data", req);
-     var playerID = req.params.id;
-     var toAdd = req.params.toAdd | 0;
+  router.delete('/friend', function(req, res) {
+    printLogStart("delte friend data", req);
+    var playerId = parseInt(req.body.playerId, 10);
+    var friendId = parseInt(req.body.friendId, 10);
 
-     var sqlSelect = "SELECT points FROM ranking WHERE player_id = " + connection.escape(playerID);
+    var sql = "DELETE FROM friend " + 
+                    "WHERE player_player_id = ? " + 
+                      "AND player_friend_id = ?";
 
-     connection.query(sqlSelect, function(err, rows, fields){
+    var input = [playerId, friendId]
+
+    connection.query(sql, input, function(err, rows, fields){
       if (err) throw err;
-      var oldPoints = rows[0].points | 0;
-      var newPoints = oldPoints + toAdd;
-
-      var sqlUpdate = "UPDATE ranking SET points = " + connection.escape(newPoints) + 
-              " WHERE player_id = " + connection.escape(playerID);
-
-      connection.query(sqlUpdate, function(err, rows, fields) {
-        if (err) throw err;
-        res.json({
-            status: "OK",
-            affectedRows: rows.affectedRows,
-            changedRows: rows.changedRows
-        });
-        printLogSuccess("Ranking successfully updated");
+      res.json({
+        status: "OK",
+        affectedRows: rows.affectedRows
       });
-
-     });*/
-
- });
-
+      printLogSuccess("friend successfully deleted");
+    });
+  });
 
 
  // REGISTER OUR ROUTES -------------------------------

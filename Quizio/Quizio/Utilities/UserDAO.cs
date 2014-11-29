@@ -55,18 +55,18 @@ namespace Quizio.Utilities
             throw new NotImplementedException();
         }
 
-        public void addNewFriend(int friendId)
+        public void addNewFriend(int userId, int friendId)
         {
-            string req = REST.APIURL + "/friends/" + friendId;
-            string res = REST.post(req, "");
-            Debug.WriteLine(res);
+            string req = REST.APIURL + "/friend";
+            string json = "{\"playerId\":" + userId + ", \"friendId\":" + friendId + "}";
+            string res = REST.post(req, json);
         }
 
-        public void deleteFriend(int friendId)
+        public void deleteFriend(int userId, int friendId)
         {
-            string req = REST.APIURL + "/friends/" + friendId;
-            string res = REST.delete(req, "");
-            Debug.WriteLine(res);
+            string req = REST.APIURL + "/friend";
+            string json = "{\"playerId\":" + userId + ", \"friendId\":" + friendId + "}";
+            string res = REST.delete(req, json);
         }
     }
 }

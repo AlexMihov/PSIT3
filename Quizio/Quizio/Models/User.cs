@@ -20,7 +20,7 @@ namespace Quizio.Models
 
         public string Email { get; set; }
 
-        public List<Friend> Friends { get; set; }
+        //public List<Friend> Friends;
 
         public User()
         {
@@ -32,40 +32,23 @@ namespace Quizio.Models
             this.Username = username;
         }
 
-        public User(string username, string status, List<Friend> friends)
+        public User(string username, string status)
         {
             this.Username = username;
             this.Status = status;
-            this.Friends = friends;
         }
 
         [JsonConstructor]
-        public User(int id, string name, string status, string location, string email, List<Friend> friends)
+        public User(int id, string name, string status, string location, string email)
         {
             this.Id = id;
             this.Username = name;
             this.Status = status;
             this.Location = location;
             this.Email = email;
-            this.Friends = friends;
         }
 
 
-        public void loadFriends()
-        {
-            UserDAO dao = new UserDAO();
-            Friends = dao.loadFriends(Id);
-        
-        }
 
-        public void addFriend(Friend friend)
-        {
-            Friends.Add(friend);
-        }
-
-        public void removeFriend(Friend friend)
-        {
-            Friends.Remove(friend);
-        }
     }
 }
