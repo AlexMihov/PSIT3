@@ -85,6 +85,8 @@ namespace Quizio.Models
             Categories = catDao.loadCategories();
         }
 
+
+
         public void reloadRankings()
         {
             Rankings = rankingDao.loadRankings();
@@ -116,5 +118,34 @@ namespace Quizio.Models
             Rankings = rankingDao.loadRankings();
         }
         #endregion
+
+        #region related to FriendViewModel
+        public void loadFriends()
+        {
+            User.loadFriends();
+        }
+        
+        public void addFriend(Friend friend)
+        {
+            User.addFriend(friend);
+            userDao.addNewFriend(friend.Id);
+        }
+
+        public void deleteFriend(Friend friend)
+        {
+            User.removeFriend(friend);
+            userDao.deleteFriend(friend.Id);
+        }
+
+        public List<Friend> searchFriends(string search){
+            List<Friend> results = userDao.searchFriends(search);
+            return results;
+        }
+        
+        
+        #endregion
+
+        
+        public 
     }
 }

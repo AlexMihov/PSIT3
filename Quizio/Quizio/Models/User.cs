@@ -58,5 +58,14 @@ namespace Quizio.Models
         
         }
 
+        public void addFriend(Friend friend)
+        {
+            Friends.Add(friend);
+        }
+
+        public void removeFriend(Friend friend)
+        {
+            Friends.Remove(friend);
+        }
     }
 }
