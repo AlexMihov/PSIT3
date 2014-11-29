@@ -14,7 +14,8 @@
    async = require('async'),
    config = require('./config');
    session = require('express-session')
-   morgan = require('morgan');
+   morgan = require('morgan')
+   cookieParser = require('cookie-parser');
 
 var passport = require('passport')
   , LocalStrategy = require('passport-local').Strategy;
@@ -23,18 +24,19 @@ var app = express(); // define our app using express
 
 app.use(morgan('dev'))
 
- app.use(bodyParser.json());
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({
+  extended: true
+}));
 
 
- app.use(bodyParser.urlencoded({
-     extended: true
- }));
-
- app.use(session({ secret: 'keyboard cat' }));
- app.use(passport.initialize());
- app.use(passport.session());
+app.use(cookieParser('niemertkenntmich'));
+app.use(session());
+app.use(passport.initialize());
+app.use(passport.session());
 
 passport.serializeUser(function(user, done) {
+  console.log("serieal:",user);
   done(null, user);
 });
 
@@ -103,15 +105,16 @@ passport.deserializeUser(function(user, done) {
 
  });
 
-   router.get('/player/by-name/:playername', function(req, res) {
+   router.get('/player/by-name/:playername', isLoggedIn,function(req, res) {
      printLogStart("get player by name", req);
      var name = "%" + req.params.playername + "%";
+
+     console.log("hahaha:", req.user);
+     console.log(req.session);
 
      var sql = "SELECT player_id as id, name, origin as location, status " +
                  "FROM player " +
                 "WHERE name LIKE ?";
-
-     console.log(sql);
 
      connection.query(sql, [name], function(err, rows, fields) {
          if (err) throw err;
@@ -408,6 +411,16 @@ passport.deserializeUser(function(user, done) {
          console.log("Request to: " + text + " with the following data: " + JSON.stringify(req.body));
 
  }
+
+
+function isLoggedIn(req, res, next){
+  if(req.isAuthenticated()){
+    return next();
+  }
+  else {
+    res.status(403).send({error: "You have no permission! Please log in!"});
+  }
+}
 
  /*
   if (testing) {
