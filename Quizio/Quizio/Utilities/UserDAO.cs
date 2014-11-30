@@ -75,5 +75,10 @@ namespace Quizio.Utilities
         {
             throw new NotImplementedException();
         }
+
+        internal void logOut()
+        {
+            throw new NotImplementedException(); // sött so gah wil er kennt ja de user
+        }
     }
 }

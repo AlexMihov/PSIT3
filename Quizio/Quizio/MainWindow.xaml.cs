@@ -17,6 +17,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using Quizio.ViewModels;
+using Quizio.Utilities;
 
 namespace Quizio
 {
@@ -29,6 +30,53 @@ namespace Quizio
         {
             InitializeComponent();
             this.DataContext = mvm;
+
+            this.Closing += MainWindow_Closing;
+        }
+
+
+        private void MainWindow_Closing(object sender, System.ComponentModel.CancelEventArgs e)
+        {
+            try
+            {
+                UserDAO userDao = new UserDAO();
+                userDao.logOut();
+            }
+            catch (Exception)
+            {
+                //do something if logOut doesnt work..
+            }
+
+            App.Current.MainWindow.Hide();
+
+            MessageBoxResult result = ModernDialog.ShowMessage("Du wurdest erfolgreich ausgeloggt, möchtest du dich mit einem anderen Benutzernamen einloggen?", "Hinweis", MessageBoxButton.YesNo);
+            if (result == MessageBoxResult.Yes)
+            {
+                //Disable shutdown when the dialog closes
+                App.Current.ShutdownMode = ShutdownMode.OnExplicitShutdown;
+
+                var login = new Login();
+                login.WindowStartupLocation = WindowStartupLocation.CenterScreen;
+
+                if (login.ShowDialog().Value && login.granted)
+                {
+                    MainViewModel mvm = new MainViewModel(login.Aggregator);
+                    var mainWindow = new MainWindow(mvm);
+                    //Re-enable normal shutdown mode.
+                    App.Current.ShutdownMode = ShutdownMode.OnMainWindowClose;
+                    App.Current.MainWindow = mainWindow;
+                    mainWindow.WindowStartupLocation = WindowStartupLocation.CenterScreen;
+                    mainWindow.Show();
+                }
+                else
+                {
+                    App.Current.Shutdown(-1);
+                }
+            }
+            else
+            {
+                App.Current.Shutdown(-1);
+            }
         }
     }
 }
