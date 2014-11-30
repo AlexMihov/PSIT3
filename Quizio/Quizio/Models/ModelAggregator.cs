@@ -133,6 +133,11 @@ namespace Quizio.Models
             userDao.updateUserSettings(this.User);
         }
 
+        public void changePassword(string pw)
+        {
+            userDao.changePassword(this.User, pw);
+        }
+
         public void resetUserSettings(User toReset)
         {
             this.User = toReset;
@@ -150,18 +155,17 @@ namespace Quizio.Models
         public void loadFriends()
         {
             Friends = userDao.loadFriends(User.Id);
+            SelectedFriend = Friends.FirstOrDefault();
         }
         
         public void addFriend()
-        { 
+        {
             userDao.addNewFriend(SelectedResult.Id);
-            Friends.Add(SelectedResult);
         }
 
         public void deleteFriend()
         {
             userDao.deleteFriend(SelectedFriend.Id);
-            Friends.Remove(SelectedFriend);
         }
 
         public void searchFriends()

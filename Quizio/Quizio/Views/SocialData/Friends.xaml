@@ -5,7 +5,7 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:mui="http://firstfloorsoftware.com/ModernUI"
              mc:Ignorable="d" 
-             d:DesignHeight="300" d:DesignWidth="700"
+             d:DesignHeight="500" d:DesignWidth="700"
              DataContext="{Binding FriendViewModel}">
     
     <Grid Style="{StaticResource ContentRoot}">
@@ -23,8 +23,9 @@
                     </Grid.ColumnDefinitions>
                     <StackPanel Grid.Column="0" Grid.Row="0" Margin="0,10" HorizontalAlignment="Left" Width="300">
                         <Label Content="Deine Freunde:" FontWeight="Bold"></Label>
-                        <ListBox x:Name="friends" ItemsSource="{Binding Path=Aggregator.Friends}" Height="Auto" SelectedIndex="0"
-                                 Margin="0,0,-98,0" VerticalAlignment="Top" Width="200" HorizontalAlignment="Left" SelectedItem="{Binding Aggregator.SelectedFriend}">
+                        <ListBox x:Name="friends" ItemsSource="{Binding Path=Aggregator.Friends}" Height="Auto"
+                                 Margin="0,0,-98,0" VerticalAlignment="Top" Width="200" HorizontalAlignment="Left" 
+                                 SelectedItem="{Binding Aggregator.SelectedFriend}">
                             <ListBox.ItemTemplate>
                                 <DataTemplate>
                                     <TextBlock Text="{Binding Name}"/>
@@ -32,7 +33,8 @@
                             </ListBox.ItemTemplate>
                         </ListBox>
                     </StackPanel>
-                    <StackPanel Grid.Column="1" Grid.Row="0" Margin="0,10" HorizontalAlignment="Right" Width="300">
+                    <StackPanel Grid.Column="1" Grid.Row="0" Margin="0,10" HorizontalAlignment="Right" Width="300"
+                                Visibility="{Binding ShowFriend}">
                         <Label Content="{Binding ElementName=friends, Path=SelectedItem.Name}" FontWeight="Bold"/>
                         <TextBlock>
                             <Run Text="Status: "></Run>
@@ -42,28 +44,37 @@
                             <Run Text="Ort: "></Run>
                             <Run Text="{Binding ElementName=friends, Path=SelectedItem.Location}"></Run>
                         </TextBlock>
-                        <mui:ModernButton Content="Entfernen" Command="{Binding DeleteFriend, Mode=OneWay}" Margin="0,10">
+                        <mui:ModernButton Content="Entfernen" Command="{Binding DeleteFriend, Mode=OneWay}" Margin="0,10"
+                                          IconHeight="25" IconWidth="25" EllipseDiameter="35"
+                                          IconData="F1 M 15.8333,47.6921L 19.1921,44.3333L 24.79,49.9312L 30.3879,44.3333L 33.7467,47.6921L 28.1488,53.29L 33.7467,58.8879L 30.3879,62.2467L 24.79,56.6488L 19.1921,62.2467L 15.8333,58.8879L 21.4313,53.29L 15.8333,47.6921 Z M 38,19C 43.5417,19 45.9167,22.1667 45.1174,28.8134C 45.8315,29.2229 46.3125,29.9928 46.3125,30.875C 46.3125,31.9545 45.5923,32.8658 44.6061,33.1546C 44.1941,34.623 43.5543,35.9229 42.75,36.9628L 42.75,41.9583C 45.3889,42.4861 47.5,42.75 50.6667,44.3333C 53.8333,45.9167 54.8889,47.3681 57,49.4792L 57,57L 35.0254,57L 31.3154,53.29L 36.9134,47.6921L 31.4387,42.3108L 33.25,41.9583L 33.25,36.9628C 32.4457,35.9229 31.8059,34.623 31.3939,33.1546C 30.4077,32.8658 29.6875,31.9545 29.6875,30.875C 29.6875,29.9928 30.1685,29.2229 30.8826,28.8134C 30.0833,22.1667 32.4583,19 38,19 Z M 25.3333,44.3333C 26.5732,43.7134 27.6513,43.2957 28.6626,42.9853L 24.8366,46.8112L 23.4419,45.4165L 25.3333,44.3333 Z ">
                         </mui:ModernButton>
                     </StackPanel>
-                    <StackPanel Grid.Column="0" Grid.Row="1" Margin="0,10" HorizontalAlignment="Left" Width="300" Height="100">
+                    <StackPanel Grid.Column="0" Grid.Row="1" Margin="0,10" HorizontalAlignment="Left">
                         <TextBlock Text="Finde neue Freunde" Style="{StaticResource Heading2}" />
                         <!--  <Label Content="{Binding ElementName=friends, Path=SelectedItem.Name}" FontWeight="Bold"/> -->
-                        <TextBox Margin="10,10,10,10" x:Name="searchUser" Text="{Binding Path=Aggregator.FriendSearch}" Grid.Column="1" Grid.Row="0" ></TextBox>
-                        <mui:ModernButton Content="finden" Command="{Binding SearchFriends, Mode=OneWay}" Margin="0,10">
+                        <TextBox Width="250" Margin="0,10,10,10" x:Name="searchUser" Text="{Binding Path=Aggregator.FriendSearch}" Grid.Column="1" Grid.Row="0" ></TextBox>
+                        <mui:ModernButton Content="finden" Command="{Binding SearchFriends, Mode=OneWay}" Margin="0,10"
+                                          IconHeight="25" IconWidth="25" EllipseDiameter="35"
+                                          IconData="F1 M 39.5639,54.473L 44.627,49.5464C 43.9733,48.4147 43.8398,47.1012 43.8398,45.7004C 43.8398,41.4476 47.0468,38 51.2996,38C 55.5524,38 59,41.4476 59,45.7004C 59,49.9532 55.5524,53.1602 51.2996,53.1602C 49.9706,53.1602 48.7203,53.0641 47.6292,52.4715L 42.527,57.4361C 41.7752,58.1879 40.3157,58.1879 39.5639,57.4361C 38.8121,56.6844 38.8121,55.2248 39.5639,54.473 Z M 51.2996,40.8877C 48.6416,40.8877 46.4868,43.0424 46.4868,45.7004C 46.4868,48.3584 48.6416,50.5131 51.2996,50.5131C 53.9576,50.5131 56.1123,48.3584 56.1123,45.7004C 56.1123,43.0424 53.9576,40.8877 51.2996,40.8877 Z M 36,16C 40.3723,16 43.9167,19.5444 43.9167,23.9167C 43.9167,28.2889 40.3723,31.8333 36,31.8333C 31.6278,31.8333 28.0833,28.2889 28.0833,23.9167C 28.0833,19.5444 31.6278,16 36,16 Z M 28.0833,42.9167C 27.0278,43.4445 24.9167,47.6666 24.9167,47.6666C 24.9167,47.6666 23.8611,49.2499 23.3333,55.5833L 18.5833,53.9999L 20.1667,46.0834C 20.1667,46.0834 23.3333,35 29.6666,35.0001L 42.3332,35.0001C 44.2958,35.0001 45.9544,36.0644 47.3088,37.5334C 44.4493,39.0409 42.5,42.0428 42.5,45.5C 42.5,46.6993 42.7345,47.8437 43.1603,48.89L 38.8431,53.2072C 37.4763,54.574 37.4763,57.2901 38.8431,58.6569C 39.1865,59.0003 38.0589,58.75 36.7917,58.75C 33.4528,58.75 30.2927,57.9845 27.4774,56.6193L 28.0833,42.9167 Z">
                         </mui:ModernButton>
                     </StackPanel>
                     <StackPanel Grid.Column="1" Grid.Row="1" Margin="0,10" HorizontalAlignment="Left" Width="300">
                         <Label Content="Suchresultate:" FontWeight="Bold"></Label>
+                        <StackPanel Orientation="Horizontal">
                         <ListBox x:Name="searchresult" ItemsSource="{Binding Path=Aggregator.SearchResult}" Height="Auto" SelectedIndex="0"
-                                 Margin="0,0,-98,0" VerticalAlignment="Top" Width="200" HorizontalAlignment="Left" SelectedItem="{Binding Aggregator.SelectedResult}">
+                                 Margin="0,0,0,0" VerticalAlignment="Top" Width="150" HorizontalAlignment="Left"
+                                 SelectedItem="{Binding Aggregator.SelectedResult}">
                             <ListBox.ItemTemplate>
                                 <DataTemplate>
-                                    <TextBlock Text="{Binding Name}"/>
+                                    <TextBlock Text="{Binding Name}" Width="100"/>
                                 </DataTemplate>
                             </ListBox.ItemTemplate>
                         </ListBox>
-                        <mui:ModernButton Content="hinzufügen" Command="{Binding AddFriend, Mode=OneWay}" Margin="0,10">
+                        <mui:ModernButton Content="hinzufügen" Command="{Binding AddFriend, Mode=OneWay}" Margin="40,0,0,0" VerticalAlignment="Top" HorizontalAlignment="Right"
+                                          IconHeight="25" IconWidth="25" EllipseDiameter="35"
+                                          IconData="F1 M 26.9167,38L 31.6667,38L 31.6667,45.9167L 39.5833,45.9167L 39.5833,50.6667L 31.6667,50.6667L 31.6667,58.5833L 26.9167,58.5833L 26.9167,50.6667L 19,50.6667L 19,45.9167L 26.9167,45.9167L 26.9167,38 Z M 38,19C 43.5417,19 45.9167,22.1667 45.1174,28.8134C 45.8315,29.2229 46.3125,29.9928 46.3125,30.875C 46.3125,31.9545 45.5923,32.8658 44.6061,33.1546C 44.1941,34.623 43.5543,35.9229 42.75,36.9628L 42.75,41.9583C 45.3889,42.4861 47.5,42.75 50.6667,44.3333C 53.8333,45.9167 54.8889,47.3681 57,49.4792L 57,57L 33.25,57L 33.25,52.25L 41.1667,52.25L 41.1666,44.3333L 33.25,44.3333L 33.25,36.9628L 33.25,36.4167L 32.8586,36.4167C 32.237,35.4811 31.7366,34.3762 31.3939,33.1546C 30.4077,32.8658 29.6875,31.9545 29.6875,30.875C 29.6875,29.9928 30.1685,29.2229 30.8826,28.8134C 30.0833,22.1667 32.4583,19 38,19 Z M 19,57L 19,52.25L 25.3333,52.25L 25.3333,57L 19,57 Z ">
                         </mui:ModernButton>
+                        </StackPanel>
                     </StackPanel>
                 </Grid>
                 

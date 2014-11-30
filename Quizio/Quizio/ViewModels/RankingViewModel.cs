@@ -61,7 +61,6 @@ namespace Quizio.ViewModels
             catch (Exception ex)
             {
                 e.Result = ex.Message; // e.Result abused as exeption messanger
-                e.Cancel = true;
             }
         }
 
@@ -69,7 +68,7 @@ namespace Quizio.ViewModels
         {
             this.ShowOrHide = false;
 
-            if (!(e.Result == null) && e.Cancelled)
+            if (!(e.Result == null))
             {
                 ModernDialog.ShowMessage(e.Result as string, "Error", MessageBoxButton.OK);
             }

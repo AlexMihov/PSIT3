@@ -17,11 +17,11 @@ namespace Quizio.ViewModels
     {
         public ModelAggregator Aggregator { get; set; }
 
-        private bool _showOrHide;
-        public bool ShowOrHide
+        private Visibility _showFriend;
+        public Visibility ShowFriend
         {
-            get { return this._showOrHide; }
-            set { SetProperty(ref this._showOrHide, value); }
+            get { return this._showFriend; }
+            set { SetProperty(ref this._showFriend, value); }
         }
 
         public ICommand DeleteFriend { get; set; }
@@ -35,7 +35,15 @@ namespace Quizio.ViewModels
         public FriendViewModel(ModelAggregator aggregator)
         {
             this.Aggregator = aggregator;
-
+            if (Aggregator.SelectedFriend == null)
+            {
+                this.ShowFriend = Visibility.Hidden;
+            }
+            else
+            {
+                this.ShowFriend = Visibility.Visible;
+            }
+            
             bwDelete = new BackgroundWorker();
             bwDelete.DoWork += new DoWorkEventHandler(bwDelete_DoWork);
             bwDelete.RunWorkerCompleted += new RunWorkerCompletedEventHandler(bw_RunWorkerCompleted);
@@ -55,8 +63,16 @@ namespace Quizio.ViewModels
 
         private void bw_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
         {
-            this.ShowOrHide = false;
-            if (!(e.Result == null) && e.Cancelled)
+            if (Aggregator.SelectedFriend == null || Aggregator.Friends == null)
+            {
+                ShowFriend = Visibility.Hidden;
+            }
+            else
+            {
+                ShowFriend = Visibility.Visible;
+            }
+
+            if (!(e.Result == null))
             {
                 ModernDialog.ShowMessage(e.Result as string, "Error", MessageBoxButton.OK);
             }
@@ -75,7 +91,6 @@ namespace Quizio.ViewModels
             catch (Exception ex)
             {
                 e.Result = ex.Message; // e.Result abused as exeption messanger
-                e.Cancel = true;
             }
         }
 
@@ -92,7 +107,6 @@ namespace Quizio.ViewModels
             catch (Exception ex)
             {
                 e.Result = ex.Message; // e.Result abused as exeption messanger
-                e.Cancel = true;
             }
         }
 
@@ -109,35 +123,67 @@ namespace Quizio.ViewModels
             catch (Exception ex)
             {
                 e.Result = ex.Message; // e.Result abused as exeption messanger
-                e.Cancel = true;
             }
         }
 
         private void deleteFriend()
         {
-            ShowOrHide = true;
+
             if (!bwDelete.IsBusy)
             {
                 bwDelete.RunWorkerAsync();
             }
+
+            List<Friend> f = Aggregator.Friends.ToList();
+            f.Remove(Aggregator.SelectedFriend);
+            Aggregator.Friends = f;
+
+            Aggregator.SelectedFriend = f.FirstOrDefault();
+            
         }
 
         private void searchFriends()
         {
-            ShowOrHide = true;
-            if (!bwSearch.IsBusy)
+            if (Aggregator.FriendSearch != null && Aggregator.FriendSearch != "")
             {
-                bwSearch.RunWorkerAsync();
+                if (!bwSearch.IsBusy)
+                {
+                    bwSearch.RunWorkerAsync();
+                }
             }
+            else
+            {
+                ModernDialog.ShowMessage("Bitte gib einen Namen in die Suche ein!", "Hinweis", MessageBoxButton.OK);
+            }
+            
         }
 
         private void addFriend()
         {
-            ShowOrHide = true;
-            if (!bwAdd.IsBusy)
+
+            if (Aggregator.SelectedResult != null)
             {
-                bwAdd.RunWorkerAsync();
+                if (!bwAdd.IsBusy)
+                {
+                    bwAdd.RunWorkerAsync();
+                }
+
+                List<Friend> f = Aggregator.Friends.ToList();
+                f.Add(Aggregator.SelectedResult);
+                Aggregator.Friends = f;
+
+                List<Friend> s = Aggregator.SearchResult.ToList();
+                s.Remove(Aggregator.SelectedResult);
+                Aggregator.SearchResult = s;
+
+                Aggregator.SelectedFriend = f.FirstOrDefault();
             }
+            else
+            {
+                ModernDialog.ShowMessage("Bitte wähle eine Person aus!", "Hinweis", MessageBoxButton.OK);
+            }
+            
+            
         }
     }
 }
