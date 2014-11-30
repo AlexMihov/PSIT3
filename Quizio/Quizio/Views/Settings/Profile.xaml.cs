@@ -1,17 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using Quizio.Utilities;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 
 namespace Quizio.Views
 {
@@ -23,6 +12,15 @@ namespace Quizio.Views
         public Profile()
         {
             InitializeComponent();
+            save.Click += handlePasswordChange;
+        }
+
+        private void handlePasswordChange(object sender, RoutedEventArgs e){
+            if (!password.Password.Equals(""))
+            {
+                UserDAO userDao = new UserDAO();
+                userDao.changePassword(password.Password);
+            }
         }
     }
 }
