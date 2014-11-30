@@ -133,11 +133,6 @@ namespace Quizio.Models
             userDao.updateUserSettings(this.User);
         }
 
-        public void changePassword(string pw)
-        {
-            userDao.changePassword(this.User, pw);
-        }
-
         public void resetUserSettings(User toReset)
         {
             this.User = toReset;

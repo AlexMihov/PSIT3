@@ -11,13 +11,10 @@ namespace Quizio.Utilities
 {
     class UserDAO
     {
-
-
         public UserDAO()
         {
 
         }
-
 
         public User logIn(string name, string password)
         {
@@ -50,7 +47,7 @@ namespace Quizio.Utilities
             return friends;
         }
 
-        internal void updateUserSettings(User user)
+        public void updateUserSettings(User user)
         {
             throw new NotImplementedException();
         }
@@ -69,9 +66,9 @@ namespace Quizio.Utilities
             string res = REST.delete(req, json);
         }
 
-        internal void changePassword(User user, string pw)
+        public void changePassword(string pw)
         {
-            throw new NotImplementedException();
+            Console.WriteLine(pw);
         }
     }
 }

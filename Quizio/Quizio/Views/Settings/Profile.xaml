@@ -31,9 +31,9 @@
                     <TextBox Grid.Row="2" Grid.Column="1" Text="{Binding Aggregator.User.Location, Mode=TwoWay}"  Margin="0,20"/>
                     <Label Grid.Row="3" Grid.Column="0"  Content="Status" FontWeight="Bold"  Margin="0,20"></Label>
                     <TextBox Grid.Row="3" Grid.Column="1" Text="{Binding Aggregator.User.Status, Mode=TwoWay}"  Margin="0,20"/>
-                    <mui:ModernButton Grid.Row="4" Grid.Column="0" Content="Speichern" 
+                    <mui:ModernButton x:Name="save" Grid.Row="4" Grid.Column="0" Content="Speichern" 
                                       Command="{Binding UpdateUserSettings}"
-                                      CommandParameter="{Binding ElementName=password, Path=Password}"
+                                      CommandParameter="{Binding ElementName=password, Path=SecurePassword}"
                                       Margin="0,20">
                     </mui:ModernButton>
                     <mui:ModernButton Grid.Row="4" Grid.Column="1" Content="Abbrechen" Margin="0,20"/>
