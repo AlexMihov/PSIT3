@@ -70,5 +70,10 @@ namespace Quizio.Utilities
         {
             Console.WriteLine(pw);
         }
+
+        public void registerUser(string username, string password, string status, string region)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

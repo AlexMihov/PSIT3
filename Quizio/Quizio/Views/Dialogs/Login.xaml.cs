@@ -28,8 +28,8 @@ namespace Quizio.Views.Dialogs
     {
         private BackgroundWorker bw;
 
-        public string UserName { get; private set; }
-        public string Password { get; private set; }
+        private string userNameField;
+
         public bool granted { get; private set; }
 
         //datafields for mainviewmodel constructor
@@ -46,6 +46,8 @@ namespace Quizio.Views.Dialogs
             bw.RunWorkerCompleted += new RunWorkerCompletedEventHandler(bw_RunWorkerCompleted);
 
             InitializeComponent();
+            this.CloseButton.Content = "Schliessen";
+            this.CloseButton.Click += Cancel_Click;
         }
 
         private void Cancel_Click(object sender, RoutedEventArgs e)
@@ -53,10 +55,27 @@ namespace Quizio.Views.Dialogs
             App.Current.Shutdown();
         }
 
+        private void Register_Click(object sender, RoutedEventArgs e)
+        {
+            var registerDialog = new Register();
+            registerDialog.WindowStartupLocation = System.Windows.WindowStartupLocation.CenterScreen;
+
+            if (registerDialog.ShowDialog().Value && registerDialog.registered)
+            {
+                userName.Text = registerDialog.userName.Text;
+                this.Show();
+
+                registerDialog.Close();
+            }
+            else
+            {
+                registerDialog.Close();
+            }           
+        }
+
         private void OK_Click(object sender, RoutedEventArgs e)
         {
-            UserName = userName.Text;
-            Password = password.Password;
+            userNameField = userName.Text;
 
             loading.Visibility = System.Windows.Visibility.Visible;
 
@@ -78,7 +97,7 @@ namespace Quizio.Views.Dialogs
             {
                 try
                 {
-                    Aggregator.logIn(UserName, Password);
+                    Aggregator.logIn(userNameField, password.Password);
 
                     if (Aggregator.User != null)
                     {
@@ -101,7 +120,7 @@ namespace Quizio.Views.Dialogs
             if ((e.Cancelled == true))
             {
                 this.loading.Visibility = System.Windows.Visibility.Hidden;
-                ModernDialog.ShowMessage("Invalid Username/Password combination!", "Error", MessageBoxButton.OK);
+                ModernDialog.ShowMessage("Ungültige Benutzername/Passwort Kombination!", "Hinweis", MessageBoxButton.OK);
             }
 
             else if (e.Result != null)
