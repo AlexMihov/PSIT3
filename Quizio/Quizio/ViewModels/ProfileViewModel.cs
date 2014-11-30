@@ -25,18 +25,30 @@ namespace Quizio.ViewModels
         public ProfileViewModel(ModelAggregator aggregator)
         {
             this.Aggregator = aggregator;
-            this.UpdateUserSettings = new DelegateCommand(updateUserSettings);
+            this.UpdateUserSettings = new DelegateCommand<object>(updateUserSettings);
             this.ResetUserSettings = new DelegateCommand(resetUserSettings);
 
             this.toReset = Aggregator.User;
-
         }
 
-        private void updateUserSettings()
+        private void updateUserSettings(object parameter)
         {
-            Aggregator.updateUserSettings();
-            this.toReset = Aggregator.User;
+            //Aggregator.updateUserSettings();
+            //this.toReset = Aggregator.User;
 
+            string pw = (string)parameter;
+
+            if (!(pw.Equals("") == true))
+            {
+                changePassword(pw);
+            }
+            ModernDialog.ShowMessage(pw, "ich chumme ned in if", System.Windows.MessageBoxButton.OK);
+        }
+
+        private void changePassword(string pw)
+        {
+            //Aggregator.changePassword(pw);
+            ModernDialog.ShowMessage(pw, "passwort", System.Windows.MessageBoxButton.OK);
         }
 
         private void resetUserSettings()

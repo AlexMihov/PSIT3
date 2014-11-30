@@ -10,7 +10,7 @@ using System.Collections.Specialized;
 
 namespace Quizio
 {
-    class REST
+    public static class REST
     {
         public const string APIURL = "http://localhost:10300";
         public static CookieContainer cookieContainer = new CookieContainer();
@@ -18,6 +18,7 @@ namespace Quizio
         {
             HttpWebRequest wrGETURL = (HttpWebRequest)HttpWebRequest.Create(url);
             wrGETURL.CookieContainer = cookieContainer;
+
             Stream objStream = wrGETURL.GetResponse().GetResponseStream();
 
             StreamReader objReader = new StreamReader(objStream);

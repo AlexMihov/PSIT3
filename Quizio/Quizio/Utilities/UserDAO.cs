@@ -68,5 +68,10 @@ namespace Quizio.Utilities
             string json = "{\"friendId\":" + friendId + "}";
             string res = REST.delete(req, json);
         }
+
+        internal void changePassword(User user, string pw)
+        {
+            throw new NotImplementedException();
+        }
     }
 }
