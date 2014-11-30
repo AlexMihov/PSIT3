@@ -1,43 +1,45 @@
 ﻿using Newtonsoft.Json;
-using Quizio.Utilities;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Quizio.Models
 {
+    /// <summary>
+    /// The class user is a model for a player of the game. It saves the id, the name, the status, the location and the email address of the friend.
+    /// </summary>
     public class User
     {
+        /// <summary>
+        /// Gets or sets the id of a user as an integer.
+        /// </summary>
         public int Id { get; set; }
 
+        /// <summary>
+        /// Gets or sets the name of a user as a string.
+        /// </summary>
         public string Username { get; set; }
 
+        /// <summary>
+        /// Gets or sets the location of a user as a string.
+        /// </summary>
         public string Location { get; set; }
 
+        /// <summary>
+        /// Gets or sets the status of a user as a string.
+        /// </summary>
         public string Status { get; set; }
 
+        /// <summary>
+        /// Gets or sets the email address of a user as a string.
+        /// </summary>
         public string Email { get; set; }
 
-        //public List<Friend> Friends;
-
-        public User()
-        {
-
-        }
-
-        public User(string username)
-        {
-            this.Username = username;
-        }
-
-        public User(string username, string status)
-        {
-            this.Username = username;
-            this.Status = status;
-        }
-
+        /// <summary>
+        /// Constructor of the user class, it takes an id, a name, a status and location. It can be used to create a user object from a json string.
+        /// </summary>
+        /// <param name="id">The id a user has in the db as an integer</param>
+        /// <param name="name">The name of the user as a string</param>
+        /// <param name="status">The name of the user as a string</param>
+        /// <param name="location">The name of the user as a string</param>
+        /// <param name="email">The email address of the user as a string</param>
         [JsonConstructor]
         public User(int id, string name, string status, string location, string email)
         {
@@ -47,8 +49,5 @@ namespace Quizio.Models
             this.Location = location;
             this.Email = email;
         }
-
-
-
     }
 }

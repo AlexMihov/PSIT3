@@ -31,7 +31,7 @@ namespace Quizio.Models
         /// <summary>
         /// Constructor of the category class, it takes an id, a name, a description and a list of quizies. It can be used to create a Category from a json string.
         /// </summary>
-        /// <param name="id">The id an answer has in the db as an integer</param>
+        /// <param name="id">The id a category has in the db as an integer</param>
         /// <param name="name">The name of a category as a string</param>
         /// <param name="description">The description of a category as a string</param>
         /// <param name="quizies">A list of quizies as <c>List<c> containing <c>Quiz</c>, which belong to this category.</Quiz></c></Quiz></c></param>

@@ -30,7 +30,7 @@ namespace Quizio.Models
         /// <summary>
         /// Constructor of the friend class, it takes an id, a name, a status and location. It can be used to create a friend object from a json string.
         /// </summary>
-        /// <param name="id">The id an answer has in the db as an integer</param>
+        /// <param name="id">The id a friend has in the db as an integer</param>
         /// <param name="name">The name of the friend as a string</param>
         /// <param name="status">The status of the friend as a string</param>
         /// <param name="location">The location of the friend as a string</param>
