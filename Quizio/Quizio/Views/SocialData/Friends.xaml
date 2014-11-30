@@ -5,13 +5,16 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:mui="http://firstfloorsoftware.com/ModernUI"
              mc:Ignorable="d" 
-             d:DesignHeight="300" d:DesignWidth="700">
+             d:DesignHeight="300" d:DesignWidth="700"
+             DataContext="{Binding FriendViewModel}">
+    
     <Grid Style="{StaticResource ContentRoot}">
         <ScrollViewer>
             <StackPanel MinWidth="200">
                 <TextBlock Text="Verwalte deine Freunde" Style="{StaticResource Heading2}" />
                 <Grid>
                     <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
                         <RowDefinition Height="Auto"/>
                     </Grid.RowDefinitions>
                     <Grid.ColumnDefinitions>
@@ -20,8 +23,8 @@
                     </Grid.ColumnDefinitions>
                     <StackPanel Grid.Column="0" Grid.Row="0" Margin="0,10" HorizontalAlignment="Left" Width="300">
                         <Label Content="Deine Freunde:" FontWeight="Bold"></Label>
-                        <ListBox x:Name="friends" ItemsSource="{Binding Path=CurrentUser.Friends}" Height="Auto" SelectedIndex="0"
-                                 Margin="0,0,-98,0" VerticalAlignment="Top" Width="200" HorizontalAlignment="Left">
+                        <ListBox x:Name="friends" ItemsSource="{Binding Path=Aggregator.Friends}" Height="Auto" SelectedIndex="0"
+                                 Margin="0,0,-98,0" VerticalAlignment="Top" Width="200" HorizontalAlignment="Left" SelectedItem="{Binding Aggregator.SelectedFriend}">
                             <ListBox.ItemTemplate>
                                 <DataTemplate>
                                     <TextBlock Text="{Binding Name}"/>
@@ -35,12 +38,35 @@
                             <Run Text="Status: "></Run>
                             <Run Text="{Binding ElementName=friends, Path=SelectedItem.Status}"></Run>
                         </TextBlock>
-                        <mui:ModernButton Content="Entfernen" Margin="0,10">
+                        <TextBlock>
+                            <Run Text="Ort: "></Run>
+                            <Run Text="{Binding ElementName=friends, Path=SelectedItem.Location}"></Run>
+                        </TextBlock>
+                        <mui:ModernButton Content="Entfernen" Command="{Binding DeleteFriend, Mode=OneWay}" Margin="0,10">
+                        </mui:ModernButton>
+                    </StackPanel>
+                    <StackPanel Grid.Column="0" Grid.Row="1" Margin="0,10" HorizontalAlignment="Left" Width="300" Height="100">
+                        <TextBlock Text="Finde neue Freunde" Style="{StaticResource Heading2}" />
+                        <!--  <Label Content="{Binding ElementName=friends, Path=SelectedItem.Name}" FontWeight="Bold"/> -->
+                        <TextBox Margin="10,10,10,10" x:Name="searchUser" Text="{Binding Path=Aggregator.FriendSearch}" Grid.Column="1" Grid.Row="0" ></TextBox>
+                        <mui:ModernButton Content="finden" Command="{Binding SearchFriends, Mode=OneWay}" Margin="0,10">
+                        </mui:ModernButton>
+                    </StackPanel>
+                    <StackPanel Grid.Column="1" Grid.Row="1" Margin="0,10" HorizontalAlignment="Left" Width="300">
+                        <Label Content="Suchresultate:" FontWeight="Bold"></Label>
+                        <ListBox x:Name="searchresult" ItemsSource="{Binding Path=Aggregator.SearchResult}" Height="Auto" SelectedIndex="0"
+                                 Margin="0,0,-98,0" VerticalAlignment="Top" Width="200" HorizontalAlignment="Left" SelectedItem="{Binding Aggregator.SelectedResult}">
+                            <ListBox.ItemTemplate>
+                                <DataTemplate>
+                                    <TextBlock Text="{Binding Name}"/>
+                                </DataTemplate>
+                            </ListBox.ItemTemplate>
+                        </ListBox>
+                        <mui:ModernButton Content="hinzufügen" Command="{Binding AddFriend, Mode=OneWay}" Margin="0,10">
                         </mui:ModernButton>
                     </StackPanel>
                 </Grid>
-                <mui:ModernButton Content="Freund Hinzufügen" Margin="0,10">
-                </mui:ModernButton>
+                
             </StackPanel>
         </ScrollViewer>
     </Grid>

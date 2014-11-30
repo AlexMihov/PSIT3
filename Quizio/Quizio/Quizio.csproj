@@ -27,6 +27,8 @@
     <IsWebBootstrapper>false</IsWebBootstrapper>
     <UseApplicationTrust>false</UseApplicationTrust>
     <BootstrapperEnabled>true</BootstrapperEnabled>
+    <SolutionDir Condition="$(SolutionDir) == '' Or $(SolutionDir) == '*Undefined*'">..\</SolutionDir>
+    <RestorePackages>true</RestorePackages>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -56,16 +58,16 @@
       <HintPath>..\packages\Prism.Interactivity.5.0.0\lib\NET45\Microsoft.Practices.Prism.Interactivity.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.Practices.Prism.Mvvm">
-      <HintPath>..\packages\Prism.Mvvm.1.0.0\lib\net45\Microsoft.Practices.Prism.Mvvm.dll</HintPath>
+      <HintPath>..\packages\Prism.Mvvm.1.1.1\lib\net45\Microsoft.Practices.Prism.Mvvm.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.Practices.Prism.Mvvm.Desktop">
-      <HintPath>..\packages\Prism.Mvvm.1.0.0\lib\net45\Microsoft.Practices.Prism.Mvvm.Desktop.dll</HintPath>
+      <HintPath>..\packages\Prism.Mvvm.1.1.1\lib\net45\Microsoft.Practices.Prism.Mvvm.Desktop.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.Practices.Prism.PubSubEvents">
-      <HintPath>..\packages\Prism.PubSubEvents.1.0.0\lib\portable-sl4+wp7+windows8+net40\Microsoft.Practices.Prism.PubSubEvents.dll</HintPath>
+      <HintPath>..\packages\Prism.PubSubEvents.1.1.2\lib\portable-sl5+windowsphone8+windows8+net40+wpa81\Microsoft.Practices.Prism.PubSubEvents.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.Practices.Prism.SharedInterfaces">
-      <HintPath>..\packages\Prism.Mvvm.1.0.0\lib\net45\Microsoft.Practices.Prism.SharedInterfaces.dll</HintPath>
+      <HintPath>..\packages\Prism.Mvvm.1.1.1\lib\net45\Microsoft.Practices.Prism.SharedInterfaces.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.Practices.ServiceLocation">
       <HintPath>..\packages\CommonServiceLocator.1.2\lib\portable-windows8+net40+sl5+windowsphone8\Microsoft.Practices.ServiceLocation.dll</HintPath>
@@ -76,6 +78,7 @@
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
+    <Reference Include="System.Web" />
     <Reference Include="System.Xml" />
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Core" />
@@ -100,30 +103,30 @@
     <Compile Include="Models\Answer.cs" />
     <Compile Include="Models\Category.cs" />
     <Compile Include="Models\Friend.cs" />
+    <Compile Include="Models\Game.cs" />
+    <Compile Include="Models\ModelAggregator.cs" />
     <Compile Include="Models\Notification.cs" />
     <Compile Include="Models\Question.cs" />
     <Compile Include="Models\Quiz.cs" />
     <Compile Include="Models\Ranking.cs" />
     <Compile Include="Models\User.cs" />
+    <Compile Include="Models\UserInput.cs" />
+    <Compile Include="Utilities\CategoryDAO.cs" />
+    <Compile Include="Utilities\UserDAO.cs" />
+    <Compile Include="Utilities\NotificationDAO.cs" />
+    <Compile Include="Utilities\QuestionDAO.cs" />
+    <Compile Include="Utilities\RankingDAO.cs" />
+    <Compile Include="ViewModels\FriendViewModel.cs" />
+    <Compile Include="ViewModels\HomeViewModel.cs" />
     <Compile Include="ViewModels\MainViewModel.cs" />
+    <Compile Include="ViewModels\ProfileViewModel.cs" />
+    <Compile Include="ViewModels\RankingViewModel.cs" />
     <Compile Include="ViewModels\RegularGameViewModel.cs" />
-<<<<<<< HEAD
-=======
-<<<<<<< Updated upstream
-    <Compile Include="ViewModels\SoloGamePlayViewModel.cs" />
-    <Compile Include="ViewModels\SoloGameResultViewModel.cs" />
-=======
->>>>>>> Stashed changes
->>>>>>> 925372401c3fb132665a76daad52bb52bc22e7b1
     <Compile Include="ViewModels\SoloGameViewModel.cs" />
     <Compile Include="Views\Dialogs\Login.xaml.cs">
       <DependentUpon>Login.xaml</DependentUpon>
     </Compile>
     <Compile Include="Utilities\REST.cs" />
-<<<<<<< HEAD
-=======
-<<<<<<< Updated upstream
-    <Compile Include="ViewModels\IPageViewModel.cs" />
     <Compile Include="Views\SoloGame\SoloGamePlay.xaml.cs">
       <DependentUpon>SoloGamePlay.xaml</DependentUpon>
     </Compile>
@@ -132,17 +135,6 @@
     </Compile>
     <Compile Include="Views\SoloGame\SoloGameWindow.xaml.cs">
       <DependentUpon>SoloGameWindow.xaml</DependentUpon>
-=======
->>>>>>> 925372401c3fb132665a76daad52bb52bc22e7b1
-    <Compile Include="Views\SoloGame\SoloGameWindow.xaml.cs">
-      <DependentUpon>SoloGameWindow.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Views\SoloGame\SoloQuizGame.xaml.cs">
-      <DependentUpon>SoloQuizGame.xaml</DependentUpon>
-<<<<<<< HEAD
-=======
->>>>>>> Stashed changes
->>>>>>> 925372401c3fb132665a76daad52bb52bc22e7b1
     </Compile>
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
@@ -221,9 +213,6 @@
       <DependentUpon>SettingsPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
-<<<<<<< HEAD
-=======
-<<<<<<< Updated upstream
     <Page Include="Views\SoloGame\SoloGamePlay.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -233,30 +222,17 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\SoloGame\SoloGameWindow.xaml">
-=======
->>>>>>> 925372401c3fb132665a76daad52bb52bc22e7b1
-    <Page Include="Views\SoloGame\SoloGameWindow.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Views\SoloGame\SoloQuizGame.xaml">
-<<<<<<< HEAD
-=======
->>>>>>> Stashed changes
->>>>>>> 925372401c3fb132665a76daad52bb52bc22e7b1
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
   </ItemGroup>
   <ItemGroup>
+    <None Include="app.config" />
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Views\MultiplayerGame\" />
   </ItemGroup>
-<<<<<<< HEAD
-=======
-<<<<<<< Updated upstream
   <ItemGroup>
     <BootstrapperPackage Include=".NETFramework,Version=v4.5">
       <Visible>False</Visible>
@@ -274,10 +250,14 @@
       <Install>false</Install>
     </BootstrapperPackage>
   </ItemGroup>
-=======
->>>>>>> Stashed changes
->>>>>>> 925372401c3fb132665a76daad52bb52bc22e7b1
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <Import Project="$(SolutionDir)\.nuget\NuGet.targets" Condition="Exists('$(SolutionDir)\.nuget\NuGet.targets')" />
+  <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
+    <PropertyGroup>
+      <ErrorText>This project references NuGet package(s) that are missing on this computer. Enable NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
+    </PropertyGroup>
+    <Error Condition="!Exists('$(SolutionDir)\.nuget\NuGet.targets')" Text="$([System.String]::Format('$(ErrorText)', '$(SolutionDir)\.nuget\NuGet.targets'))" />
+  </Target>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
   <Target Name="BeforeBuild">

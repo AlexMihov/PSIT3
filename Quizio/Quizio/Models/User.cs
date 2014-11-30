@@ -1,4 +1,6 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using Quizio.Utilities;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -8,52 +10,45 @@ namespace Quizio.Models
 {
     public class User
     {
+        public int Id { get; set; }
+
         public string Username { get; set; }
-<<<<<<< HEAD
 
         public string Location { get; set; }
 
         public string Status { get; set; }
 
-        public IEnumerable<Friend> Friends { get; set; }
-=======
-<<<<<<< Updated upstream
-=======
->>>>>>> 925372401c3fb132665a76daad52bb52bc22e7b1
+        public string Email { get; set; }
 
-        public string Location { get; set; }
+        //public List<Friend> Friends;
 
-        public string Status { get; set; }
-
-        public IEnumerable<Friend> Friends { get; set; }
->>>>>>> Stashed changes
-
-        public string Location { get; set; }
-
-        public string Status { get; set; }
-
-        public List<Friend> Friends { get; set; }
-
-        public User(string username, string loc, string stat, List<Friend> friends)
+        public User()
         {
-            this.Username = username;
-            this.Location = loc;
-            this.Status = stat;
-            this.Friends = friends;
+
         }
 
-        public User(string username, string status, List<Friend> friends)
+        public User(string username)
+        {
+            this.Username = username;
+        }
+
+        public User(string username, string status)
         {
             this.Username = username;
             this.Status = status;
-            this.Friends = friends;
         }
 
-        public User(string username, string status, List<Friend> friends)
+        [JsonConstructor]
+        public User(int id, string name, string status, string location, string email)
         {
-            this.Username = username;
+            this.Id = id;
+            this.Username = name;
             this.Status = status;
-            this.Friends = friends;
+            this.Location = location;
+            this.Email = email;
         }
+
+
+
     }
 }

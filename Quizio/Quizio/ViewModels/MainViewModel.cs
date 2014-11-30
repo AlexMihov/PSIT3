@@ -1,31 +1,25 @@
-﻿using Quizio.Models;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using Microsoft.Practices.Prism.Mvvm;
+using Quizio.Models;
 
 namespace Quizio.ViewModels
 {
-    public class MainViewModel
+    public class MainViewModel : BindableBase
     {
-        public User CurrentUser { get; private set; }
-
-        public IEnumerable<Notification> Notifications { get; set; }
-
-        public IEnumerable<Category> Categories { get; set; }
-
-        public IEnumerable<Ranking> Rankings { get; set; }
-
+        #region hosted ViewModels for integrated Views
         public RegularGameViewModel RegularGameViewModel { get; set; }
+        public ProfileViewModel ProfileViewModel { get; set; }
+        public RankingViewModel RankingViewModel { get; set; }
+        public HomeViewModel HomeViewModel { get; set; }
+        public FriendViewModel FriendViewModel { get; set; }
+        #endregion
 
-        public MainViewModel(User user, List<Category> categories,  List<Notification> notifications, List<Ranking> rankings)
+        public MainViewModel(ModelAggregator aggregator)
         {
-            this.CurrentUser = user;
-            this.Categories = categories;
-            this.Notifications = notifications;
-            this.Rankings = rankings;
-            this.RegularGameViewModel = new RegularGameViewModel(categories);
+            this.RegularGameViewModel = new RegularGameViewModel(aggregator);
+            this.ProfileViewModel = new ProfileViewModel(aggregator);
+            this.RankingViewModel = new RankingViewModel(aggregator);
+            this.HomeViewModel = new HomeViewModel(aggregator);
+            this.FriendViewModel = new FriendViewModel(aggregator);
         }
     }
 }

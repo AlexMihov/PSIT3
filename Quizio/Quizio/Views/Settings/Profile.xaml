@@ -5,7 +5,8 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:mui="http://firstfloorsoftware.com/ModernUI"
              mc:Ignorable="d" 
-             d:DesignHeight="300" d:DesignWidth="300">
+             d:DesignHeight="300" d:DesignWidth="300"
+             DataContext="{Binding ProfileViewModel}">
     <Grid>
         <ScrollViewer>
             <StackPanel MinWidth="200">
@@ -22,12 +23,12 @@
                         <ColumnDefinition></ColumnDefinition>
                     </Grid.ColumnDefinitions>
                     <Label Grid.Row="0" Grid.Column="0"  Content="Name" FontWeight="Bold" Margin="0,20"></Label>
-                    <TextBox Grid.Row="0" Grid.Column="1" Text="{Binding CurrentUser.Username, Mode=TwoWay}"  Margin="0,20"/>
+                    <TextBox Grid.Row="0" Grid.Column="1" Text="{Binding Aggregator.User.Username, Mode=TwoWay}"  Margin="0,20"/>
                     <Label Grid.Row="1" Grid.Column="0"  Content="Location" FontWeight="Bold" Margin="0,20"></Label>
-                    <TextBox Grid.Row="1" Grid.Column="1" Text="{Binding CurrentUser.Location, Mode=TwoWay}"  Margin="0,20"/>
+                    <TextBox Grid.Row="1" Grid.Column="1" Text="{Binding Aggregator.User.Location, Mode=TwoWay}"  Margin="0,20"/>
                     <Label Grid.Row="2" Grid.Column="0"  Content="Status" FontWeight="Bold"  Margin="0,20"></Label>
-                    <TextBox Grid.Row="2" Grid.Column="1" Text="{Binding CurrentUser.Status, Mode=TwoWay}"  Margin="0,20"/>
-                    <mui:ModernButton Grid.Row="3" Grid.Column="0" Content="Speichern" Margin="0,20"/>
+                    <TextBox Grid.Row="2" Grid.Column="1" Text="{Binding Aggregator.User.Status, Mode=TwoWay}"  Margin="0,20"/>
+                    <mui:ModernButton Grid.Row="3" Grid.Column="0" Content="Speichern" Command="{Binding UpdateUserSettings}" Margin="0,20"/>
                     <mui:ModernButton Grid.Row="3" Grid.Column="1" Content="Abbrechen" Margin="0,20"/>
                 </Grid>
             </StackPanel>

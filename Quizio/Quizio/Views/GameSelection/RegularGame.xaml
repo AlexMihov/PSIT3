@@ -8,40 +8,51 @@
              xmlns:prism="clr-namespace:Microsoft.Practices.Prism.Mvvm;assembly=Microsoft.Practices.Prism.Mvvm.Desktop"
              x:Class="Quizio.Views.RegularGame"
              mc:Ignorable="d" 
-             d:DesignHeight="300" d:DesignWidth="700" 
+             d:DesignHeight="500" d:DesignWidth="700" 
              DataContext="{Binding RegularGameViewModel}">
-    <Grid>
-        <Grid.RowDefinitions>
-            <RowDefinition Height="Auto" />
-            <RowDefinition Height="Auto" />
-        </Grid.RowDefinitions>
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="Auto" />
-            <ColumnDefinition Width="Auto" />
-        </Grid.ColumnDefinitions>
-        <StackPanel Grid.Column="0" Grid.Row="0" HorizontalAlignment="Left" Height="Auto" VerticalAlignment="Top" Width="300" Margin="10">
-            <TextBlock TextWrapping="Wrap" Text="Bitte wählen Sie eine Kategorie aus:" HorizontalAlignment="Left"/>
-            <ListBox x:Name="categoryList" MaxHeight="300" Height="Auto" ItemsSource="{Binding Categories}" Margin="0,20"
+    <Grid Style="{StaticResource ContentRoot}">
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="Auto" />
+            </Grid.ColumnDefinitions>
+            <StackPanel Grid.Column="0" Grid.Row="0" HorizontalAlignment="Left" Height="Auto" VerticalAlignment="Top" Width="300" Margin="10">
+                <TextBlock TextWrapping="Wrap" Text="Bitte wählen Sie eine Kategorie aus:" HorizontalAlignment="Left"/>
+                <ListBox x:Name="categoryList" MaxHeight="500" Height="Auto" ItemsSource="{Binding Aggregator.Categories}" Margin="0,20"
                          HorizontalAlignment="Left" Width="300" IsEnabled="True">
-                <ListBox.ItemTemplate>
-                    <DataTemplate>
-                        <TextBlock Text="{Binding CategoryName}"/>
-                    </DataTemplate>
-                </ListBox.ItemTemplate>
-            </ListBox>
-        </StackPanel>
-        <StackPanel Grid.Column="1" Grid.Row="0" HorizontalAlignment="Left" Height="Auto" VerticalAlignment="Top" Width="300" Margin="10">
-            <TextBlock TextWrapping="Wrap" Text="Bitte wählen Sie einen Quiz aus:" HorizontalAlignment="Left"/>
-            <ListBox Height="100" ItemsSource="{Binding ElementName=categoryList, Path=SelectedItem.Quizies}" Margin="0,20" 
-                         HorizontalAlignment="Left" Width="300" SelectedItem="{Binding SelectedQuiz}">
-                <ListBox.ItemTemplate>
-                    <DataTemplate>
-                        <TextBlock Text="{Binding QuizName}"/>
-                    </DataTemplate>
-                </ListBox.ItemTemplate>
-            </ListBox>
-        </StackPanel>
-        <mui:ModernButton IsEnabled="True" Grid.Column="0" Grid.Row="1" Content="Spielen" Command="{Binding PlayCommand, Mode=OneWay}" HorizontalAlignment="Center" Margin="0,20" VerticalAlignment="Bottom" Width="75">
-        </mui:ModernButton>
+                    <ListBox.ItemTemplate>
+                        <DataTemplate>
+                            <TextBlock Text="{Binding Name}"/>
+                        </DataTemplate>
+                    </ListBox.ItemTemplate>
+                </ListBox>
+            </StackPanel>
+            <StackPanel Grid.Column="1" Grid.Row="0" HorizontalAlignment="Left" Height="Auto" VerticalAlignment="Top" Width="300" Margin="10">
+                <TextBlock TextWrapping="Wrap" Text="Bitte wählen Sie einen Quiz aus:" HorizontalAlignment="Left"/>
+                <ListBox Height="100" ItemsSource="{Binding ElementName=categoryList, Path=SelectedItem.Quizies}" Margin="0,20" 
+                         HorizontalAlignment="Left" Width="300" SelectedItem="{Binding Aggregator.SelectedQuiz}">
+                    <ListBox.ItemTemplate>
+                        <DataTemplate>
+                            <TextBlock Text="{Binding Title}"/>
+                        </DataTemplate>
+                    </ListBox.ItemTemplate>
+                </ListBox>
+            </StackPanel>
+            <mui:ModernButton IsEnabled="True" Grid.Column="1" Grid.Row="1" Content="Spielen" Command="{Binding PlayCommand, Mode=OneWay}" Margin="0,20" VerticalAlignment="Bottom" Width="Auto"
+                          EllipseDiameter="48" EllipseStrokeThickness="2" IconWidth="30" IconHeight="30" HorizontalAlignment="Right" 
+                          IconData="F1 M 44.3333,19L 57,19L 57,31.6667L 52.25,36.4167L 52.25,27.7083L 34.8333,45.125L 30.875,41.1667L 48.2917,23.75L 39.5833,23.75L 44.3333,19 Z M 19,25.3333L 42.75,25.3333L 38,30.0833L 23.75,30.0833L 23.75,52.25L 45.9167,52.25L 45.9167,38L 50.6667,33.25L 50.6667,57L 19,57L 19,25.3333 Z">
+            </mui:ModernButton>
+        </Grid>
+        <mui:ModernProgressRing Width="50" Height="50" IsEnabled="True" IsActive="{Binding ShowOrHide}" VerticalAlignment="Bottom" HorizontalAlignment="Center">
+        </mui:ModernProgressRing>
+        <TextBlock Visibility="{Binding ShowCountDown}" VerticalAlignment="Bottom" HorizontalAlignment="Center">
+            <Run Text="Spiel beginnt in "></Run>
+            <Run Text="{Binding TimerTickCountDown}"></Run>
+            <Run Text="... mach dich bereit!"></Run>
+        </TextBlock>
     </Grid>
 </UserControl>
