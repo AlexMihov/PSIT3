@@ -33,6 +33,27 @@ namespace Quizio
             return JSON;
         }
 
+        public static string put(string url, string json)
+        {
+            var request = (HttpWebRequest)WebRequest.Create(url);
+            request.ContentType = "application/json";
+            request.Method = "PUT";
+            request.CookieContainer = cookieContainer;
+
+            using (var streamWriter = new StreamWriter(request.GetRequestStream()))
+            {
+                streamWriter.Write(json);
+            }
+
+            var response = (HttpWebResponse)request.GetResponse();
+            using (var streamReader = new StreamReader(response.GetResponseStream()))
+            {
+                string result = streamReader.ReadToEnd();
+                return result;
+            }
+        }
+
+        /*
         public static void put(string url)
         {
             WebRequest wrPutURL = WebRequest.Create(url);
@@ -50,7 +71,7 @@ namespace Quizio
                     JSON += sLine;
             }
             //return JSON; only if check for affected Rows
-        }
+        }*/
 
         public static string postLogin(string url, string username, string password) {
 
@@ -151,6 +172,7 @@ namespace Quizio
             var request = (HttpWebRequest)WebRequest.Create(url);
             request.ContentType = "application/json";
             request.Method = "POST";
+            request.CookieContainer = cookieContainer;
 
             using (var streamWriter = new StreamWriter(request.GetRequestStream()))
             {
@@ -170,6 +192,7 @@ namespace Quizio
             var request = (HttpWebRequest)WebRequest.Create(url);
             request.ContentType = "application/json";
             request.Method = "DELETE";
+            request.CookieContainer = cookieContainer;
 
             using (var streamWriter = new StreamWriter(request.GetRequestStream()))
             {

@@ -336,10 +336,11 @@ passport.deserializeUser(function(user, done) {
  });
 
 
- router.put('/updateRanking/:id/:toAdd', function(req, res) {
+ router.put('/ranking', function(req, res) {
      printLogStart("updating ranking data", req);
-     var playerID = req.params.id;
-     var toAdd = req.params.toAdd | 0;
+     var playerID = req.user.id;
+     var toAdd = req.body.toAdd | 0;
+     console.log("Player: ", playerID);
 
      var sqlSelect = "SELECT points FROM ranking WHERE player_id = " + connection.escape(playerID);
 

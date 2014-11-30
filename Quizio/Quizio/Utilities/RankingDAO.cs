@@ -24,8 +24,9 @@ namespace Quizio.Utilities
 
         public void updateRanking(User fromUser, int pointsToAdd)
         {
-            string putReq = REST.APIURL + "/updateRanking/" + fromUser.Id + "/" + pointsToAdd;
-            REST.put(putReq);
+            string putReq = REST.APIURL + "/ranking";
+            string json = "{\"toAdd\":" + pointsToAdd + "}";
+            REST.put(putReq, json);
         }
     }
 }
