@@ -8,7 +8,7 @@ namespace Quizio.Models
     public class Answer
     {
         /// <summary>
-        /// Gets or sets the id that a question has in the database.
+        /// Gets or sets the id that an answer has in the database.
         /// </summary>
         public int Id { get; set; }
 
