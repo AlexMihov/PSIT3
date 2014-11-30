@@ -105,7 +105,7 @@ passport.deserializeUser(function(user, done) {
 
  });
 
-   router.get('/player/by-name/:playername', isLoggedIn,function(req, res) {
+   router.get('/player/by-name/:playername', function(req, res) {
      printLogStart("get player by name", req);
      var name = "%" + req.params.playername + "%";
 
@@ -124,7 +124,7 @@ passport.deserializeUser(function(user, done) {
 
  });
 
-  router.get('/getCategories', function(req, res) {
+  router.get('/categories', function(req, res) {
      printLogStart("get categories", req);
 
      connection.query('SELECT category_id as id, name, description FROM category', function(err, rows, fields) {
@@ -189,14 +189,14 @@ passport.deserializeUser(function(user, done) {
   });
 
 
-  router.get('/friends/:userID', function(req,res){
+  router.get('/friends', function(req,res){
     printLogStart("get friends for user " + req.params.userID, req);
 
     var sql = 'SELECT  p.player_id as Id, p.name, p.origin as location, p.status ' +
               'FROM friend f ' +
               'INNER JOIN player p ' +
               'ON (p.player_id = f.player_friend_id) ' +
-              'WHERE f.player_player_id = ' + connection.escape(req.params.userID);
+              'WHERE f.player_player_id = ' + connection.escape(req.user.id);
 
     connection.query(sql, function(err, rows, fields){
       if(err) throw err;
@@ -205,7 +205,7 @@ passport.deserializeUser(function(user, done) {
     });
   });
 
-	router.get('/getRankings', function(req, res) {
+	router.get('/rankings', function(req, res) {
 		printLogStart("get rankings", req);
 
 		connection.query('SELECT x.name as name, y.points as points '+
@@ -226,8 +226,8 @@ passport.deserializeUser(function(user, done) {
 
 	});
 
-	router.get('/getNotifications/:userID', function(req,res){
-    printLogStart("get notifications for user " + req.params.userID, req);
+	router.get('/notifications', function(req,res){
+    printLogStart("get notifications for user", req);
     var sql = 	'SELECT p2.name AS FromFriend , n.message AS Message '+
     			'FROM player p '+
     			'JOIN friend f '+
@@ -236,7 +236,7 @@ passport.deserializeUser(function(user, done) {
     			'ON f.player_friend_id = p2.player_id '+
     			'JOIN notification n '+
     			'ON p2.player_id = n.player_player_id '+
-    			'WHERE p.player_id ='+connection.escape(req.params.userID)+
+    			'WHERE p.player_id ='+connection.escape(req.user.id)+
     			' ORDER BY n.date DESC LIMIT 10';
 
     connection.query(sql, function(err, rows, fields){
@@ -259,7 +259,7 @@ passport.deserializeUser(function(user, done) {
   */
 
 
- router.post('/insertPlayer', function(req, res) {
+ router.post('/player', function(req, res) {
      printLogStart("insert player", req);
      var playerName = req.body.name;
      var playerPW = req.body.password;
@@ -281,7 +281,7 @@ passport.deserializeUser(function(user, done) {
 
   router.post('/friend', function(req, res) {
     printLogStart("insert friend", req);
-    var playerId = parseInt(req.body.playerId, 10);
+    var playerId = req.user.id;
     var friendId = parseInt(req.body.friendId, 10);
 
     console.log(req.body);
@@ -318,7 +318,7 @@ passport.deserializeUser(function(user, done) {
   *
   */
 
- router.put('/updatePlayer/:id', function(req, res) {
+ router.put('/player/:id', function(req, res) {
      printLogStart("updating player data", req);
      var playerID = req.params.id;
      var sql = "UPDATE player SET name = 'Hans' WHERE questionID =" + connection.escape(playerID);
@@ -369,7 +369,7 @@ passport.deserializeUser(function(user, done) {
 
   router.delete('/friend', function(req, res) {
     printLogStart("delte friend data", req);
-    var playerId = parseInt(req.body.playerId, 10);
+    var playerId = req.user.id;
     var friendId = parseInt(req.body.friendId, 10);
 
     var sql = "DELETE FROM friend " + 

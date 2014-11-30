@@ -21,7 +21,7 @@ namespace Quizio.Utilities
 
         public List<Category> loadCategories()
         {
-            string getReq = REST.APIURL + "/getCategories";
+            string getReq = REST.APIURL + "/categories";
             string json = REST.get(getReq);
             /*
             string json = @"[{

@@ -16,7 +16,7 @@ namespace Quizio.Utilities
         }
         public List<Notification> loadNotifications(int UserID)
         {
-            string getReq = REST.APIURL + "/getNotifications/"+ UserID;
+            string getReq = REST.APIURL + "/notifications";
             string json = REST.get(getReq);
             List<Notification> notifications = JsonConvert.DeserializeObject<List<Notification>>(json);
             return notifications;

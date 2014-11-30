@@ -154,13 +154,13 @@ namespace Quizio.Models
         
         public void addFriend()
         { 
-            userDao.addNewFriend(User.Id, SelectedResult.Id);
+            userDao.addNewFriend(SelectedResult.Id);
             Friends.Add(SelectedResult);
         }
 
         public void deleteFriend()
         {
-            userDao.deleteFriend(User.Id, SelectedFriend.Id);
+            userDao.deleteFriend(SelectedFriend.Id);
             Friends.Remove(SelectedFriend);
         }
 

@@ -16,7 +16,7 @@ namespace Quizio.Utilities
         }
 
         public List<Ranking> loadRankings(){
-            string getReq = REST.APIURL + "/getRankings";
+            string getReq = REST.APIURL + "/rankings";
             string json = REST.get(getReq);
             List<Ranking> rankings = JsonConvert.DeserializeObject<List<Ranking>>(json);
             return rankings;
