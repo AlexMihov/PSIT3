@@ -44,11 +44,7 @@ passport.deserializeUser(function(user, done) {
   done(null, user);
 });
 
-
- //app.use('/', express.static(__dirname));
-
- //mysql configuration
-
+//mysql configuration
  var connection = mysql.createConnection(config.db);
 
  connection.connect();
@@ -107,16 +103,21 @@ passport.deserializeUser(function(user, done) {
 
    router.get('/player/by-name/:playername', function(req, res) {
      printLogStart("get player by name", req);
-     var name = "%" + req.params.playername + "%";
+     var input = [req.user.id, "%" + req.params.playername + "%", req.user.id];
 
-     console.log("hahaha:", req.user);
-     console.log(req.session);
+     console.log("hahaha:", input);
 
      var sql = "SELECT player_id as id, name, origin as location, status " +
                  "FROM player " +
-                "WHERE name LIKE ?";
+                "WHERE player_id != ? " +
+                  "AND name LIKE ? " +
+                  "AND player_id NOT IN ("+
+                      "SELECT p.player_id " +
+                        "FROM friend f " +
+                  "INNER JOIN player p ON (p.player_id = f.player_friend_id)" +
+                       "WHERE f.player_player_id = ?)";
 
-     connection.query(sql, [name], function(err, rows, fields) {
+     connection.query(sql, input, function(err, rows, fields) {
          if (err) throw err;
          res.json(rows);
          printLogSuccess("Plyers successfully fetched");
