@@ -166,13 +166,13 @@ namespace Quizio.ViewModels
 
             if (!CurrentQuestion.checkAnswer(answerText))
             {
-                this.FalseUserInputs.Add(new UserInput(CurrentQuestion.QuestionString,
+                this.FalseUserInputs.Add(new UserInput(CurrentQuestion,
                     CurrentQuestion.GetAnswerByText(answerText), CurrentQuestion.GetCorrectAnswer()));
             }
             else
             {
                 Answer ans = CurrentQuestion.GetCorrectAnswer();
-                this.CorrectUserInputs.Add(new UserInput(CurrentQuestion.QuestionString, ans, ans));
+                this.CorrectUserInputs.Add(new UserInput(CurrentQuestion, ans, ans));
             }
 
             myTimer.Stop();
@@ -212,7 +212,7 @@ namespace Quizio.ViewModels
 
                 Answer timedOutAnswer = new Answer("Timeout", false);
                 Answer ans = CurrentQuestion.GetCorrectAnswer();
-                UserInput timedOutInput = new UserInput(CurrentQuestion.QuestionString, timedOutAnswer, ans);
+                UserInput timedOutInput = new UserInput(CurrentQuestion, timedOutAnswer, CurrentQuestion.GetCorrectAnswer());
                 TimedOutUserInputs.Add(timedOutInput);
 
                 this.QuestionsDone++;

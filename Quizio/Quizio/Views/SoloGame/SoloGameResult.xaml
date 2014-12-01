@@ -33,7 +33,7 @@
                                 </Grid.ColumnDefinitions>
                                 <TextBlock  Grid.Column="0" Grid.Row="0" TextWrapping="Wrap" HorizontalAlignment="Left">
                                         <Run Text="Frage: "></Run>
-                                        <Run Text="{Binding QuestionText}"></Run>
+                                        <Run Text="{Binding Question.QuestionString}"></Run>
                                 </TextBlock>
                                 <TextBlock Grid.Column="0" Grid.Row="1" HorizontalAlignment="Left">
                                         <Run Text="Korrekte Antwort: "></Run>
