@@ -114,11 +114,6 @@ namespace Quizio.Models
             Categories = catDao.loadCategories();
         }
 
-        public void reloadRankings()
-        {
-            Rankings = rankingDao.loadRankings();
-        }
-
         public Game loadGameData()
         {
             Game newGame = new Game();
@@ -126,6 +121,13 @@ namespace Quizio.Models
             newGame.loadGameData(SelectedQuiz);
             return newGame;
         }
+
+        #region related to HomeViewModel
+        public void reloadHomeData()
+        {
+            Notifications = natDao.loadNotifications(User.Id);
+        }
+        #endregion
 
         #region related to ProfileViewModel
         public void updateUserSettings()
@@ -144,12 +146,31 @@ namespace Quizio.Models
         {
             Rankings = rankingDao.loadRankings();
         }
+
+        public void reloadRankings()
+        {
+            var rankings = rankingDao.loadRankings();
+            if (!rankings.Equals(Rankings))
+            {
+                Rankings = rankings;
+            }
+        }
         #endregion
 
         #region related to FriendViewModel
         public void loadFriends()
         {
             Friends = userDao.loadFriends(User.Id);
+            SelectedFriend = Friends.FirstOrDefault();
+        }
+
+        public void reloadFriendData()
+        {
+            var friends = userDao.loadFriends(User.Id);
+            if (!friends.Equals(Friends))
+            {
+                Friends = friends;
+            }
             SelectedFriend = Friends.FirstOrDefault();
         }
         
@@ -167,8 +188,6 @@ namespace Quizio.Models
         {
             SearchResult = userDao.searchFriends(FriendSearch);
         }
-        
-        
         #endregion
 
     }

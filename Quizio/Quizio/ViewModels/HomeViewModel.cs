@@ -30,11 +30,11 @@ namespace Quizio.ViewModels
         {
             try
             {
-                Aggregator.loadData();
+                Aggregator.reloadHomeData();
             }
             catch (Exception ex)
             {
-                ModernDialog.ShowMessage(ex.Message, "Fehler mit der Verbingung!", System.Windows.MessageBoxButton.OK);
+                ModernDialog.ShowMessage(ex.Message, "Verbingungsproblem!", System.Windows.MessageBoxButton.OK);
             }
         }
 

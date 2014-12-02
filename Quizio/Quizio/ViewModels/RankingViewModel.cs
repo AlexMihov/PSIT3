@@ -15,15 +15,6 @@ namespace Quizio.ViewModels
 {
     public class RankingViewModel : BindableBase
     {
-        private bool _showOrHide;
-        public bool ShowOrHide
-        {
-            get { return this._showOrHide; }
-            set { SetProperty(ref this._showOrHide, value); }
-        }
-
-        public ICommand ReloadRankings { get; set; }
-
         public ModelAggregator Aggregator { get; set; }
 
         private BackgroundWorker bw;
@@ -31,18 +22,13 @@ namespace Quizio.ViewModels
         public RankingViewModel(ModelAggregator aggregator)
         {
             this.Aggregator = aggregator;
-            this.ShowOrHide = false;
 
             bw = new BackgroundWorker();
             bw.DoWork += new DoWorkEventHandler(bw_DoWork);
-            bw.RunWorkerCompleted += new RunWorkerCompletedEventHandler(bw_RunWorkerCompleted);
-
-            this.ReloadRankings = new DelegateCommand(reloadRankings);
         }
 
-        private void reloadRankings()
+        public void ReloadRankings()
         {
-            ShowOrHide = true;
             if (!bw.IsBusy)
             {
                 bw.RunWorkerAsync();
@@ -55,24 +41,13 @@ namespace Quizio.ViewModels
             try
             {
                 if(!worker.CancellationPending){
-                    Aggregator.loadRankings();
+                    Aggregator.reloadRankings();
                 }
             }
             catch (Exception ex)
             {
-                e.Result = ex.Message; // e.Result abused as exeption messanger
+                ModernDialog.ShowMessage(ex.Message, "Verbindungsproblem!", MessageBoxButton.OK);
             }
         }
-
-        private void bw_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
-        {
-            this.ShowOrHide = false;
-
-            if (!(e.Result == null))
-            {
-                ModernDialog.ShowMessage(e.Result as string, "Error", MessageBoxButton.OK);
-            }
-        }
-
     }
 }

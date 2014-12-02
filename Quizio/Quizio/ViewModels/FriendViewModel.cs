@@ -31,6 +31,7 @@ namespace Quizio.ViewModels
         private BackgroundWorker bwDelete;
         private BackgroundWorker bwSearch;
         private BackgroundWorker bwAdd;
+        private BackgroundWorker bwReloadData;
 
         public FriendViewModel(ModelAggregator aggregator)
         {
@@ -43,6 +44,9 @@ namespace Quizio.ViewModels
             {
                 this.ShowFriend = Visibility.Visible;
             }
+
+            bwReloadData = new BackgroundWorker();
+            bwReloadData.DoWork += bwReloadData_DoWork;
             
             bwDelete = new BackgroundWorker();
             bwDelete.DoWork += new DoWorkEventHandler(bwDelete_DoWork);
@@ -75,6 +79,18 @@ namespace Quizio.ViewModels
             if (!(e.Result == null))
             {
                 ModernDialog.ShowMessage(e.Result as string, "Error", MessageBoxButton.OK);
+            }
+        }
+
+        private void bwReloadData_DoWork(object sender, DoWorkEventArgs e)
+        {
+            try
+            {
+                Aggregator.reloadFriendData();
+            }
+            catch (Exception ex)
+            {
+                ModernDialog.ShowMessage(ex.Message, "Verbindungsfehler!", MessageBoxButton.OK);
             }
         }
 
@@ -184,6 +200,11 @@ namespace Quizio.ViewModels
             }
             
             
+        }
+
+        internal void ReloadFriendData()
+        {
+            bwReloadData.RunWorkerAsync();
         }
     }
 }
