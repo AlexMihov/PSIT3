@@ -1,20 +1,9 @@
 ﻿using FirstFloor.ModernUI.Windows.Controls;
 using Quizio.Utilities;
 using System;
-using System.Collections.Generic;
 using System.ComponentModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 
 namespace Quizio.Views.Dialogs
 {
@@ -24,6 +13,11 @@ namespace Quizio.Views.Dialogs
     public partial class Register : ModernDialog
     {
         private BackgroundWorker bw;
+        private string nameText;
+        private string emailText;
+        private string passwordText;
+        private string statusText;
+        private string originText;
 
         public bool registered { get; private set; }
 
@@ -52,7 +46,7 @@ namespace Quizio.Views.Dialogs
                 try
                 {
                     UserDAO userDao = new UserDAO();
-                    userDao.registerUser(userName.Text, password.Password, status.Text, region.Text);
+                    userDao.registerUser(nameText, passwordText, emailText, statusText, originText);
                 }
                 catch (InvalidOperationException) // special execption throw if username exists
                 {
@@ -96,9 +90,22 @@ namespace Quizio.Views.Dialogs
             {
                 if (!userName.Text.Equals(""))
                 {
-                    if (!bw.IsBusy)
+                    if(!email.Text.Equals(""))
                     {
-                        bw.RunWorkerAsync();
+                        nameText = userName.Text;
+                        passwordText = password.Password;
+                        emailText = email.Text;
+                        statusText = status.Text;
+                        originText = region.Text;
+                        if (!bw.IsBusy)
+                        {
+                            bw.RunWorkerAsync();
+                        }
+                    }
+                    else
+                    {
+                        this.loading.Visibility = System.Windows.Visibility.Hidden;
+                        ModernDialog.ShowMessage("Bitte gib eine gültige Email-Adresse an!", "Hinweis", MessageBoxButton.OK);
                     }
                 }
                 else

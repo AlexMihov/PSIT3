@@ -71,9 +71,12 @@ namespace Quizio.Utilities
             Console.WriteLine(pw);
         }
 
-        public void registerUser(string username, string password, string status, string region)
+        public void registerUser(string username, string password, string email, string status, string region)
         {
-            throw new NotImplementedException();
+            string req = REST.APIURL + "/player";
+            string json = "{ \"name\":\"" + username + "\", \"password\": \"" + password + "\", \"email\":\"" + email + "\", \"status\": \"" + status + "\", \"origin\":\"" + region + "\"}";
+
+            string response = REST.post(req, json);
         }
 
         internal void logOut()

@@ -260,25 +260,34 @@ passport.deserializeUser(function(user, done) {
   */
 
 
- router.post('/player', function(req, res) {
-     printLogStart("insert player", req);
-     var playerName = req.body.name;
-     var playerPW = req.body.password;
-     var playerEmail = req.body.email;
-     var playerOrigin = req.body.origin;
+router.post('/player', function(req, res) {
+  printLogStart("insert player", req);
+  console.log(req);
+  var input = [req.body.name, req.body.password, req.body.email, req.body.status ,req.body.origin];
 
-     var sql = "INSERT INTO player  ('player_id', 'name', 'password', 'email', 'origin')" +
-                    "VALUES (null, " + connection.escape(playerName) + ", " + connection.escape(playerPW) + ", " + connection.escape(playerEmail) + ", " + connection.escape(playerOrigin) +")";
+  console.log("query input data: ", input);
 
-     connection.query(sql, function(err, rows, fields) {
-         if (err) throw err;
-         res.json({
-             status: "OK",
-             affectedRows: rows.affectedRows,
-         });
-         printLogSuccess("player successfully added");
-     });
- });
+  var sql = "INSERT INTO player  (name, password, email, status ,origin)" +
+                 " VALUES (?, ?, ?, ?, ?)";
+
+  console.log("QUery: ", sql);
+
+  connection.query(sql, input, function(err, rows, fields) {
+    if(err) {
+        if (err.code == 'ER_DUP_ENTRY') {
+          console.log(err);
+          res.status(409).send({error: "There is already a player with this name!"});
+          err = null;
+        } else throw err;
+    } else {
+      res.json({
+      status: "OK",
+      affectedRows: rows.affectedRows,
+      });
+      printLogSuccess("player successfully added");
+    }
+  });
+});
 
   router.post('/friend', function(req, res) {
     printLogStart("insert friend", req);
@@ -389,6 +398,31 @@ passport.deserializeUser(function(user, done) {
       printLogSuccess("friend successfully deleted");
     });
   });
+
+router.delete('/player', function(req, res) {
+  printLogStart("delete player", req);
+
+  var input = [req.body.name];
+
+    var sql = "DELETE FROM player " + 
+                    "WHERE name = ? ";
+
+  connection.query(sql, input, function(err, rows, fields) {
+    if(err) {
+        if (err.code == 'ER_DUP_ENTRY') {
+          console.log(err);
+          res.status(409).send({error: "There is already a player with this name!"});
+          err = null;
+        } else throw err;
+    } else {
+      res.json({
+      status: "OK",
+      affectedRows: rows.affectedRows,
+      });
+      printLogSuccess("player successfully deleted");
+    }
+  });
+});
 
 
  // REGISTER OUR ROUTES -------------------------------
