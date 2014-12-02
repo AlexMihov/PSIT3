@@ -44,9 +44,9 @@ request({
   });
 */
 var reqPostPlayer = 'http://localhost:10300/player';
-var json = {'name': 'adamriese', 'password': 'test', 'email':'adam.riese@gmail.com','status': 'Did you know ...?', 'origin':'Zürich'};
+var json = {'name': 'test', 'password': 'test', 'email':'adam.riese@gmail.com','status': 'Did you know ...?', 'origin':'Zürich'};
 request({
-  method: 'POST',
+  method: 'DELETE',
   url: reqPostPlayer,
   json: json
   },

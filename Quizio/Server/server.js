@@ -12,10 +12,11 @@
    bodyParser = require('body-parser'),
    mysql = require('mysql'),
    async = require('async'),
-   config = require('./config');
-   session = require('express-session')
-   morgan = require('morgan')
-   cookieParser = require('cookie-parser');
+   config = require('./config'),
+   session = require('express-session'),
+   morgan = require('morgan'),
+   cookieParser = require('cookie-parser'),
+   crypto = require("crypto");
 
 var passport = require('passport')
   , LocalStrategy = require('passport-local').Strategy;
@@ -54,13 +55,18 @@ passport.deserializeUser(function(user, done) {
 
   passport.use(new LocalStrategy(
     function(username, password, done) {
-
+        var sha256 = crypto.createHash("sha256");
+        sha256.update(password, "utf8");
+        var hashed = sha256.digest("base64");
       connection.query('SELECT player_id, name, password, email, origin, status FROM player WHERE name= ' + connection.escape(username), function(err, rows, fields) {
         if (err) { return done(err); }
+
         if (rows[0] == null) {
           return done(null, false, { message: 'Incorrect username.' });
         }
-        if (password !== rows[0].password) {
+        if (hashed !== rows[0].password) {
+          console.log(hashed);
+          console.log(rows[0].password);
           return done(null, false, { message: 'Incorrect password.' });
         }
         return done(null, {id: rows[0].player_id, 
@@ -79,6 +85,10 @@ passport.deserializeUser(function(user, done) {
 
   app.use('/loginsucces', function(req, res){
     res.json(req.user);
+  });
+
+  app.get('/logout', function(req, res) {
+      req.logout();
   });
 
  /***
@@ -262,31 +272,33 @@ passport.deserializeUser(function(user, done) {
 
 router.post('/player', function(req, res) {
   printLogStart("insert player", req);
-  console.log(req);
-  var input = [req.body.name, req.body.password, req.body.email, req.body.status ,req.body.origin];
-
-  console.log("query input data: ", input);
+  console.log(req.body.password);
+  
+  var sha256 = crypto.createHash("sha256");
+  sha256.update(req.body.password, "utf8");
+  var hashed = sha256.digest("base64");
+  console.log(hashed);
+  var input = [req.body.name, hashed, req.body.email, req.body.status ,req.body.origin];
 
   var sql = "INSERT INTO player  (name, password, email, status ,origin)" +
-                 " VALUES (?, ?, ?, ?, ?)";
+                   " VALUES (?, ?, ?, ?, ?)";
 
-  console.log("QUery: ", sql);
 
   connection.query(sql, input, function(err, rows, fields) {
     if(err) {
-        if (err.code == 'ER_DUP_ENTRY') {
-          console.log(err);
-          res.status(409).send({error: "There is already a player with this name!"});
-          err = null;
-        } else throw err;
+      if (err.code == 'ER_DUP_ENTRY') {
+        console.log(err);
+        res.status(409).send({error: "There is already a player with this name!"});
+        err = null;
+      } else throw err;
     } else {
       res.json({
-      status: "OK",
-      affectedRows: rows.affectedRows,
+        status: "OK",
+        affectedRows: rows.affectedRows,
       });
       printLogSuccess("player successfully added");
     }
-  });
+  });  
 });
 
   router.post('/friend', function(req, res) {

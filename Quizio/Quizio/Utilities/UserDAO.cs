@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
+using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -20,7 +21,7 @@ namespace Quizio.Utilities
         {
             string req = REST.APIURL + "/login";
 
-            string response = REST.postLogin(req, name, password);
+            string response = REST.postLogin(req, name, heschi(password));
 
             if (response == "404" || response == "") return null;
 
@@ -73,10 +74,17 @@ namespace Quizio.Utilities
 
         public void registerUser(string username, string password, string email, string status, string region)
         {
+
             string req = REST.APIURL + "/player";
-            string json = "{ \"name\":\"" + username + "\", \"password\": \"" + password + "\", \"email\":\"" + email + "\", \"status\": \"" + status + "\", \"origin\":\"" + region + "\"}";
+            string json = "{ \"name\":\"" + username + "\", \"password\": \"" + heschi(password) + "\", \"email\":\"" + email + "\", \"status\": \"" + status + "\", \"origin\":\"" + region + "\"}";
 
             string response = REST.post(req, json);
+        }
+
+        private static string heschi(string password){
+            SHA256 sha256 = SHA256Managed.Create(); //utf8 here as well
+            byte[] bytes = sha256.ComputeHash(Encoding.UTF8.GetBytes(password + "dukennschmich"));
+            return Convert.ToBase64String(bytes);
         }
 
         internal void logOut()
