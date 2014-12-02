@@ -107,9 +107,9 @@ namespace Quizio.Models
         {
             loadFriends();
 
-            Notifications = natDao.loadNotifications(User.Id);
+            reloadHomeData();
 
-            Rankings = rankingDao.loadRankings();
+            loadRankings();
 
             Categories = catDao.loadCategories();
         }
@@ -146,31 +146,12 @@ namespace Quizio.Models
         {
             Rankings = rankingDao.loadRankings();
         }
-
-        public void reloadRankings()
-        {
-            var rankings = rankingDao.loadRankings();
-            if (!rankings.Equals(Rankings))
-            {
-                Rankings = rankings;
-            }
-        }
         #endregion
 
         #region related to FriendViewModel
         public void loadFriends()
         {
             Friends = userDao.loadFriends(User.Id);
-            SelectedFriend = Friends.FirstOrDefault();
-        }
-
-        public void reloadFriendData()
-        {
-            var friends = userDao.loadFriends(User.Id);
-            if (!friends.Equals(Friends))
-            {
-                Friends = friends;
-            }
             SelectedFriend = Friends.FirstOrDefault();
         }
         

@@ -41,7 +41,7 @@ namespace Quizio.ViewModels
             try
             {
                 if(!worker.CancellationPending){
-                    Aggregator.reloadRankings();
+                    Aggregator.loadRankings();
                 }
             }
             catch (Exception ex)

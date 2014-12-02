@@ -31,7 +31,6 @@ namespace Quizio.ViewModels
         private BackgroundWorker bwDelete;
         private BackgroundWorker bwSearch;
         private BackgroundWorker bwAdd;
-        private BackgroundWorker bwReloadData;
 
         public FriendViewModel(ModelAggregator aggregator)
         {
@@ -44,9 +43,6 @@ namespace Quizio.ViewModels
             {
                 this.ShowFriend = Visibility.Visible;
             }
-
-            bwReloadData = new BackgroundWorker();
-            bwReloadData.DoWork += bwReloadData_DoWork;
             
             bwDelete = new BackgroundWorker();
             bwDelete.DoWork += new DoWorkEventHandler(bwDelete_DoWork);
@@ -82,18 +78,6 @@ namespace Quizio.ViewModels
             }
         }
 
-        private void bwReloadData_DoWork(object sender, DoWorkEventArgs e)
-        {
-            try
-            {
-                Aggregator.reloadFriendData();
-            }
-            catch (Exception ex)
-            {
-                ModernDialog.ShowMessage(ex.Message, "Verbindungsfehler!", MessageBoxButton.OK);
-            }
-        }
-
         private void bwDelete_DoWork(object sender, DoWorkEventArgs e)
         {
             BackgroundWorker worker = sender as BackgroundWorker;
@@ -106,7 +90,7 @@ namespace Quizio.ViewModels
             }
             catch (Exception ex)
             {
-                e.Result = ex.Message; // e.Result abused as exeption messanger
+                e.Result = ex.Message; // e.Result abused as exception messanger
             }
         }
 
@@ -122,7 +106,7 @@ namespace Quizio.ViewModels
             }
             catch (Exception ex)
             {
-                e.Result = ex.Message; // e.Result abused as exeption messanger
+                e.Result = ex.Message; // e.Result abused as exception messanger
             }
         }
 
@@ -138,7 +122,7 @@ namespace Quizio.ViewModels
             }
             catch (Exception ex)
             {
-                e.Result = ex.Message; // e.Result abused as exeption messanger
+                e.Result = ex.Message; // e.Result abused as exception messanger
             }
         }
 
@@ -198,13 +182,6 @@ namespace Quizio.ViewModels
             {
                 ModernDialog.ShowMessage("Bitte wähle eine Person aus!", "Hinweis", MessageBoxButton.OK);
             }
-            
-            
-        }
-
-        internal void ReloadFriendData()
-        {
-            bwReloadData.RunWorkerAsync();
         }
     }
 }

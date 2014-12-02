@@ -23,32 +23,11 @@ namespace Quizio.Views
     /// <summary>
     /// Interaction logic for Friends.xaml
     /// </summary>
-    public partial class Friends : UserControl, IContent
+    public partial class Friends : UserControl
     {
         public Friends()
         {
             InitializeComponent();
-        }
-
-        public void OnFragmentNavigation(FirstFloor.ModernUI.Windows.Navigation.FragmentNavigationEventArgs e)
-        {
-        }
-
-        public void OnNavigatedFrom(FirstFloor.ModernUI.Windows.Navigation.NavigationEventArgs e)
-        {
-        }
-
-        public void OnNavigatedTo(FirstFloor.ModernUI.Windows.Navigation.NavigationEventArgs e)
-        {
-            FriendViewModel fvm = this.DataContext as FriendViewModel;
-            if (fvm != null)
-            {
-                fvm.ReloadFriendData();
-            }
-        }
-
-        public void OnNavigatingFrom(FirstFloor.ModernUI.Windows.Navigation.NavigatingCancelEventArgs e)
-        {
         }
     }
 }
