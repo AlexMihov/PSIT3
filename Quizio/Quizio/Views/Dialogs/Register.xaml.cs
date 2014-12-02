@@ -15,7 +15,6 @@ namespace Quizio.Views.Dialogs
         private BackgroundWorker bw;
         private string nameText;
         private string emailText;
-        private string passwordText;
         private string statusText;
         private string originText;
 
@@ -46,7 +45,7 @@ namespace Quizio.Views.Dialogs
                 try
                 {
                     UserDAO userDao = new UserDAO();
-                    userDao.registerUser(nameText, passwordText, emailText, statusText, originText);
+                    userDao.registerUser(nameText, password.Password, emailText, statusText, originText);
                 }
                 catch (InvalidOperationException) // special execption throw if username exists
                 {
@@ -93,7 +92,6 @@ namespace Quizio.Views.Dialogs
                     if(!email.Text.Equals(""))
                     {
                         nameText = userName.Text;
-                        passwordText = password.Password;
                         emailText = email.Text;
                         statusText = status.Text;
                         originText = region.Text;
