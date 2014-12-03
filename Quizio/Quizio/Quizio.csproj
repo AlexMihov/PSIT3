@@ -132,7 +132,6 @@
     <Compile Include="Tests\Integrationtests\HomeIntegrationTest.cs" />
     <Compile Include="Tests\Integrationtests\RankingIntegrationTest.cs" />
     <Compile Include="Tests\Integrationtests\RegularGameIntegrationTest.cs" />
-    <Compile Include="Tests\SampleTest.cs" />
     <Compile Include="Utilities\CategoryDAO.cs" />
     <Compile Include="Utilities\UserDAO.cs" />
     <Compile Include="Utilities\NotificationDAO.cs" />

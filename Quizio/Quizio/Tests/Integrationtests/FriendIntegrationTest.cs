@@ -8,7 +8,7 @@ using Quizio.Utilities;
 namespace Quizio.Tests.Integrationtests
 {
     /// <summary>
-    /// The FriendIntegrationTest is used to test Rankings from Aggregator tier to Data Access tier,
+    /// The FriendIntegrationTest is used to test Friends from Aggregator tier to Data Access tier,
     /// the Data Access Layer is mocked.
     /// </summary>
     public class FriendIntegrationTest

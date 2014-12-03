@@ -180,7 +180,7 @@ namespace Quizio.Models
         #endregion
 
         #region related to RegularGameViewModel
-        private void loadCategories()
+        public void loadCategories()
         {
             Categories = catDao.loadCategories();
         }

@@ -19,7 +19,7 @@ namespace Quizio.Tests.Integrationtests
         [Fact]
         public void testLoadRankings()
         {
-            // setup for RankingDaoMock
+            // setup for testLoadRankings
             List<Ranking> rankings = new List<Ranking>();
             rankings.Add(new Ranking(1, "spieler 1", 100));
             rankings.Add(new Ranking(2, "spieler 2", 100));
