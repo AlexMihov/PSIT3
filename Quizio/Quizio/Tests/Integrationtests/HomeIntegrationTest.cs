@@ -4,7 +4,7 @@ using Quizio.Utilities;
 using System.Collections.Generic;
 using Quizio.Models;
 
-namespace Quizio.Tests
+namespace Quizio.Tests.Integrationtests
 {
     /// <summary>
     /// The HomeIntegrationTest is used to test Rankings from Aggregator tier to Data Access tier,
@@ -20,7 +20,7 @@ namespace Quizio.Tests
         public void testLoadNotifications()
         {
             // setup for testLoadNotifications
-            User testUser = new User(1, "test", "teststatus", "Virtual Studio", "test@test.ch");
+            User testUser = new User(1, "test", "teststatus", "Visual Studio", "test@test.ch");
 
             List<Notification> notifications = new List<Notification>();
             notifications.Add(new Notification("testmessage", "test"));
@@ -36,7 +36,7 @@ namespace Quizio.Tests
             // load homeView data from aggregator
             aggregator.reloadHomeData();
 
-            // verify the userid parameter given by aggregator 
+            // verify the userid parameter given by the aggregator 
             // and make sure the method is called once
             notificationDaoMock.Verify(
                 f => f.loadNotifications(

@@ -29,7 +29,7 @@ namespace Quizio.Utilities
             return user;
         }
 
-        public List<Friend> loadFriends(int userId)
+        public virtual List<Friend> loadFriends(int userId)
         {
             string req = REST.APIURL + "/friends";
 

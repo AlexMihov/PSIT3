@@ -4,7 +4,7 @@ using Quizio.Utilities;
 using Quizio.Models;
 using System.Collections.Generic;
 
-namespace Quizio.Tests
+namespace Quizio.Tests.Integrationtests
 {
     /// <summary>
     /// The RankingIntegrationTest is used to test Rankings from Aggregator tier to Data Access tier,
@@ -52,7 +52,7 @@ namespace Quizio.Tests
         public void testRankingUpdate()
         {
             // setup for RankingDaoMock
-            User testUser = new User(1, "test", "teststatus", "Virtual Studio", "test@test.ch");
+            User testUser = new User(1, "test", "teststatus", "Visual Studio", "test@test.ch");
             int pointsToAdd = 100;
 
             var rankingDaoMock = new Mock<RankingDAO>();
