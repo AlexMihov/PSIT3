@@ -27,7 +27,7 @@ namespace Quizio.Tests.Integrationtests
             friends.Add(new Friend(2, "testFriend", "testFriendstatus", "Visual Studio"));
 
             var userDaoMock = new Mock<UserDAO>();
-            userDaoMock.Setup(f => f.loadFriends(It.IsAny<int>())).Returns(friends);
+            userDaoMock.Setup(f => f.loadFriends()).Returns(friends);
 
             UserDAO userDao = userDaoMock.Object;
             ModelAggregator aggregator = new ModelAggregator(null, null, null, userDao);
@@ -43,8 +43,7 @@ namespace Quizio.Tests.Integrationtests
             // verify the userid parameter which is given by the aggregator
             // and make sure the method is called once
             userDaoMock.Verify(
-                f => f.loadFriends(
-                    It.Is<int>(i => i == testUser.Id)),
+                f => f.loadFriends(),
                     Times.Once()
             );
 
