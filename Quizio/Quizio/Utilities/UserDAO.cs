@@ -39,7 +39,7 @@ namespace Quizio.Utilities
             return friends;
         }
 
-        public List<Friend> searchFriends(string name){
+        public virtual List<Friend> searchFriends(string name){
             string req = REST.APIURL + "/player/by-name/" + name;
 
             string response = REST.get(req);
@@ -53,14 +53,14 @@ namespace Quizio.Utilities
             throw new NotImplementedException();
         }
 
-        public void addNewFriend(int friendId)
+        public virtual void addNewFriend(int friendId)
         {
             string req = REST.APIURL + "/friend";
             string json = "{\"friendId\":" + friendId + "}";
             string res = REST.post(req, json);
         }
 
-        public void deleteFriend(int friendId)
+        public virtual void deleteFriend(int friendId)
         {
             string req = REST.APIURL + "/friend";
             string json = "{\"friendId\":" + friendId + "}";
