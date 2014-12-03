@@ -23,7 +23,7 @@
             <StackPanel Grid.Column="0" Grid.Row="0" HorizontalAlignment="Left" Height="Auto" VerticalAlignment="Top" Width="300" Margin="10">
                 <TextBlock TextWrapping="Wrap" Text="Bitte wählen Sie eine Kategorie aus:" HorizontalAlignment="Left"/>
                 <ListBox x:Name="categoryList" MaxHeight="500" Height="Auto" ItemsSource="{Binding Aggregator.Categories}" Margin="0,20"
-                         HorizontalAlignment="Left" Width="300" IsEnabled="True">
+                         HorizontalAlignment="Left" Width="300" IsEnabled="True" SelectedIndex="0">
                     <ListBox.ItemTemplate>
                         <DataTemplate>
                             <TextBlock Text="{Binding Name}"/>
