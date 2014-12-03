@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace Quizio.Utilities
 {
-    class NotificationDAO
+    public class NotificationDAO
     {
         public NotificationDAO()
         {

@@ -8,21 +8,21 @@ using System.Threading.Tasks;
 
 namespace Quizio.Utilities
 {
-    class RankingDAO
+    public class RankingDAO
     {
         public RankingDAO()
         {
             //constructor empty
         }
 
-        public List<Ranking> loadRankings(){
+        public virtual List<Ranking> loadRankings(){
             string getReq = REST.APIURL + "/rankings";
             string json = REST.get(getReq);
             List<Ranking> rankings = JsonConvert.DeserializeObject<List<Ranking>>(json);
             return rankings;
         }
 
-        public void updateRanking(User fromUser, int pointsToAdd)
+        public virtual void updateRanking(User fromUser, int pointsToAdd)
         {
             string putReq = REST.APIURL + "/ranking";
             string json = "{\"toAdd\":" + pointsToAdd + "}";

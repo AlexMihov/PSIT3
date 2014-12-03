@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace Quizio.Utilities
 {
-    class UserDAO
+    public class UserDAO
     {
         public UserDAO()
         {

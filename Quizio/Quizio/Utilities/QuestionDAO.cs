@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace Quizio.Utilities
 {
-    class QuestionDAO
+    public class QuestionDAO
     {
         public List<Question> loadQuestionsOfQuiz(int quizID)
         {

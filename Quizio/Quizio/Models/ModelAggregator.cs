@@ -33,7 +33,7 @@ namespace Quizio.Models
         }
 
         private List<Ranking> _rankings;
-        public List<Ranking> Rankings
+        public virtual List<Ranking> Rankings
         {
             get { return this._rankings; }
             set { SetProperty(ref this._rankings, value); }
@@ -98,6 +98,14 @@ namespace Quizio.Models
             userDao = new UserDAO();
         }
 
+        public ModelAggregator(NotificationDAO natDao, RankingDAO rankingDao, CategoryDAO catDao, UserDAO userDao)
+        {
+            this.natDao = natDao;
+            this.rankingDao = rankingDao;
+            this.catDao = catDao;
+            this.userDao = userDao;
+        }
+
         public void logIn(string userName, string password)
         {
             User = userDao.logIn(userName, password);
@@ -142,7 +150,7 @@ namespace Quizio.Models
         #endregion
 
         #region related to RankingViewModel
-        public void loadRankings()
+        public virtual void loadRankings()
         {
             Rankings = rankingDao.loadRankings();
         }
