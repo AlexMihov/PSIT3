@@ -120,7 +120,7 @@
     <Compile Include="Models\Answer.cs" />
     <Compile Include="Models\Category.cs" />
     <Compile Include="Models\Friend.cs" />
-    <Compile Include="Models\Game.cs" />
+    <Compile Include="Models\GameAggregator.cs" />
     <Compile Include="Models\ModelAggregator.cs" />
     <Compile Include="Models\Notification.cs" />
     <Compile Include="Models\Question.cs" />

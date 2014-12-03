@@ -82,7 +82,7 @@ namespace Quizio.ViewModels
         #endregion
 
         #region Shared Datafields without raising events
-        public Game Game { get; set; }
+        public GameAggregator Game { get; set; }
 
         public List<UserInput> CorrectUserInputs { get; set; }
         public List<UserInput> FalseUserInputs { get; set; }
@@ -98,7 +98,7 @@ namespace Quizio.ViewModels
         private static int ANSWERTIME = 10;
         #endregion
 
-        public SoloGameViewModel(Game game)
+        public SoloGameViewModel(GameAggregator game)
         {
             this.Game = game;
             

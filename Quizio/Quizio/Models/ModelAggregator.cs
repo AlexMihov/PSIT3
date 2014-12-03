@@ -122,9 +122,9 @@ namespace Quizio.Models
             Categories = catDao.loadCategories();
         }
 
-        public Game loadGameData()
+        public GameAggregator loadGameData()
         {
-            Game newGame = new Game();
+            GameAggregator newGame = new GameAggregator();
             newGame.User = User;
             newGame.loadGameData(SelectedQuiz);
             return newGame;

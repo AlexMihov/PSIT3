@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace Quizio.Models
 {
-    public class Game : BindableBase
+    public class GameAggregator : BindableBase
     {
         private Quiz _quiz;
         public Quiz Quiz
@@ -24,10 +24,16 @@ namespace Quizio.Models
         private RankingDAO rankingDao;
         #endregion
 
-        public Game()
+        public GameAggregator()
         {
             questionDao = new QuestionDAO();
             rankingDao = new RankingDAO();
+        }
+
+        public GameAggregator(QuestionDAO questionDao, RankingDAO rankingDao)
+        {
+            this.questionDao = questionDao;
+            this.rankingDao = rankingDao;
         }
 
         public void loadGameData(Quiz quiz)

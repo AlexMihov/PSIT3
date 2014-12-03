@@ -41,7 +41,7 @@ namespace Quizio.ViewModels
         public ModelAggregator Aggregator { get; set; }
 
         private BackgroundWorker bw;
-        private Game gameToStart;
+        private GameAggregator gameToStart;
         private int timerTickCount;
         private DispatcherTimer myTimer;
         private static int COUNTDOWNTIME = 3;
