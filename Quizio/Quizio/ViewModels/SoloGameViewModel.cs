@@ -1,18 +1,13 @@
-﻿using FirstFloor.ModernUI.Presentation;
-using Microsoft.Practices.Prism.Mvvm;
+﻿using Microsoft.Practices.Prism.Mvvm;
 using Microsoft.Practices.Prism.Commands;
 using Quizio.Models;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Input;
-using Quizio.Utilities;
 using System.Windows;
 using Quizio.Views.SoloGame;
-using FirstFloor.ModernUI.Windows.Controls;
 using System.Windows.Threading;
 
 namespace Quizio.ViewModels
