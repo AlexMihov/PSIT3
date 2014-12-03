@@ -89,6 +89,7 @@ passport.deserializeUser(function(user, done) {
 
   app.get('/logout', function(req, res) {
       req.logout();
+      res.json({ok:true});
   });
 
  /***

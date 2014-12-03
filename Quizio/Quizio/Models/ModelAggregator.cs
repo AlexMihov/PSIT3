@@ -159,7 +159,7 @@ namespace Quizio.Models
         #region related to FriendViewModel
         public void loadFriends()
         {
-            Friends = userDao.loadFriends(User.Id);
+            Friends = userDao.loadFriends();
             SelectedFriend = Friends.FirstOrDefault();
         }
         
