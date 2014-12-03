@@ -14,7 +14,7 @@ namespace Quizio.Utilities
         public NotificationDAO()
         {
         }
-        public List<Notification> loadNotifications(int UserID)
+        public virtual List<Notification> loadNotifications(int UserID)
         {
             string getReq = REST.APIURL + "/notifications";
             string json = REST.get(getReq);

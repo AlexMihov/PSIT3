@@ -6,11 +6,15 @@ using System.Collections.Generic;
 
 namespace Quizio.Tests
 {
+    /// <summary>
+    /// The RankingIntegrationTest is used to test Rankings from Aggregator tier to Data Access tier,
+    /// the Data Access Layer is mocked.
+    /// </summary>
     public class RankingIntegrationTest
     {
         /// <summary>
-        /// testLoadRankings tests from Model Aggregator to Model
-        /// Data Acces Layer is Mocked, Class under test: ModelAggregator, Ranking
+        /// testLoadRankings tests from Model Aggregator to Model while
+        /// the Data Acces Layer is Mocked, Class under test: ModelAggregator, Ranking
         /// </summary>
         [Fact]
         public void testLoadRankings()
@@ -30,16 +34,19 @@ namespace Quizio.Tests
             aggregator.Rankings = null;
             // endsetup
 
-            aggregator.loadRankings(); // load rankings with mocked DAO
+            // load rankings with aggregator
+            aggregator.loadRankings(); 
 
+            // verify the method is called once
             rankingDaoMock.Verify(f => f.loadRankings(), Times.Once());
             
+            // finally assert the loaded rankings to be the same as returned by the dao
             Assert.Equal(aggregator.Rankings, rankings);
         }
 
         /// <summary>
-        /// testRankingUpdate tests from GameAggregator to Model
-        /// Data Acces Layer is Mocked, Class under test: GameAggregator
+        /// testRankingUpdate tests from GameAggregator to Model while
+        /// the Data Acces Layer is Mocked, Class under test: GameAggregator
         /// </summary>
         [Fact]
         public void testRankingUpdate()
@@ -56,9 +63,11 @@ namespace Quizio.Tests
             gameAggregator.User = testUser;
             // endsetup
 
-            gameAggregator.updateRanking(pointsToAdd); // invoke update from aggregator
+            // invoke update from aggregator
+            gameAggregator.updateRanking(pointsToAdd); 
 
-            // verify the rankingDao parameters, given by aggregator
+            // verify the parameters given by aggregator
+            // and make sure the method is called once
             rankingDaoMock.Verify(
                 f => f.updateRanking(
                 It.Is<User>(u => u.Equals(testUser)),
