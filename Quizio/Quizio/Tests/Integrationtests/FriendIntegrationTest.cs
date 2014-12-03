@@ -44,7 +44,8 @@ namespace Quizio.Tests.Integrationtests
             // and make sure the method is called once
             userDaoMock.Verify(
                 f => f.loadFriends(
-                    It.Is<int>(i => i == testUser.Id)),
+                    It.Is<int>(i => i == testUser.Id)
+                    ),
                     Times.Once()
             );
 
@@ -89,7 +90,8 @@ namespace Quizio.Tests.Integrationtests
             // and make sure the method is called once
             userDaoMock.Verify(
                 f => f.searchFriends(
-                    It.Is<string>(s => s.Equals(toSearch))),
+                    It.Is<string>(s => s.Equals(toSearch))
+                    ),
                     Times.Once()
             );
 
@@ -134,12 +136,14 @@ namespace Quizio.Tests.Integrationtests
             // and make sure the method is called once
             userDaoMock.Verify(
                 f => f.deleteFriend(
-                    It.Is<int>(i => i == toDelete.Id)),
+                    It.Is<int>(i => i == toDelete.Id)
+                    ),
                     Times.Once()
             );
             userDaoMock.Verify(
                 f => f.addNewFriend(
-                    It.Is<int>(i => i == toAdd.Id)),
+                    It.Is<int>(i => i == toAdd.Id)
+                    ),
                     Times.Once()
             );
         }

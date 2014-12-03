@@ -10,7 +10,7 @@ namespace Quizio.Utilities
 {
     public class QuestionDAO
     {
-        public List<Question> loadQuestionsOfQuiz(int quizID)
+        public virtual List<Question> loadQuestionsOfQuiz(int quizID)
         {
             string getReq = REST.APIURL + "/quiz/" + quizID + "/questions";
             string json = REST.get(getReq);
