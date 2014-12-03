@@ -37,7 +37,7 @@ namespace Quizio.Utilities
         /// Loads the list with friends of the user from the server.
         /// </summary>
         /// <returns><c>List</c> with all the <c>friends</c> of the user.</returns>
-        public List<Friend> loadFriends()
+        public virtual List<Friend> loadFriends()
         {
             string req = REST.APIURL + "/friends";
 
@@ -52,7 +52,7 @@ namespace Quizio.Utilities
         /// </summary>
         /// <param name="name">Part of a name of the user searched for as a string.</param>
         /// <returns>A list of users that match the search criteria and are not yet friends to the user.</returns>
-        public List<Friend> searchFriends(string name){
+        public virtual List<Friend> searchFriends(string name){
             string req = REST.APIURL + "/player/by-name/" + name;
 
             string response = REST.get(req);
@@ -74,7 +74,7 @@ namespace Quizio.Utilities
         /// Adds a new friend to the userfriendlist on the server.
         /// </summary>
         /// <param name="friendId">Id of the friend as an integer.</param>
-        public void addNewFriend(int friendId)
+        public virtual void addNewFriend(int friendId)
         {
             string req = REST.APIURL + "/friend";
             string json = "{\"friendId\":" + friendId + "}";
@@ -85,7 +85,7 @@ namespace Quizio.Utilities
         /// Deletes a friend of the user on the server.
         /// </summary>
         /// <param name="friendId">Id of the friend as an integer.</param>
-        public void deleteFriend(int friendId)
+        public virtual void deleteFriend(int friendId)
         {
             string req = REST.APIURL + "/friend";
             string json = "{\"friendId\":" + friendId + "}";

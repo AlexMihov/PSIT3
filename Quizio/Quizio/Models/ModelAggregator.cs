@@ -33,7 +33,7 @@ namespace Quizio.Models
         }
 
         private List<Ranking> _rankings;
-        public virtual List<Ranking> Rankings
+        public  List<Ranking> Rankings
         {
             get { return this._rankings; }
             set { SetProperty(ref this._rankings, value); }
@@ -119,7 +119,7 @@ namespace Quizio.Models
 
             loadRankings();
 
-            Categories = catDao.loadCategories();
+            loadCategories();
         }
 
         public GameAggregator loadGameData()
@@ -179,5 +179,11 @@ namespace Quizio.Models
         }
         #endregion
 
+        #region related to RegularGameViewModel
+        public void loadCategories()
+        {
+            Categories = catDao.loadCategories();
+        }
+        #endregion
     }
 }

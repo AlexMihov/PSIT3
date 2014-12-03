@@ -128,8 +128,10 @@
     <Compile Include="Models\Ranking.cs" />
     <Compile Include="Models\User.cs" />
     <Compile Include="Models\UserInput.cs" />
-    <Compile Include="Tests\RankingIntegrationTest.cs" />
-    <Compile Include="Tests\SampleTest.cs" />
+    <Compile Include="Tests\Integrationtests\FriendIntegrationTest.cs" />
+    <Compile Include="Tests\Integrationtests\HomeIntegrationTest.cs" />
+    <Compile Include="Tests\Integrationtests\RankingIntegrationTest.cs" />
+    <Compile Include="Tests\Integrationtests\RegularGameIntegrationTest.cs" />
     <Compile Include="Utilities\CategoryDAO.cs" />
     <Compile Include="Utilities\UserDAO.cs" />
     <Compile Include="Utilities\NotificationDAO.cs" />
@@ -257,6 +259,7 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="Tests\Unittests\" />
     <Folder Include="Views\MultiplayerGame\" />
   </ItemGroup>
   <ItemGroup>
