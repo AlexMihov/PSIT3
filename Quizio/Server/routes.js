@@ -1,0 +1,373 @@
+"use strict";
+
+module.exports = function (router) {
+
+    var mysql = require('mysql'),
+        async = require('async'),
+        config = require('./config');
+    //mysql configuration
+    var connection = mysql.createConnection(config.db);
+    connection.connect();
+
+
+  router.post('/friend', function(req, res) {
+    printLogStart("insert friend", req);
+    var playerId = req.user.id;
+    var friendId = parseInt(req.body.friendId, 10);
+
+    console.log(req.body);
+
+    var sql = "INSERT INTO friend (player_player_id, player_friend_id) " +
+                   "VALUES (" + connection.escape(playerId) + ", " + connection.escape(friendId) +")";
+
+
+    connection.query(sql, function(err, rows, fields) {
+      if(err) {
+        if (err.code == 'ER_DUP_ENTRY') {
+          console.log(err);
+          res.status(409).send({error: "You have this friend already added!"});
+          err = null;
+        } else throw err;
+      } else {
+        res.json({
+        status: "OK",
+        affectedRows: rows.affectedRows,
+        });
+        printLogSuccess("friend successfully added");
+      }
+    });
+  });
+
+     /***
+  *      ______________________________
+  *     /  _____/\_   _____/\__    ___/
+  *    /   \  ___ |    __)_   |    |
+  *    \    \_\  \|        \  |    |
+  *     \______  /_______  /  |____|
+  *            \/        \/
+  */
+ router.get('/player/:playerID', function(req, res) {
+     printLogStart("get player", req);
+     var player = req.params.player;
+
+     connection.query('SELECT * FROM player WHERE player_id= ' + connection.escape(player), function(err, rows, fields) {
+         if (err) throw err;
+         res.json(rows);
+         printLogSuccess("Plyer successfully fetched");
+     });
+
+ });
+
+   router.get('/player/by-name/:playername', function(req, res) {
+     printLogStart("get player by name", req);
+     var input = [req.user.id, "%" + req.params.playername + "%", req.user.id];
+
+     console.log("hahaha:", input);
+
+     var sql = "SELECT player_id as id, name, origin as location, status " +
+                 "FROM player " +
+                "WHERE player_id != ? " +
+                  "AND name LIKE ? " +
+                  "AND player_id NOT IN ("+
+                      "SELECT p.player_id " +
+                        "FROM friend f " +
+                  "INNER JOIN player p ON (p.player_id = f.player_friend_id)" +
+                       "WHERE f.player_player_id = ?)";
+
+     connection.query(sql, input, function(err, rows, fields) {
+         if (err) throw err;
+         res.json(rows);
+         printLogSuccess("Plyers successfully fetched");
+     });
+
+ });
+
+  router.get('/categories', function(req, res) {
+     printLogStart("get categories", req);
+
+     connection.query('SELECT category_id as id, name, description FROM category', function(err, rows, fields) {
+         if (err) throw err;
+           var result = rows;
+
+           result.map(function(item){
+            item.quizies = [];
+           });
+          
+           connection.query('SELECT quiz_id as id, title, description, category_category_id as category FROM quiz', function(err, rows, fields) {
+              if (err) throw err;
+              rows.forEach(function(quiz){
+                result.forEach(function(category){
+                  if(category.id == quiz.category){
+                    category.quizies.push({id:quiz.id,title:quiz.title,description:quiz.description});
+                  }
+                });
+              });
+              res.json(result);
+              printLogSuccess("Categories successfully fetched");
+            });
+     });
+
+ });
+
+  router.get('/quiz/:quizID/questions', function(req,res){
+    printLogStart("get questions from quiz "+ req.params.quizID, req);
+    var sql = 'SELECT question_id as id, question, hint ' +
+            'FROM question '+
+            'WHERE quiz_quiz_id = ' + connection.escape(req.params.quizID);
+
+    connection.query(sql, function(err, rows, fields){
+      if(err) throw err;
+      var questions = rows;
+
+      var getAnswers = function(item, callback){
+        item.answers = [];
+        var itemsql = 'SELECT a.answer_id as id, a.answer, q.value ' +
+                  'FROM answer a ' +
+            'INNER JOIN answerofquestion q ' +
+                    'ON (a.answer_id = q.answer_answer_id)' +
+                 'WHERE q.question_question_id = ' + connection.escape(item.id);
+        connection.query(itemsql, function(err, rows, fields){
+          if(err) throw err;
+          rows.forEach(function(answer){
+            if(answer.value == 0){ answer.value = false;}
+            else {answer.value = true;}
+            item['answers'].push(answer);
+          });
+          console.log(item);
+          callback(null, item);
+        });
+      };
+
+      async.map(questions, getAnswers, function(err, results){
+        console.log("results: " ,results);
+        res.json(results);
+        printLogSuccess("Questions successfully fetched");
+      });
+    });
+  });
+
+
+  router.get('/friends', function(req,res){
+    printLogStart("get friends for user " + req.params.userID, req);
+    console.log("what up", req.user.id);
+    var sql = 'SELECT  p.player_id as Id, p.name, p.origin as location, p.status ' +
+              'FROM friend f ' +
+              'INNER JOIN player p ' +
+              'ON (p.player_id = f.player_friend_id) ' +
+              'WHERE f.player_player_id = ' + connection.escape(req.user.id);
+
+    connection.query(sql, function(err, rows, fields){
+      if(err) throw err;
+      res.json(rows);
+      printLogSuccess("Friends successfully fetched");
+    });
+  });
+
+  router.get('/rankings', function(req, res) {
+    printLogStart("get rankings", req);
+
+    connection.query('SELECT x.name as name, y.points as points '+
+            'FROM Quizio.player as x '+
+            'INNER JOIN Quizio.ranking as y '+
+            'ON x.player_id = y.player_id '+
+            'ORDER BY y.points DESC;', function(err, rows, fields) {
+
+      if (err) throw err;
+      var result = rows;
+      var count = 0;
+      result.map(function(item){
+        item.position = ++count;
+      });
+      res.json(result);
+      printLogSuccess("Rankings successfully fetched");
+        });
+
+  });
+
+  router.get('/notifications', function(req,res){
+    printLogStart("get notifications for user", req);
+    var sql =   'SELECT p2.name AS FromFriend , n.message AS Message '+
+          'FROM player p '+
+          'JOIN friend f '+
+          'ON (p.player_id = f.player_player_id) '+
+          'JOIN player p2 '+
+          'ON f.player_friend_id = p2.player_id '+
+          'JOIN notification n '+
+          'ON p2.player_id = n.player_player_id '+
+          'WHERE p.player_id ='+connection.escape(req.user.id)+
+          ' ORDER BY n.date DESC LIMIT 10';
+
+    connection.query(sql, function(err, rows, fields){
+      if(err) throw err;
+      res.json(rows);
+      printLogSuccess("Notifications successfully fetched");
+    });
+  });
+
+
+
+
+ /***
+  *    __________________    ____________________
+  *    \______   \_____  \  /   _____/\__    ___/
+  *     |     ___//   |   \ \_____  \   |    |
+  *     |    |   /    |    \/        \  |    |
+  *     |____|   \_______  /_______  /  |____|
+  *                      \/        \/
+  */
+
+
+router.post('/player', function(req, res) {
+  printLogStart("insert player", req);
+  console.log(req.body.password);
+  
+  var sha256 = crypto.createHash("sha256");
+  sha256.update(req.body.password, "utf8");
+  var hashed = sha256.digest("base64");
+  console.log(hashed);
+  var input = [req.body.name, hashed, req.body.email, req.body.status ,req.body.origin];
+
+  var sql = "INSERT INTO player  (name, password, email, status ,origin)" +
+                   " VALUES (?, ?, ?, ?, ?)";
+
+
+  connection.query(sql, input, function(err, rows, fields) {
+    if(err) {
+      if (err.code == 'ER_DUP_ENTRY') {
+        console.log(err);
+        res.send('ER_DUP_ENTRY');
+        res.status(409);
+        err = null;
+      } else throw err;
+    } else {
+      res.json({
+        status: "OK",
+        affectedRows: rows.affectedRows,
+      });
+      printLogSuccess("player successfully added");
+    }
+  });  
+});
+
+
+
+
+
+ /***
+  *    __________ ____ ______________
+  *    \______   \    |   \__    ___/
+  *     |     ___/    |   / |    |
+  *     |    |   |    |  /  |    |
+  *     |____|   |______/   |____|
+  *
+  */
+
+ router.put('/player/:id', function(req, res) {
+     printLogStart("updating player data", req);
+     var playerID = req.params.id;
+     var sql = "UPDATE player SET name = 'Hans' WHERE questionID =" + connection.escape(playerID);
+
+     connection.query(sql, function(err, rows, fields) {
+         if (err) throw err;
+         res.json({
+             status: "OK",
+             affectedRows: rows.affectedRows,
+             changedRows: rows.changedRows
+         });
+         printLogSuccess("Player successfully updated");
+     });
+
+ });
+
+
+ router.put('/ranking', function(req, res) {
+     printLogStart("updating ranking data", req);
+     var playerID = req.user.id;
+     var toAdd = req.body.toAdd | 0;
+     console.log("Player: ", playerID);
+
+     var sqlSelect = "SELECT points FROM ranking WHERE player_id = " + connection.escape(playerID);
+
+     connection.query(sqlSelect, function(err, rows, fields){
+      if (err) throw err;
+      var oldPoints = rows[0].points | 0;
+      var newPoints = oldPoints + toAdd;
+
+      var sqlUpdate = "UPDATE ranking SET points = " + connection.escape(newPoints) + 
+              " WHERE player_id = " + connection.escape(playerID);
+
+      connection.query(sqlUpdate, function(err, rows, fields) {
+        if (err) throw err;
+        res.json({
+            status: "OK",
+            affectedRows: rows.affectedRows,
+            changedRows: rows.changedRows
+        });
+        printLogSuccess("Ranking successfully updated");
+      });
+
+     });
+
+ });
+
+ //DELETE
+
+  router.delete('/friend', function(req, res) {
+    printLogStart("delte friend data", req);
+    var playerId = req.user.id;
+    var friendId = parseInt(req.body.friendId, 10);
+
+    var sql = "DELETE FROM friend " + 
+                    "WHERE player_player_id = ? " + 
+                      "AND player_friend_id = ?";
+
+    var input = [playerId, friendId]
+
+    connection.query(sql, input, function(err, rows, fields){
+      if (err) throw err;
+      res.json({
+        status: "OK",
+        affectedRows: rows.affectedRows
+      });
+      printLogSuccess("friend successfully deleted");
+    });
+  });
+
+router.delete('/player', function(req, res) {
+  printLogStart("delete player", req);
+
+  var input = [req.body.name];
+
+    var sql = "DELETE FROM player " + 
+                    "WHERE name = ? ";
+
+  connection.query(sql, input, function(err, rows, fields) {
+    if(err) {
+        if (err.code == 'ER_DUP_ENTRY') {
+          console.log(err);
+          res.status(409).send({error: "There is already a player with this name!"});
+          err = null;
+        } else throw err;
+    } else {
+      res.json({
+      status: "OK",
+      affectedRows: rows.affectedRows,
+      });
+      printLogSuccess("player successfully deleted");
+    }
+  });
+});
+    
+}
+
+function printLogSuccess(text) {
+  console.log("|");
+  console.log(" ---------> " + text + "\n");
+}
+
+function printLogStart(text, req) {
+  if (JSON.stringify(req.body) == "{}")
+    console.log("Request to: " + text);
+  else
+    console.log("Request to: " + text + " with the following data: " + JSON.stringify(req.body));
+}
