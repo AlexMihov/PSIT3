@@ -72,13 +72,14 @@ namespace Quizio.Utilities
             Console.WriteLine(pw);
         }
 
-        public void registerUser(string username, string password, string email, string status, string region)
+        public string registerUser(string username, string password, string email, string status, string region)
         {
 
             string req = REST.APIURL + "/player";
             string json = "{ \"name\":\"" + username + "\", \"password\": \"" + heschi(password) + "\", \"email\":\"" + email + "\", \"status\": \"" + status + "\", \"origin\":\"" + region + "\"}";
 
             string response = REST.post(req, json);
+            return response;
         }
 
         private static string heschi(string password){

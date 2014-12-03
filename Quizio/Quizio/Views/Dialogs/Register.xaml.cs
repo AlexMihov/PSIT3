@@ -42,14 +42,15 @@ namespace Quizio.Views.Dialogs
             BackgroundWorker worker = sender as BackgroundWorker;
             if (!worker.CancellationPending)
             {
+                string res = "";
                 try
                 {
                     UserDAO userDao = new UserDAO();
-                    userDao.registerUser(nameText, password.Password, emailText, statusText, originText);
-                }
-                catch (InvalidOperationException) // special execption throw if username exists
-                {
-                    e.Cancel = true;
+                    res = userDao.registerUser(nameText, password.Password, emailText, statusText, originText);
+                    if (res.Equals("ER_DUP_ENTRY"))
+                    {
+                        e.Cancel = true;
+                    }
                 }
                 catch (Exception ex)
                 {
@@ -72,7 +73,7 @@ namespace Quizio.Views.Dialogs
             else if (e.Result != null)
             {
                 this.loading.Visibility = System.Windows.Visibility.Hidden;
-                ModernDialog.ShowMessage(e.Result as string, "Error", MessageBoxButton.OK);
+                ModernDialog.ShowMessage(e.Result as string, "Fehler", MessageBoxButton.OK);
             }
             else
             {

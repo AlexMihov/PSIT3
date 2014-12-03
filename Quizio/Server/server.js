@@ -288,7 +288,8 @@ router.post('/player', function(req, res) {
     if(err) {
       if (err.code == 'ER_DUP_ENTRY') {
         console.log(err);
-        res.status(409).send({error: "There is already a player with this name!"});
+        res.send('ER_DUP_ENTRY');
+        res.status(409);
         err = null;
       } else throw err;
     } else {
