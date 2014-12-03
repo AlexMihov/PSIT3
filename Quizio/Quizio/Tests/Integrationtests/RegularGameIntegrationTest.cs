@@ -47,5 +47,49 @@ namespace Quizio.Tests.Integrationtests
             // the loaded categories should be the same as returned from the dao
             Assert.Equal(categories, aggregator.Categories);
         }
+
+        /// <summary>
+        /// testLoadGameData tests from Model Aggregator to Model while
+        /// the Data Acces Layer is Mocked, Class under test: ModelAggregator, GameAggregator,
+        /// Question and Answer
+        /// </summary>
+        [Fact]
+        public void testLoadGameData()
+        {
+            //setup for testLoadGameData
+            List<Answer> answers = new List<Answer>();
+            answers.Add(new Answer("f'(x) = e^x", true));
+            answers.Add(new Answer("f'(x) = - e^x/2", false));
+            List<Question> questions = new List<Question>();
+            questions.Add(new Question(1, "Was ist die Ableitung von F(x) = e^x ?", "e-Fkt.", answers));
+
+            Quiz selectedQuiz = new Quiz(1, "Analysis", "Differential, Integration etc.", new List<Question>());
+
+            var questionDaoMock = new Mock<QuestionDAO>();
+            questionDaoMock.Setup(f => f.loadQuestionsOfQuiz(It.IsAny<int>())).Returns(questions);
+
+            QuestionDAO questionDao = questionDaoMock.Object;
+
+            GameAggregator gameAggregator = new GameAggregator(questionDao, null);
+            //endsetup
+
+            // quiz should be null
+            Assert.True(gameAggregator.Quiz == null);
+
+            // call method on gameAggregator to load game data
+            gameAggregator.loadGameData(selectedQuiz);
+
+            // verify that the given parameter selectedQuiz from gameAggregator is passed correctly
+            questionDaoMock.Verify(
+                f => f.loadQuestionsOfQuiz(
+                    It.Is<int>(i => i == selectedQuiz.Id)
+                    ),
+                    Times.Once()
+            );
+
+            // finally check the loaded data was loaded correctly by mock dao
+            Assert.Equal(selectedQuiz, gameAggregator.Quiz);
+            Assert.Equal(questions, gameAggregator.Quiz.Questions);
+        }
     }
 }
