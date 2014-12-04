@@ -9,6 +9,7 @@ using System.Windows.Input;
 using System.Windows;
 using Quizio.Views.SoloGame;
 using System.Windows.Threading;
+using FirstFloor.ModernUI.Windows.Controls;
 
 namespace Quizio.ViewModels
 {
@@ -89,6 +90,8 @@ namespace Quizio.ViewModels
         public ICommand NextQuestion { get; private set; }
         public ICommand CloseAndSave { get; private set; }
 
+        private BackgroundWorker bw;
+        private Window gameWindow;
         private DispatcherTimer myTimer;
         private static int ANSWERTIME = 10;
         #endregion
@@ -96,6 +99,7 @@ namespace Quizio.ViewModels
         public SoloGameViewModel(GameAggregator game)
         {
             this.Game = game;
+            this.gameWindow = null;
             
             QuestionsDone = 1;
             QuestionsRemaining = Game.Quiz.Questions.Count;
@@ -113,12 +117,49 @@ namespace Quizio.ViewModels
             myTimer = new DispatcherTimer();
             myTimer.Interval = new TimeSpan(0, 0, 1);
             myTimer.Tick += new EventHandler(Timer_Tick);
+
+            bw = new BackgroundWorker();
+            bw.DoWork += bw_DoWork;
+            bw.RunWorkerCompleted += bw_RunWorkerCompleted;
             
             getRandomQuestion();
 
             SwitchView("Play");
             myTimer.Start();
         }
+
+        #region worker functions
+        private void bw_DoWork(object sender, DoWorkEventArgs e)
+        {
+            try
+            {
+                int pointsToAdd = CorrectUserInputs.Count * ((QuestionsRemaining * ANSWERTIME) - TimeNeededSum);
+                Game.updateRanking(pointsToAdd);
+            }
+            catch (Exception ex)
+            {
+                e.Result = ex.Message; // abusing e.Result as exception messanger
+            }
+        }
+
+        private void bw_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
+        {
+            if (e.Result != null)
+            {
+                ModernDialog.ShowMessage("Deine Punkte konnten leider nicht hochgeladen werden.\n" + 
+                    e.Result + "\n\n Versuche es bitte erneut oder schliesse das Fenster manuell.",
+                    "Fehler", MessageBoxButton.OK);
+            }
+            else if(gameWindow != null)
+            {
+                gameWindow.Close();
+            }
+            else
+            {
+                ModernDialog.ShowMessage("Interner Fehler, bitte schliesse das Spiel manuell. Deine Punkte wurden aber hochgeladen!", "Fehler", MessageBoxButton.OK);
+            }
+        }
+        #endregion
 
         #region VM private functions
         private void getRandomQuestion()
@@ -179,13 +220,13 @@ namespace Quizio.ViewModels
 
         private void SaveAndClose(object parameter)
         {
-            int pointsToAdd = CorrectUserInputs.Count * ((QuestionsRemaining * ANSWERTIME) - TimeNeededSum);
-
-            Game.updateRanking(pointsToAdd);
-
             if (parameter is System.Windows.Window)
             {
-                (parameter as System.Windows.Window).Close();
+                this.gameWindow = parameter as System.Windows.Window;
+            }
+            if (!bw.IsBusy)
+            {
+                bw.RunWorkerAsync();
             }
         }
         #endregion

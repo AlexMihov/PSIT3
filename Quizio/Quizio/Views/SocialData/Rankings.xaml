@@ -22,8 +22,8 @@
                         <ColumnDefinition Width="200"></ColumnDefinition>
                     </Grid.ColumnDefinitions>
                     <Label Grid.Row="0" Grid.Column="0" Content="Position" HorizontalAlignment="Left"/>
-                    <Label Grid.Row="0" Grid.Column="1" Content="Player" HorizontalAlignment="Center"/>
-                    <Label Grid.Row="0" Grid.Column="2" Content="Points" HorizontalAlignment="Right"/>
+                    <Label Grid.Row="0" Grid.Column="1" Content="Spieler" HorizontalAlignment="Center"/>
+                    <Label Grid.Row="0" Grid.Column="2" Content="Punkte" HorizontalAlignment="Right"/>
                 </Grid>
                 <ListBox ItemsSource="{Binding Aggregator.Rankings}" Width="620" Margin="0,20" HorizontalAlignment="Left">
                         <ListBox.ItemTemplate>
