@@ -8,6 +8,7 @@ using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 using System.Windows.Input;
 
 namespace Quizio.ViewModels
@@ -17,30 +18,53 @@ namespace Quizio.ViewModels
         public ModelAggregator Aggregator { get; set; }
 
         private BackgroundWorker bw;
+        private bool showAgain;
 
         public HomeViewModel(ModelAggregator aggregator)
         {
             this.Aggregator = aggregator;
+            this.showAgain = true;
 
             bw = new BackgroundWorker();
             bw.DoWork += bw_DoWork;
+            bw.RunWorkerCompleted += bw_RunWorkerCompleted;
+        }
+
+        void bw_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
+        {
+            if ((e.Result != null) && showAgain)
+            {
+                MessageBoxResult result =  ModernDialog.ShowMessage("Die Daten für die Homeansicht konnten nicht aktuallisiert werden:\n"+
+                    e.Result as string + "\n\nWillst du weiterhin benachrichtigt werden?", "Verbingungsproblem!", System.Windows.MessageBoxButton.YesNo);
+                if (result == MessageBoxResult.No)
+                {
+                    showAgain = false;
+                }
+            }
         }
 
         void bw_DoWork(object sender, DoWorkEventArgs e)
         {
+            BackgroundWorker worker = sender as BackgroundWorker;
             try
             {
-                Aggregator.reloadHomeData();
+                if (!worker.CancellationPending)
+                {
+                    Aggregator.reloadHomeData();
+                }
             }
             catch (Exception ex)
             {
-                ModernDialog.ShowMessage(ex.Message, "Verbingungsproblem!", System.Windows.MessageBoxButton.OK);
+                e.Result = ex.Message;
             }
         }
 
         public void ReloadHomeData()
         {
-            bw.RunWorkerAsync();
+            if (!bw.IsBusy)
+            {
+                bw.RunWorkerAsync();
+            }
         }
     }
 }

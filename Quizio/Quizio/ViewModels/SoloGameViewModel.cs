@@ -147,7 +147,7 @@ namespace Quizio.ViewModels
             if (e.Result != null)
             {
                 ModernDialog.ShowMessage("Deine Punkte konnten leider nicht hochgeladen werden.\n" + 
-                    e.Result + "\n\n Versuche es bitte erneut oder schliesse das Fenster manuell.",
+                    e.Result + "\n\nVersuche es bitte erneut oder schliesse das Fenster manuell.",
                     "Fehler", MessageBoxButton.OK);
             }
             else if(gameWindow != null)

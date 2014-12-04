@@ -259,6 +259,7 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="Tests\Systemtests\" />
     <Folder Include="Tests\Unittests\" />
     <Folder Include="Views\MultiplayerGame\" />
   </ItemGroup>
