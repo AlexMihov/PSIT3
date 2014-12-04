@@ -41,40 +41,44 @@ namespace Quizio
             {
                 UserDAO userDao = new UserDAO();
                 userDao.logOut();
-            }
-            catch (Exception)
-            {
-                //do something if logOut doesnt work..
-            }
 
-            App.Current.MainWindow.Hide();
+                App.Current.MainWindow.Hide();
 
-            MessageBoxResult result = ModernDialog.ShowMessage("Du wurdest erfolgreich ausgeloggt, möchtest du dich mit einem anderen Benutzernamen einloggen?", "Hinweis", MessageBoxButton.YesNo);
-            if (result == MessageBoxResult.Yes)
-            {
-                //Disable shutdown when the dialog closes
-                App.Current.ShutdownMode = ShutdownMode.OnExplicitShutdown;
-
-                var login = new Login();
-                login.WindowStartupLocation = WindowStartupLocation.CenterScreen;
-
-                if (login.ShowDialog().Value && login.granted)
+                MessageBoxResult result = ModernDialog.ShowMessage("Du wurdest erfolgreich ausgeloggt, möchtest du dich mit einem anderen Benutzernamen einloggen?", "Hinweis", MessageBoxButton.YesNo);
+                if (result == MessageBoxResult.Yes)
                 {
-                    MainViewModel mvm = new MainViewModel(login.Aggregator);
-                    var mainWindow = new MainWindow(mvm);
-                    //Re-enable normal shutdown mode.
-                    App.Current.ShutdownMode = ShutdownMode.OnMainWindowClose;
-                    App.Current.MainWindow = mainWindow;
-                    mainWindow.WindowStartupLocation = WindowStartupLocation.CenterScreen;
-                    mainWindow.Show();
+                    //Disable shutdown when the dialog closes
+                    App.Current.ShutdownMode = ShutdownMode.OnExplicitShutdown;
+
+                    var login = new Login();
+                    login.WindowStartupLocation = WindowStartupLocation.CenterScreen;
+
+                    if (login.ShowDialog().Value && login.granted)
+                    {
+                        MainViewModel mvm = new MainViewModel(login.Aggregator);
+                        var mainWindow = new MainWindow(mvm);
+                        //Re-enable normal shutdown mode.
+                        App.Current.ShutdownMode = ShutdownMode.OnMainWindowClose;
+                        App.Current.MainWindow = mainWindow;
+                        mainWindow.WindowStartupLocation = WindowStartupLocation.CenterScreen;
+                        mainWindow.Show();
+                    }
+                    else
+                    {
+                        App.Current.Shutdown(-1);
+                    }
                 }
                 else
                 {
                     App.Current.Shutdown(-1);
                 }
             }
-            else
+            catch (Exception ex)
             {
+                ModernDialog.ShowMessage("Das Ausloggen hat nicht funktioniert:\n"+
+                    ex.Message+
+                    "\n\nDie Applikation wird beendet.",
+                    "Fehler", MessageBoxButton.OK);
                 App.Current.Shutdown(-1);
             }
         }
