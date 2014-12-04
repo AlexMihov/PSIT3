@@ -48,11 +48,15 @@ passport.use(new LocalStrategy(function(username, password, done){ myLocalStrat.
 
 app.post('/login',
   passport.authenticate('local', { successRedirect: '/loginsucces',
-                                   failureRedirect: '/login' })
+                                   failureRedirect: '/loginfaillure' })
 );
 
 app.use('/loginsucces', function(req, res){
   res.json(req.user);
+});
+
+app.use('/loginfaillure', function(req, res){
+  res.status(403).send({ error: 'Permission denied!' });
 });
 
 app.get('/logout', function(req, res) {
@@ -75,7 +79,7 @@ function isLoggedIn(req, res, next){
     return next();
   }
   else {
-    res.status(403).send({error: "You have no permission! Please log in!"});
+    res.status(403).send({error: 'You have no permission! Please log in!'});
   }
 }
 
