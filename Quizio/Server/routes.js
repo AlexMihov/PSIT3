@@ -253,6 +253,7 @@ router.post('/player', function(req, res) {
 
 
 
+
  /***
   *    __________ ____ ______________
   *    \______   \    |   \__    ___/
@@ -278,6 +279,26 @@ router.post('/player', function(req, res) {
      });
 
  });
+
+ router.put('/profile', function(req, res) {
+  printLogStart("Update userdata", req);
+  var name 		= 	connection.escape(req.body.name);
+  var email 	= 	connection.escape(req.body.email);
+  var status 	= 	connection.escape(req.body.status);
+
+  var sql = "UPDATE player  SET " + "name =" + name + "," + "email =" + email + "," + "status = " + status + " WHERE player_id = 13";
+  //var sql = "UPDATE player SET name = 'Xale1', email = 'new@mail.com', origin = 'Derpistan', status = 'I derp' WHERE player_id = 13;"
+
+  connection.query(sql, function(err, rows, fields) {
+         if (err) throw err;
+         res.json({
+             status: "OK",
+             affectedRows: rows.affectedRows,
+             changedRows: rows.changedRows
+         });
+         printLogSuccess("Profile successfully updated");
+     });
+});
 
 
  router.put('/ranking', function(req, res) {
@@ -310,7 +331,14 @@ router.post('/player', function(req, res) {
 
  });
 
- //DELETE
+/***
+ *    ________  ___________.____     _________________________________
+ *    \______ \ \_   _____/|    |    \_   _____/\__    ___/\_   _____/
+ *     |    |  \ |    __)_ |    |     |    __)_   |    |    |    __)_ 
+ *     |    `   \|        \|    |___  |        \  |    |    |        \
+ *    /_______  /_______  /|_______ \/_______  /  |____|   /_______  /
+ *            \/        \/         \/        \/                    \/ 
+ */
 
   router.delete('/friend', function(req, res) {
     printLogStart("delte friend data", req);
