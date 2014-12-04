@@ -67,7 +67,9 @@ namespace Quizio.Utilities
         /// <param name="user">User object with the actual data of the user.</param>
         public void updateUserSettings(User user)
         {
-            throw new NotImplementedException();
+            string req = REST.APIURL + "/profile";
+            string json = "{ \"name\":\"" + user.Username + "\", \"email\":\"" + user.Email + "\", \"status\": \"" + user.Status + "\"}"; ;
+            string res = REST.put(req, json);
         }
 
         /// <summary>
