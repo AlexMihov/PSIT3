@@ -19,19 +19,25 @@ namespace Quizio.Models
 
         public Quiz Quiz { get; set; }
 
-        public List<UserInput> EnemyData { get; set; }
+        public List<UserInput> ChallengerData { get; set; }
+
+        public List<UserInput> MyData { get; set; }
+
+        public int EnemyTime { get; set; }
 
         public string CategoryName { get; set; }
 
         public string ChallengeText { get; set; }
 
         [JsonConstructor]
-        public Challenge(int id, Friend from, Quiz quiz,List<UserInput> enemyData, string categoryName, string text)
+        public Challenge(int id, Friend from, Quiz quiz, List<UserInput> myData, List<UserInput> challengerData, int enemytime, string categoryName, string text)
         {
             this.Id = id;
             this.From = from;
             this.Quiz = quiz;
-            this.EnemyData = enemyData;
+            this.ChallengerData = challengerData;
+            this.MyData = myData;
+            this.EnemyTime = enemytime;
             this.CategoryName = categoryName;
             this.ChallengeText = text;
         }

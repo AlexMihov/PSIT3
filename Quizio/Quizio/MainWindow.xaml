@@ -10,6 +10,7 @@
         <mui:LinkGroup DisplayName="willkommen">
             <mui:LinkGroup.Links>
                 <mui:Link DisplayName="home" Source="/Views/Home.xaml" />
+                <mui:Link DisplayName="spiel-historie" Source="/Views/HomeViews/GameResult.xaml" />
             </mui:LinkGroup.Links>
         </mui:LinkGroup>
         <mui:LinkGroup DisplayName="Quiz Spielen">

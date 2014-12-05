@@ -27,9 +27,11 @@ namespace Quizio.DAO
 
             Friend myFriend = new Friend(0, "HulkHogan", "Hogan.js is so cool", "USA");
 
-            Challenge first = new Challenge(1, myFriend, quiz, input, category,
+            int time = 30;
+
+            Challenge first = new Challenge(1, myFriend, quiz, null, input, time, category,
                 "Hey buddy here comes Hogan, wanna play?");
-            Challenge second = new Challenge(2, myFriend, quiz, input, category,
+            Challenge second = new Challenge(2, myFriend, quiz, null, input, time, category,
                 "Just want to give you another chance :D");
 
             List<Challenge> challenges = new List<Challenge>();
