@@ -26,7 +26,7 @@ namespace Quizio.Tests.Integrationtests
             notifications.Add(new Notification("testmessage", "test"));
             
             var notificationDaoMock = new Mock<IHomeDAO>();
-            notificationDaoMock.Setup(f => f.loadNotifications(It.IsAny<int>())).Returns(notifications);
+            notificationDaoMock.Setup(f => f.loadNotifications()).Returns(notifications);
 
             IHomeDAO natDao = notificationDaoMock.Object;
             ModelAggregator aggregator = new ModelAggregator(natDao, null, null, null);
@@ -39,9 +39,7 @@ namespace Quizio.Tests.Integrationtests
             // verify the userid parameter given by the aggregator 
             // and make sure the method is called once
             notificationDaoMock.Verify(
-                f => f.loadNotifications(
-                    It.Is<int>(i => i == testUser.Id)
-                    ),
+                f => f.loadNotifications(),
                 Times.Once()
              );
 

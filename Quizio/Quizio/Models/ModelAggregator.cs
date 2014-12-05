@@ -140,8 +140,8 @@ namespace Quizio.Models
         #region related to HomeViewModel
         public void reloadHomeData()
         {
-            Notifications = homeDao.loadNotifications(User.Id);
-            Challenges = homeDao.loadChallenges(User.Id);
+            Notifications = homeDao.loadNotifications();
+            Challenges = homeDao.loadChallenges();
         }
         #endregion
 

@@ -7,7 +7,7 @@ namespace Quizio.DAO
 {
     public class HomeDAO : IHomeDAO
     {
-        public List<Notification> loadNotifications(int userID)
+        public List<Notification> loadNotifications()
         {
             string getReq = REST.APIURL + "/notifications";
             string json = REST.get(getReq);
@@ -16,7 +16,7 @@ namespace Quizio.DAO
         }
 
 
-        public List<Challenge> loadChallenges(int userID)
+        public List<Challenge> loadChallenges()
         {
             List<UserInput> input = new List<UserInput>();
             List<Question> questions = new List<Question>();

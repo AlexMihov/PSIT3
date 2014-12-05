@@ -5,7 +5,7 @@ namespace Quizio.DAO
 {
     public interface IHomeDAO
     {
-        List<Notification> loadNotifications(int userID);
-        List<Challenge> loadChallenges(int userID);
+        List<Notification> loadNotifications();
+        List<Challenge> loadChallenges();
     }
 }
