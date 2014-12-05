@@ -7,7 +7,7 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:mui="http://firstfloorsoftware.com/ModernUI"
              mc:Ignorable="d" 
-             d:DesignHeight="300" d:DesignWidth="500"
+             d:DesignHeight="300" d:DesignWidth="600"
              DataContext="{Binding HomeViewModel}">
     
     <Grid Style="{StaticResource ContentRoot}">
@@ -17,8 +17,15 @@
                     <Run Text="Hallo, "></Run>
                     <Run Text="{Binding Aggregator.User.Username}" FontWeight="Bold"></Run>
                 </TextBlock>
-                <StackPanel Orientation="Horizontal" Width="500" Margin="0,20,0,0">
-                    <StackPanel HorizontalAlignment="Left">
+                <Grid Width="650" Margin="0,20,0,0" HorizontalAlignment="Left" VerticalAlignment="Top">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"></RowDefinition>
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="300"></ColumnDefinition>
+                        <ColumnDefinition Width="Auto"></ColumnDefinition>
+                    </Grid.ColumnDefinitions>
+                    <StackPanel Grid.Row="0" Grid.Column="0" HorizontalAlignment="Left">
                     <Label Content="Neuigkeiten:" Margin="0,10" FontWeight="Bold" />
                         <ScrollViewer MaxHeight="300">
                             <ItemsControl ItemsSource="{Binding Aggregator.Notifications}">
@@ -28,38 +35,33 @@
                                             <Grid.ColumnDefinitions>
                                                 <ColumnDefinition />
                                             </Grid.ColumnDefinitions>
-                                            <TextBlock Text="{Binding Message}"  Margin="0,5"/>
+                                            <TextBlock TextWrapping="Wrap" Text="{Binding Message}"  Margin="0,5"/>
                                         </Grid>
                                     </DataTemplate>
                                 </ItemsControl.ItemTemplate>
                             </ItemsControl>
                         </ScrollViewer>
                     </StackPanel>
-                    <StackPanel HorizontalAlignment="Right">
+                    <StackPanel Grid.Row="0" Grid.Column="1" HorizontalAlignment="Right" Width="Auto">
                     <Label Content="Herausforderungen:" Margin="0,10" FontWeight="Bold" />
                     <ScrollViewer MaxHeight="300">
                     <ItemsControl x:Name="challanges" ItemsSource="{Binding Aggregator.Challenges}">
                         <ItemsControl.ItemTemplate>
                             <DataTemplate>
                                 <Border BorderBrush="{DynamicResource Accent}" BorderThickness="1" CornerRadius="1" 
-                                        Height="Auto" Width="Auto" Margin="0,0,0,10" Padding="5">
-                                    <StackPanel>
-                                        <StackPanel Orientation="Horizontal">
-                                            <TextBlock Margin="0,0,10,0">
-                                            <Run FontWeight="Bold" Text="{Binding Category.Name}"/>
-                                            </TextBlock>
-                                            <TextBlock>
-                                            <Run FontWeight="Bold" Text="{Binding Quizies.Quizies.First().Title}"/>
-                                            </TextBlock>
+                                        Height="Auto" Width="Auto" Margin="0,0,0,10" Padding="7">
+                                    <StackPanel Width="Auto">
+                                        <StackPanel Orientation="Horizontal" Width="Auto">
+                                            <TextBlock TextWrapping="Wrap" Margin="0,0,10,0" FontWeight="Bold" Text="{Binding CategoryName}"/>
+                                            <TextBlock Text="|  "></TextBlock>
+                                            <TextBlock TextWrapping="Wrap" FontWeight="Bold" Text="{Binding Quiz.Title}"/>
                                         </StackPanel>
-                                        <TextBlock Margin="0,10,0,0">From:
+                                        <TextBlock Margin="0,10,0,0">Von:
                                         <Run FontWeight="Bold" Text="{Binding From.Name}"/>
                                         </TextBlock>
-                                        <TextBlock>
-                                        <Run FontWeight="Bold" Text="{Binding ChallengeText}"/>
-                                        </TextBlock>
-                                        <StackPanel Orientation="Horizontal">
-                                            <mui:ModernButton Content="annehmen"/>
+                                        <TextBlock TextWrapping="Wrap" Text="{Binding ChallengeText}"/>
+                                        <StackPanel Orientation="Horizontal" Margin="0,10,0,0">
+                                            <mui:ModernButton Content="annehmen" Margin="0,0,10,0"/>
                                             <mui:ModernButton Content="ablehnen"/>
                                         </StackPanel>
                                     </StackPanel>
@@ -69,7 +71,7 @@
                     </ItemsControl>
                     </ScrollViewer>
                     </StackPanel>
-                </StackPanel>
+                </Grid>
             </StackPanel>
         </ScrollViewer>
     </Grid>
