@@ -11,7 +11,7 @@ namespace Quizio.Models
     /// the time spend playing the game, the given answers in rounds and the quiz with the questions
     /// which have been answers.
     /// </summary>
-    class Game
+    public class Game
     {
         /// <summary>
         /// Gets or sets an unique id that belongs to a specific game played.
@@ -21,7 +21,7 @@ namespace Quizio.Models
         /// <summary>
         /// Gets or sets the user, which played the game.
         /// </summary>
-        public User User { get; set; }
+        public Friend Player { get; set; }
 
         /// <summary>
         /// Gets or sets the time it took to finish the game in seconds.
@@ -54,10 +54,10 @@ namespace Quizio.Models
         /// <param name="rounds">A <c>List</c> of every <c>Round</c> played in the game</param>
         /// <param name="quiz">A the quiz played in this game.</param>
         /// <param name="category">The category to which the quiz belongs.</param>
-        public Game(int id, User user, int time, List<Round> rounds, Quiz quiz, Category category)
+        public Game(int id, Friend player, int time, List<Round> rounds, Quiz quiz, Category category)
         {
             Id = id;
-            User = User;
+            Player = player;
             Time = time;
             Rounds = rounds;
             PlayedQuiz = quiz;
@@ -73,7 +73,7 @@ namespace Quizio.Models
         /// <param name="rounds">A <c>List</c> of every <c>Round</c> played in the game</param>
         /// <param name="quiz">A the quiz played in this game.</param>
         /// <param name="category">The category to which the quiz belongs.</param>
-        public Game(User user, int time, List<Round> rounds, Quiz quiz, Category category) : this(0, user, time, rounds, quiz, category) { }
+        public Game(Friend player, int time, List<Round> rounds, Quiz quiz, Category category) : this(0, player, time, rounds, quiz, category) { }
 
         /// <summary>
         /// Converts the game to a json string.
@@ -86,9 +86,9 @@ namespace Quizio.Models
             {
                   json += "\"id\": \""+ Id + "\", ";
             }
-            if (User != null)
+            if (Player != null)
             {
-                json += "\"playerId\": " + User.Id + ", ";
+                json += "\"playerId\": " + Player.Id + ", ";
             }
                 json += "\"time\": \"" + Time + "\"";
             if (PlayedQuiz != null)
