@@ -2,7 +2,7 @@
 using Moq;
 using Quizio.Models;
 using System.Collections.Generic;
-using Quizio.Utilities;
+using Quizio.DAO;
 
 namespace Quizio.Tests.Integrationtests
 {
@@ -27,10 +27,10 @@ namespace Quizio.Tests.Integrationtests
             List<Category> categories = new List<Category>();
             categories.Add(new Category("Mathematik", "Die abstrakte Sprache der Natur", quizies));
 
-            var categoryDaoMock = new Mock<CategoryDAO>();
+            var categoryDaoMock = new Mock<ICategoryDAO>();
             categoryDaoMock.Setup(f => f.loadCategories()).Returns(categories);
 
-            CategoryDAO catDao = categoryDaoMock.Object;
+            ICategoryDAO catDao = categoryDaoMock.Object;
 
             ModelAggregator aggregator = new ModelAggregator(null, null, catDao, null);
             // endsetup
@@ -65,10 +65,10 @@ namespace Quizio.Tests.Integrationtests
 
             Quiz selectedQuiz = new Quiz(1, "Analysis", "Differential, Integration etc.", new List<Question>());
 
-            var questionDaoMock = new Mock<QuestionDAO>();
+            var questionDaoMock = new Mock<IQuestionDAO>();
             questionDaoMock.Setup(f => f.loadQuestionsOfQuiz(It.IsAny<int>())).Returns(questions);
 
-            QuestionDAO questionDao = questionDaoMock.Object;
+            IQuestionDAO questionDao = questionDaoMock.Object;
 
             GameAggregator gameAggregator = new GameAggregator(questionDao, null);
             //endsetup

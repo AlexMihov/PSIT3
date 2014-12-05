@@ -1,6 +1,6 @@
 ﻿using Xunit;
 using Moq;
-using Quizio.Utilities;
+using Quizio.DAO;
 using System.Collections.Generic;
 using Quizio.Models;
 
@@ -25,10 +25,10 @@ namespace Quizio.Tests.Integrationtests
             List<Notification> notifications = new List<Notification>();
             notifications.Add(new Notification("testmessage", "test"));
             
-            var notificationDaoMock = new Mock<NotificationDAO>();
+            var notificationDaoMock = new Mock<INotificationDAO>();
             notificationDaoMock.Setup(f => f.loadNotifications(It.IsAny<int>())).Returns(notifications);
 
-            NotificationDAO natDao = notificationDaoMock.Object;
+            INotificationDAO natDao = notificationDaoMock.Object;
             ModelAggregator aggregator = new ModelAggregator(natDao, null, null, null);
             aggregator.User = testUser;
             // endsetup

@@ -117,6 +117,10 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="DAO\INotificationDAO.cs" />
+    <Compile Include="DAO\IQuestionDAO.cs" />
+    <Compile Include="DAO\IRankingDAO.cs" />
+    <Compile Include="DAO\IUserDAO.cs" />
     <Compile Include="Models\Answer.cs" />
     <Compile Include="Models\Category.cs" />
     <Compile Include="Models\Friend.cs" />
@@ -130,13 +134,15 @@
     <Compile Include="Models\UserInput.cs" />
     <Compile Include="Tests\Integrationtests\FriendIntegrationTest.cs" />
     <Compile Include="Tests\Integrationtests\HomeIntegrationTest.cs" />
+    <Compile Include="Tests\Integrationtests\ProfileIntegrationTest.cs" />
     <Compile Include="Tests\Integrationtests\RankingIntegrationTest.cs" />
     <Compile Include="Tests\Integrationtests\RegularGameIntegrationTest.cs" />
-    <Compile Include="Utilities\CategoryDAO.cs" />
-    <Compile Include="Utilities\UserDAO.cs" />
-    <Compile Include="Utilities\NotificationDAO.cs" />
-    <Compile Include="Utilities\QuestionDAO.cs" />
-    <Compile Include="Utilities\RankingDAO.cs" />
+    <Compile Include="DAO\CategoryDAO.cs" />
+    <Compile Include="DAO\ICategoryDAO.cs" />
+    <Compile Include="DAO\UserDAO.cs" />
+    <Compile Include="DAO\NotificationDAO.cs" />
+    <Compile Include="DAO\QuestionDAO.cs" />
+    <Compile Include="DAO\RankingDAO.cs" />
     <Compile Include="ViewModels\FriendViewModel.cs" />
     <Compile Include="ViewModels\HomeViewModel.cs" />
     <Compile Include="ViewModels\MainViewModel.cs" />

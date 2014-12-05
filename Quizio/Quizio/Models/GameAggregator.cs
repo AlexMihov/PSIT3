@@ -1,10 +1,5 @@
 ﻿using Microsoft.Practices.Prism.Mvvm;
-using Quizio.Utilities;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using Quizio.DAO;
 
 namespace Quizio.Models
 {
@@ -19,19 +14,21 @@ namespace Quizio.Models
 
         public User User { get; set; }
 
-        #region DAO's
-        private QuestionDAO questionDao;
-        private RankingDAO rankingDao;
+        #region DAO Interfaces
+        private IQuestionDAO questionDao;
+        private IRankingDAO rankingDao;
         #endregion
 
         public GameAggregator()
         {
+            // create a new instance of swappable DAO and assign them to the private Interfaces
             questionDao = new QuestionDAO();
             rankingDao = new RankingDAO();
         }
 
-        public GameAggregator(QuestionDAO questionDao, RankingDAO rankingDao)
+        public GameAggregator(IQuestionDAO questionDao, IRankingDAO rankingDao)
         {
+            // assign swappable DAO to the private Interfaces
             this.questionDao = questionDao;
             this.rankingDao = rankingDao;
         }

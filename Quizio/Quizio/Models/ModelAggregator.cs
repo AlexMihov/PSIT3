@@ -1,10 +1,8 @@
 ﻿using Microsoft.Practices.Prism.Mvvm;
-using Quizio.Utilities;
+using Quizio.DAO;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Quizio.Models
 {
@@ -83,23 +81,25 @@ namespace Quizio.Models
 
         #endregion
 
-        #region DAO's
-        private NotificationDAO natDao;
-        private RankingDAO rankingDao;
-        private CategoryDAO catDao;
-        private UserDAO userDao;
+        #region DAO Interfaces
+        private INotificationDAO natDao;
+        private IRankingDAO rankingDao;
+        private ICategoryDAO catDao;
+        private IUserDAO userDao;
         #endregion
 
         public ModelAggregator()
         {
+            // create a new instance of swappable DAO and assign them to the private Interfaces
             natDao = new NotificationDAO();
             rankingDao = new RankingDAO();
             catDao = new CategoryDAO();
             userDao = new UserDAO();
         }
 
-        public ModelAggregator(NotificationDAO natDao, RankingDAO rankingDao, CategoryDAO catDao, UserDAO userDao)
+        public ModelAggregator(INotificationDAO natDao, IRankingDAO rankingDao, ICategoryDAO catDao, IUserDAO userDao)
         {
+            // assign swappable DAO to the private Interfaces
             this.natDao = natDao;
             this.rankingDao = rankingDao;
             this.catDao = catDao;

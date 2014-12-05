@@ -3,7 +3,7 @@ using Moq;
 using System.Collections.Generic;
 using System.Linq;
 using Quizio.Models;
-using Quizio.Utilities;
+using Quizio.DAO;
 
 namespace Quizio.Tests.Integrationtests
 {
@@ -26,10 +26,10 @@ namespace Quizio.Tests.Integrationtests
             List<Friend> friends = new List<Friend>();
             friends.Add(new Friend(2, "testFriend", "testFriendstatus", "Visual Studio"));
 
-            var userDaoMock = new Mock<UserDAO>();
+            var userDaoMock = new Mock<IUserDAO>();
             userDaoMock.Setup(f => f.loadFriends()).Returns(friends);
 
-            UserDAO userDao = userDaoMock.Object;
+            IUserDAO userDao = userDaoMock.Object;
             ModelAggregator aggregator = new ModelAggregator(null, null, null, userDao);
             aggregator.User = testUser;
             // endsetup
@@ -70,10 +70,10 @@ namespace Quizio.Tests.Integrationtests
             searchResult.Add(new Friend(2, "testFriend1", "testFriendstatus", "Visual Studio"));
             searchResult.Add(new Friend(3, "testFriend2", "testFriendstatus", "Visual Studio"));
 
-            var userDaoMock = new Mock<UserDAO>();
+            var userDaoMock = new Mock<IUserDAO>();
             userDaoMock.Setup(f => f.searchFriends(It.IsAny<string>())).Returns(searchResult);
 
-            UserDAO userDao = userDaoMock.Object;
+            IUserDAO userDao = userDaoMock.Object;
             ModelAggregator aggregator = new ModelAggregator(null, null, null, userDao);
             aggregator.FriendSearch = toSearch;
             // endsetup
@@ -110,11 +110,11 @@ namespace Quizio.Tests.Integrationtests
 
             Friend toAdd = new Friend(4, "testFriend3", "testFriendstatus3", "Visual Studio");
 
-            var userDaoMock = new Mock<UserDAO>();
+            var userDaoMock = new Mock<IUserDAO>();
             userDaoMock.Setup(f => f.addNewFriend(It.IsAny<int>()));
             userDaoMock.Setup(f => f.deleteFriend(It.IsAny<int>()));
 
-            UserDAO userDao = userDaoMock.Object;
+            IUserDAO userDao = userDaoMock.Object;
             ModelAggregator aggregator = new ModelAggregator(null, null, null, userDao);
             // endsetup
 

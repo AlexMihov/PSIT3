@@ -1,6 +1,6 @@
 ﻿using Xunit;
 using Moq;
-using Quizio.Utilities;
+using Quizio.DAO;
 using Quizio.Models;
 using System.Collections.Generic;
 
@@ -25,10 +25,10 @@ namespace Quizio.Tests.Integrationtests
             rankings.Add(new Ranking(2, "spieler 2", 100));
             rankings.Add(new Ranking(3, "spieler 3", 100));
 
-            var rankingDaoMock = new Mock<RankingDAO>();
+            var rankingDaoMock = new Mock<IRankingDAO>();
             rankingDaoMock.Setup(f => f.loadRankings()).Returns(rankings);
 
-            RankingDAO rankingDao = rankingDaoMock.Object;
+            IRankingDAO rankingDao = rankingDaoMock.Object;
 
             ModelAggregator aggregator = new ModelAggregator(null, rankingDao, null, null);
             aggregator.Rankings = null;
@@ -55,9 +55,9 @@ namespace Quizio.Tests.Integrationtests
             User testUser = new User(1, "test", "teststatus", "Visual Studio", "test@test.ch");
             int pointsToAdd = 100;
 
-            var rankingDaoMock = new Mock<RankingDAO>();
+            var rankingDaoMock = new Mock<IRankingDAO>();
 
-            RankingDAO rankingDao = rankingDaoMock.Object;
+            IRankingDAO rankingDao = rankingDaoMock.Object;
 
             GameAggregator gameAggregator = new GameAggregator(null, rankingDao);
             gameAggregator.User = testUser;
