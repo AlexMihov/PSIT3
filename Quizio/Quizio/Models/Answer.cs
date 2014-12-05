@@ -44,6 +44,6 @@ namespace Quizio.Models
         /// </summary>
         /// <param name="answer">The answer text as a string</param>
         /// <param name="value">The value of the answer as a bool, <c>true</c> if the answer is correct, else <c>false</c></param>
-        public Answer(string answer, bool value) : this(0, answer, value) { }
+        public Answer(string answer, bool value) : this(0, answer, value) { }   
     }
 }

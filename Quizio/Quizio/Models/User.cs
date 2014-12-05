@@ -49,5 +49,10 @@ namespace Quizio.Models
             this.Location = location;
             this.Email = email;
         }
+
+        internal static string ToJson()
+        {
+            throw new System.NotImplementedException();
+        }
     }
 }

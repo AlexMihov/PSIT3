@@ -125,6 +125,7 @@
     <Compile Include="Models\Category.cs" />
     <Compile Include="Models\Challenge.cs" />
     <Compile Include="Models\Friend.cs" />
+    <Compile Include="Models\Game.cs" />
     <Compile Include="Models\GameAggregator.cs" />
     <Compile Include="Models\ModelAggregator.cs" />
     <Compile Include="Models\Notification.cs" />
@@ -132,7 +133,7 @@
     <Compile Include="Models\Quiz.cs" />
     <Compile Include="Models\Ranking.cs" />
     <Compile Include="Models\User.cs" />
-    <Compile Include="Models\UserInput.cs" />
+    <Compile Include="Models\Round.cs" />
     <Compile Include="Tests\Integrationtests\FriendIntegrationTest.cs" />
     <Compile Include="Tests\Integrationtests\HomeIntegrationTest.cs" />
     <Compile Include="Tests\Integrationtests\ProfileIntegrationTest.cs" />

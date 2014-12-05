@@ -15,13 +15,17 @@ namespace Quizio.Models
     {
         public int Id { get; set; }
 
-        public Friend From { get; set; }
-
         public Quiz Quiz { get; set; }
 
-        public List<UserInput> ChallengerData { get; set; }
+        //public Game ChallengeGame { get; set; }
 
-        public List<UserInput> MyData { get; set; }
+        //public Game ResponseGame { get; set; }
+
+        public Friend From { get; set; }
+
+        public List<Round> ChallengerData { get; set; }
+
+        public List<Round> MyData { get; set; }
 
         public int EnemyTime { get; set; }
 
@@ -30,7 +34,7 @@ namespace Quizio.Models
         public string ChallengeText { get; set; }
 
         [JsonConstructor]
-        public Challenge(int id, Friend from, Quiz quiz, List<UserInput> myData, List<UserInput> challengerData, int enemytime, string categoryName, string text)
+        public Challenge(int id, Friend from, Quiz quiz, List<Round> myData, List<Round> challengerData, int enemytime, string categoryName, string text)
         {
             this.Id = id;
             this.From = from;

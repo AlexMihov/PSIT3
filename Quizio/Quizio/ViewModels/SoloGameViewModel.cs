@@ -80,9 +80,9 @@ namespace Quizio.ViewModels
         #region Shared Datafields without raising events
         public GameAggregator Game { get; set; }
 
-        public List<UserInput> CorrectUserInputs { get; set; }
-        public List<UserInput> FalseUserInputs { get; set; }
-        public List<UserInput> TimedOutUserInputs { get; set; }
+        public List<Round> CorrectUserInputs { get; set; }
+        public List<Round> FalseUserInputs { get; set; }
+        public List<Round> TimedOutUserInputs { get; set; }
 
         private List<int> timeNeeded;
         public int TimeNeededSum { get; set; }
@@ -104,9 +104,9 @@ namespace Quizio.ViewModels
             QuestionsDone = 1;
             QuestionsRemaining = Game.Quiz.Questions.Count;
 
-            CorrectUserInputs = new List<UserInput>();
-            FalseUserInputs = new List<UserInput>();
-            TimedOutUserInputs = new List<UserInput>();
+            CorrectUserInputs = new List<Round>();
+            FalseUserInputs = new List<Round>();
+            TimedOutUserInputs = new List<Round>();
             timeNeeded = new List<int>();
 
             NextQuestion = new DelegateCommand<object>(this.GetNextQuestion);
@@ -202,13 +202,13 @@ namespace Quizio.ViewModels
 
             if (!CurrentQuestion.checkAnswer(answerText))
             {
-                this.FalseUserInputs.Add(new UserInput(CurrentQuestion,
+                this.FalseUserInputs.Add(new Round(CurrentQuestion,
                     CurrentQuestion.GetAnswerByText(answerText).Id));
             }
             else
             {
                 Answer ans = CurrentQuestion.GetCorrectAnswer();
-                this.CorrectUserInputs.Add(new UserInput(CurrentQuestion, ans.Id));
+                this.CorrectUserInputs.Add(new Round(CurrentQuestion, ans.Id));
             }
 
             myTimer.Stop();
@@ -248,7 +248,7 @@ namespace Quizio.ViewModels
 
                 Answer timedOutAnswer = new Answer("Timeout", false);
                 Answer ans = CurrentQuestion.GetCorrectAnswer();
-                UserInput timedOutInput = new UserInput(CurrentQuestion, timedOutAnswer.Id);
+                Round timedOutInput = new Round(CurrentQuestion, timedOutAnswer.Id);
                 TimedOutUserInputs.Add(timedOutInput);
 
                 this.QuestionsDone++;

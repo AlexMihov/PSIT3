@@ -24,7 +24,7 @@ namespace Quizio.DAO
             //List<Challenge> challengesTemp = JsonConvert.DeserializeObject<List<Challenge>>(json);
 
 
-            List<UserInput> input = new List<UserInput>();
+            List<Round> input = new List<Round>();
             List<Question> questions = new List<Question>();
 
             Quiz quiz = new Quiz(0, "Programming Languages", "All About Programming", questions);

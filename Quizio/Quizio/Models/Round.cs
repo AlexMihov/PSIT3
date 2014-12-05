@@ -2,9 +2,9 @@
 namespace Quizio.Models
 {
     /// <summary>
-    /// The class UserInput is used to save an answer given by the user to a given question. It saves the question, the given answer, the correct answer and if the question given was correct.
+    /// The class Round is used to save an answer given by the user to a given question. It saves the question, the given answer, the correct answer and if the question given was correct.
     /// </summary>
-    public class UserInput
+    public class Round
     {
         /// <summary>
         /// Gets or sets the text of the question answered. 
@@ -30,13 +30,13 @@ namespace Quizio.Models
         public bool WasCorrect { get; set; }
         
         /// <summary>
-        /// Constructor of the UserInput class, it takes a question and the id of the given answer. 
+        /// Constructor of the Round class, it takes a question and the id of the given answer. 
         /// The other information is extracted in the contructor from the question object. 
         /// </summary>
         /// <param name="question">The question answered by the user as a <c>Question</c></param>
         /// <param name="givenAnswerId">The id of the answer given by the user as an interger</param>
         [JsonConstructor]
-        public UserInput(Question question, int givenAnswerId)
+        public Round(Question question, int givenAnswerId)
         {
             this.Question = question;
             this.GivenAnswer = question.GetAnswerById(givenAnswerId);
@@ -45,6 +45,12 @@ namespace Quizio.Models
                 this.WasCorrect = true;
             else
                 this.WasCorrect = false;
+        }
+
+
+        public string ToJson()
+        {
+            return "{\"questionId\": " + Question.Id + "," + "\"answerId\":" + GivenAnswer.Id + "}";
         }
 
     }
