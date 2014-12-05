@@ -7,7 +7,7 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:mui="http://firstfloorsoftware.com/ModernUI"
              mc:Ignorable="d" 
-             d:DesignHeight="300" d:DesignWidth="300"
+             d:DesignHeight="300" d:DesignWidth="500"
              DataContext="{Binding HomeViewModel}">
     
     <Grid Style="{StaticResource ContentRoot}">
@@ -17,19 +17,59 @@
                     <Run Text="Hallo, "></Run>
                     <Run Text="{Binding Aggregator.User.Username}" FontWeight="Bold"></Run>
                 </TextBlock>
-                <Label Content="Neuigkeiten:" Margin="0,10" FontWeight="Bold" />
-                <ItemsControl ItemsSource="{Binding Aggregator.Notifications}">
-                    <ItemsControl.ItemTemplate>
-                        <DataTemplate>
-                            <Grid>
-                                <Grid.ColumnDefinitions>
-                                    <ColumnDefinition />
-                                </Grid.ColumnDefinitions>
-                                <TextBlock Text="{Binding Message}"  Margin="0,5"/>
-                            </Grid>
-                        </DataTemplate>
-                    </ItemsControl.ItemTemplate>
-                </ItemsControl>
+                <StackPanel Orientation="Horizontal" Width="500" Margin="0,20,0,0">
+                    <StackPanel HorizontalAlignment="Left">
+                    <Label Content="Neuigkeiten:" Margin="0,10" FontWeight="Bold" />
+                        <ScrollViewer MaxHeight="300">
+                            <ItemsControl ItemsSource="{Binding Aggregator.Notifications}">
+                                <ItemsControl.ItemTemplate>
+                                    <DataTemplate>
+                                        <Grid>
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition />
+                                            </Grid.ColumnDefinitions>
+                                            <TextBlock Text="{Binding Message}"  Margin="0,5"/>
+                                        </Grid>
+                                    </DataTemplate>
+                                </ItemsControl.ItemTemplate>
+                            </ItemsControl>
+                        </ScrollViewer>
+                    </StackPanel>
+                    <StackPanel HorizontalAlignment="Right">
+                    <Label Content="Herausforderungen:" Margin="0,10" FontWeight="Bold" />
+                    <ScrollViewer MaxHeight="300">
+                    <ItemsControl x:Name="challanges" ItemsSource="{Binding Aggregator.Challenges}">
+                        <ItemsControl.ItemTemplate>
+                            <DataTemplate>
+                                <Border BorderBrush="{DynamicResource Accent}" BorderThickness="1" CornerRadius="1" 
+                                        Height="Auto" Width="Auto" Margin="0,0,0,10" Padding="5">
+                                    <StackPanel>
+                                        <StackPanel Orientation="Horizontal">
+                                            <TextBlock Margin="0,0,10,0">
+                                            <Run FontWeight="Bold" Text="{Binding Category.Name}"/>
+                                            </TextBlock>
+                                            <TextBlock>
+                                            <Run FontWeight="Bold" Text="{Binding Quizies.Quizies.First().Title}"/>
+                                            </TextBlock>
+                                        </StackPanel>
+                                        <TextBlock Margin="0,10,0,0">From:
+                                        <Run FontWeight="Bold" Text="{Binding From.Name}"/>
+                                        </TextBlock>
+                                        <TextBlock>
+                                        <Run FontWeight="Bold" Text="{Binding ChallengeText}"/>
+                                        </TextBlock>
+                                        <StackPanel Orientation="Horizontal">
+                                            <mui:ModernButton Content="annehmen"/>
+                                            <mui:ModernButton Content="ablehnen"/>
+                                        </StackPanel>
+                                    </StackPanel>
+                                </Border>
+                            </DataTemplate>
+                        </ItemsControl.ItemTemplate>
+                    </ItemsControl>
+                    </ScrollViewer>
+                    </StackPanel>
+                </StackPanel>
             </StackPanel>
         </ScrollViewer>
     </Grid>

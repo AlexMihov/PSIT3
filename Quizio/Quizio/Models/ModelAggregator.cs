@@ -30,6 +30,13 @@ namespace Quizio.Models
             set { SetProperty(ref this._notifications, value); }
         }
 
+        private List<Challenge> _challenges;
+        public List<Challenge> Challenges
+        {
+            get { return this._challenges; }
+            set { SetProperty(ref this._challenges, value); }
+        }
+
         private List<Ranking> _rankings;
         public  List<Ranking> Rankings
         {
@@ -82,7 +89,7 @@ namespace Quizio.Models
         #endregion
 
         #region DAO Interfaces
-        private INotificationDAO natDao;
+        private IHomeDAO homeDao;
         private IRankingDAO rankingDao;
         private ICategoryDAO catDao;
         private IUserDAO userDao;
@@ -91,16 +98,16 @@ namespace Quizio.Models
         public ModelAggregator()
         {
             // create a new instance of swappable DAO and assign them to the private Interfaces
-            natDao = new NotificationDAO();
+            homeDao = new HomeDAO();
             rankingDao = new RankingDAO();
             catDao = new CategoryDAO();
             userDao = new UserDAO();
         }
 
-        public ModelAggregator(INotificationDAO natDao, IRankingDAO rankingDao, ICategoryDAO catDao, IUserDAO userDao)
+        public ModelAggregator(IHomeDAO homeDao, IRankingDAO rankingDao, ICategoryDAO catDao, IUserDAO userDao)
         {
             // assign swappable DAO to the private Interfaces
-            this.natDao = natDao;
+            this.homeDao = homeDao;
             this.rankingDao = rankingDao;
             this.catDao = catDao;
             this.userDao = userDao;
@@ -133,7 +140,8 @@ namespace Quizio.Models
         #region related to HomeViewModel
         public void reloadHomeData()
         {
-            Notifications = natDao.loadNotifications(User.Id);
+            Notifications = homeDao.loadNotifications(User.Id);
+            Challenges = homeDao.loadChallenges(User.Id);
         }
         #endregion
 

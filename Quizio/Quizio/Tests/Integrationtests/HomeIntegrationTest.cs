@@ -25,10 +25,10 @@ namespace Quizio.Tests.Integrationtests
             List<Notification> notifications = new List<Notification>();
             notifications.Add(new Notification("testmessage", "test"));
             
-            var notificationDaoMock = new Mock<INotificationDAO>();
+            var notificationDaoMock = new Mock<IHomeDAO>();
             notificationDaoMock.Setup(f => f.loadNotifications(It.IsAny<int>())).Returns(notifications);
 
-            INotificationDAO natDao = notificationDaoMock.Object;
+            IHomeDAO natDao = notificationDaoMock.Object;
             ModelAggregator aggregator = new ModelAggregator(natDao, null, null, null);
             aggregator.User = testUser;
             // endsetup
