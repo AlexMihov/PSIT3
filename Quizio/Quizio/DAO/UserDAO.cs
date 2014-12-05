@@ -66,7 +66,7 @@ namespace Quizio.DAO
         public void updateUserSettings(User user)
         {
             string req = REST.APIURL + "/profile";
-            string json = "{ \"name\":\"" + user.Username + "\", \"email\":\"" + user.Email + "\", \"status\": \"" + user.Status + "\"}"; ;
+            string json = "{ \"name\":\"" + user.Username + "\", \"email\":\"" + user.Email + "\", \"status\": \"" + user.Status + "\", \"origin\": \"" + user.Location + "\"}"; ;
             string res = REST.put(req, json);
         }
 
@@ -98,7 +98,9 @@ namespace Quizio.DAO
         /// <param name="pw">The new password as a string.</param>
         public void changePassword(string pw)
         {
-            Console.WriteLine(pw);
+            string req = REST.APIURL + "/profile/password";
+            string json = "{\"password\":" + hash(pw) + "}";
+            string res = REST.put(req, json);
         }
 
         /// <summary>

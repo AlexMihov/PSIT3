@@ -278,56 +278,83 @@ router.post('/player', function(req, res) {
 
  });
 
- router.put('/profile', function(req, res) {
-  printLogStart("Update userdata", req);
-  var name 		= 	connection.escape(req.body.name);
-  var email 	= 	connection.escape(req.body.email);
-  var status 	= 	connection.escape(req.body.status);
+  router.put('/profile', function(req, res) {
+    printLogStart("Update userdata", req);
+    var input = [req.body.name
+               , req.body.email
+               , req.body.status
+               , req.body.location
+               , req.user.id];
 
-  var sql = "UPDATE player  SET " + "name =" + name + "," + "email =" + email + "," + "status = " + status + " WHERE player_id = 13";
-  //var sql = "UPDATE player SET name = 'Xale1', email = 'new@mail.com', origin = 'Derpistan', status = 'I derp' WHERE player_id = 13;"
+    var sql = "UPDATE player " +
+                 "SET name = ?, email = ?, status = ?, origin = ? " + 
+               "WHERE player_id = ?";
 
-  connection.query(sql, function(err, rows, fields) {
-         if (err) throw err;
-         res.json({
-             status: "OK",
-             affectedRows: rows.affectedRows,
-             changedRows: rows.changedRows
-         });
-         printLogSuccess("Profile successfully updated");
-     });
-});
-
-
- router.put('/ranking', function(req, res) {
-     printLogStart("updating ranking data", req);
-     var playerID = req.user.id;
-     var toAdd = req.body.toAdd | 0;
-     console.log("Player: ", playerID);
-
-     var sqlSelect = "SELECT points FROM ranking WHERE player_id = " + connection.escape(playerID);
-
-     connection.query(sqlSelect, function(err, rows, fields){
+    connection.query(sql, function(err, rows, fields) {
       if (err) throw err;
-      var oldPoints = rows[0].points | 0;
-      var newPoints = oldPoints + toAdd;
+      res.json({
+        status: "OK",
+        affectedRows: rows.affectedRows,
+        changedRows: rows.changedRows
+      });
+      printLogSuccess("Profile successfully updated");
+    });
+  });
 
-      var sqlUpdate = "UPDATE ranking SET points = " + connection.escape(newPoints) + 
-              " WHERE player_id = " + connection.escape(playerID);
+  router.put('/profile/password', function(req, res) {
+    printLogStart("Update userdata", req);
 
-      connection.query(sqlUpdate, function(err, rows, fields) {
+    var input = [hashed(req.body.password)
+               , req.user.id];
+
+    var sql = "UPDATE player " +
+                 "SET password = ? " + 
+               "WHERE player_id = ?";
+
+    connection.query(sql, function(err, rows, fields) {
+      if (err) throw err;
+      res.json({
+        status: "OK",
+        affectedRows: rows.affectedRows,
+        changedRows: rows.changedRows
+      });
+      printLogSuccess("Password successfully updated");
+    });
+  });
+
+
+  router.put('/ranking', function(req, res) {
+    printLogStart("updating ranking data", req);
+
+    var sqlSelect = "SELECT points FROM ranking WHERE player_id = ?";
+
+    connection.query(sqlSelect, [req.user.id], function(err, rows, fields){
+      if (err) throw err;
+      var sql = "";
+      var input = [];
+      if(rows.length === 0) {
+        var sql = "INSERT INTO ranking  (player_id, points)" +
+                   " VALUES (?, ?)";
+        var input = [req.user.id, req.body.toAdd];
+      }
+      else {
+        var newPoints = rows[0].points + toAdd;
+        var input = [req.user.id, newPoints];
+
+        var sql = "UPDATE ranking SET points = ?" + 
+                  " WHERE player_id = ?";
+      }
+      connection.query(sql, input, function(err, rows, fields) {
         if (err) throw err;
         res.json({
-            status: "OK",
-            affectedRows: rows.affectedRows,
-            changedRows: rows.changedRows
+          status: "OK",
+          affectedRows: rows.affectedRows,
+          changedRows: rows.changedRows
         });
         printLogSuccess("Ranking successfully updated");
       });
-
-     });
-
- });
+    });
+  });
 
 /***
  *    ________  ___________.____     _________________________________
