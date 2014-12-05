@@ -8,7 +8,7 @@ using System.Web;
 using System.IO;
 using System.Collections.Specialized;
 
-namespace Quizio
+namespace Quizio.Utilities
 {
     public static class REST
     {

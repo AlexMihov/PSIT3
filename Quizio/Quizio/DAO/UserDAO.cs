@@ -1,19 +1,17 @@
 ﻿using Newtonsoft.Json;
 using Quizio.Models;
+using Quizio.Utilities;
 using System;
 using System.Collections.Generic;
-using System.Diagnostics;
-using System.Linq;
 using System.Security.Cryptography;
 using System.Text;
-using System.Threading.Tasks;
 
-namespace Quizio.Utilities
+namespace Quizio.DAO
 {
     /// <summary>
     /// The class is used to talk to the server to load, insert, update or delete data concerning the user data.
     /// </summary>
-    public class UserDAO
+    public class UserDAO : IUserDAO
     {
         /// <summary>
         /// Sends the login information to the server to establish a new session. Returns
@@ -37,7 +35,7 @@ namespace Quizio.Utilities
         /// Loads the list with friends of the user from the server.
         /// </summary>
         /// <returns><c>List</c> with all the <c>friends</c> of the user.</returns>
-        public virtual List<Friend> loadFriends()
+        public List<Friend> loadFriends()
         {
             string req = REST.APIURL + "/friends";
 
@@ -52,7 +50,7 @@ namespace Quizio.Utilities
         /// </summary>
         /// <param name="name">Part of a name of the user searched for as a string.</param>
         /// <returns>A list of users that match the search criteria and are not yet friends to the user.</returns>
-        public virtual List<Friend> searchFriends(string name){
+        public List<Friend> searchFriends(string name){
             string req = REST.APIURL + "/player/by-name/" + name;
 
             string response = REST.get(req);
@@ -76,7 +74,7 @@ namespace Quizio.Utilities
         /// Adds a new friend to the userfriendlist on the server.
         /// </summary>
         /// <param name="friendId">Id of the friend as an integer.</param>
-        public virtual void addNewFriend(int friendId)
+        public void addNewFriend(int friendId)
         {
             string req = REST.APIURL + "/friend";
             string json = "{\"friendId\":" + friendId + "}";
@@ -87,7 +85,7 @@ namespace Quizio.Utilities
         /// Deletes a friend of the user on the server.
         /// </summary>
         /// <param name="friendId">Id of the friend as an integer.</param>
-        public virtual void deleteFriend(int friendId)
+        public void deleteFriend(int friendId)
         {
             string req = REST.APIURL + "/friend";
             string json = "{\"friendId\":" + friendId + "}";
@@ -131,7 +129,7 @@ namespace Quizio.Utilities
         /// <summary>
         /// This method sends the server the information that the user has loged out.
         /// </summary>
-        internal void logOut()
+        public void logOut()
         {
             string req = REST.APIURL + "/logout";
             string response = REST.get(req);

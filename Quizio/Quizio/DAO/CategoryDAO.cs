@@ -1,25 +1,13 @@
 ﻿using Newtonsoft.Json;
 using Quizio.Models;
 using Quizio.Utilities;
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
-namespace Quizio.Utilities
+namespace Quizio.DAO
 {
-    public class CategoryDAO
+    public class CategoryDAO : ICategoryDAO
     {
-
-
-        public CategoryDAO() 
-        {
-
-        }
-
-
-        public virtual List<Category> loadCategories()
+        public List<Category> loadCategories()
         {
             string getReq = REST.APIURL + "/categories";
             string json = REST.get(getReq);

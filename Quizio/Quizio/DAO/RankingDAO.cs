@@ -1,28 +1,20 @@
 ﻿using Newtonsoft.Json;
 using Quizio.Models;
-using System;
+using Quizio.Utilities;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
-namespace Quizio.Utilities
+namespace Quizio.DAO
 {
-    public class RankingDAO
+    public class RankingDAO : IRankingDAO
     {
-        public RankingDAO()
-        {
-            //constructor empty
-        }
-
-        public virtual List<Ranking> loadRankings(){
+        public List<Ranking> loadRankings(){
             string getReq = REST.APIURL + "/rankings";
             string json = REST.get(getReq);
             List<Ranking> rankings = JsonConvert.DeserializeObject<List<Ranking>>(json);
             return rankings;
         }
 
-        public virtual void updateRanking(User fromUser, int pointsToAdd)
+        public void updateRanking(User fromUser, int pointsToAdd)
         {
             string putReq = REST.APIURL + "/ranking";
             string json = "{\"toAdd\":" + pointsToAdd + "}";

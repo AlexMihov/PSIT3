@@ -1,16 +1,13 @@
 ﻿using Newtonsoft.Json;
 using Quizio.Models;
-using System;
+using Quizio.Utilities;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
-namespace Quizio.Utilities
+namespace Quizio.DAO
 {
-    public class QuestionDAO
+    public class QuestionDAO : IQuestionDAO
     {
-        public virtual List<Question> loadQuestionsOfQuiz(int quizID)
+        public List<Question> loadQuestionsOfQuiz(int quizID)
         {
             string getReq = REST.APIURL + "/quiz/" + quizID + "/questions";
             string json = REST.get(getReq);
