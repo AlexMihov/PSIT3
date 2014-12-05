@@ -1,18 +1,19 @@
 "use strict";
 
 var 
-  crypto = require('crypto'),
-  mysql = require('mysql'),
-  config = require('./config');
+  crypto = require('crypto');
 
 var MyLocalStrategy = function(){
-  this.connection = mysql.createConnection(config.db);
-  
+  this.connection 
 };
+
+MyLocalStrategy.prototype.connect = function(con) {
+  this.connection = con;
+}
 
 MyLocalStrategy.prototype.setUp = function(username, password, done) {
 
-  this.connection.connect(); 
+
 
   var sql = 'SELECT player_id, name, password, email, origin, status FROM player WHERE name= ?';
 

@@ -1,13 +1,11 @@
 "use strict";
 
-module.exports = function (router) {
+module.exports = function (router, connection) {
 
-    var mysql = require('mysql'),
-        async = require('async'),
-        config = require('./config');
+    var async = require('async');
     //mysql configuration
-    var connection = mysql.createConnection(config.db);
-    connection.connect();
+    //var connection = mysql.createConnection(config.db);
+    //connection.connect();
 
 
   router.post('/friend', function(req, res) {

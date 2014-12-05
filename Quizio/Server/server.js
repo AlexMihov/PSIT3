@@ -14,7 +14,9 @@ var
   morgan = require('morgan'),
   cookieParser = require('cookie-parser'),
   passport = require('passport'),
-  LocalStrategy = require('passport-local').Strategy
+  mysql = require('mysql'),
+  LocalStrategy = require('passport-local').Strategy,
+  config = require('./config');
 
 
 var app = express(); // define our app using express
@@ -36,13 +38,15 @@ passport.deserializeUser(function(user, done) {
   done(null, user);
 });
 
-
-
+var connection = mysql.createConnection(config.db);
+connection.connect(); 
 
 var port = process.env.PORT || 10300;
 var router = express.Router();
 
 myLocalStrat = require('./myLocalStrat').MyLocalStrategy;
+myLocalStrat.connect(connection);
+
 passport.use(new LocalStrategy(function(username, password, done){ myLocalStrat.setUp(username, password, done) }));
 
 
@@ -64,7 +68,7 @@ app.get('/logout', function(req, res) {
   res.json({ok:true});
 });
 
-require('./routes')(router);
+require('./routes')(router, connection);
 
 
 
