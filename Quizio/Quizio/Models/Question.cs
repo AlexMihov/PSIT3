@@ -66,6 +66,25 @@ namespace Quizio.Models
         }
 
         /// <summary>
+        /// Finds a specific answer of the question by the id of the answer.
+        /// </summary>
+        /// <param name="answerText">Text of the answer as string</param>
+        /// <returns>The <c>Answer</c> that contains the answer text</returns>
+        public Answer GetAnswerById(int id)
+        {
+            IEnumerator<Answer> it = Answers.GetEnumerator();
+            while (it.MoveNext())
+            {
+                Answer currentAnswer = it.Current;
+                if (it.Current.Id == id)
+                {
+                    return currentAnswer;
+                }
+            }
+            return null;
+        }
+
+        /// <summary>
         /// Finds a specific answer of the question by the text of the answer.
         /// </summary>
         /// <param name="answerText">Text of the answer as string</param>

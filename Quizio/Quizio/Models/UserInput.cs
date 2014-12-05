@@ -1,4 +1,5 @@
-﻿namespace Quizio.Models
+﻿using Newtonsoft.Json;
+namespace Quizio.Models
 {
     /// <summary>
     /// The class UserInput is used to save an answer given by the user to a given question. It saves the question, the given answer, the correct answer and if the question given was correct.
@@ -27,18 +28,24 @@
         /// <c>true</c> if the answer given was correct; otherwise, <c>false</c>.
         /// </returns>
         public bool WasCorrect { get; set; }
-
+        
         /// <summary>
-        /// Constructor of the UserInput class, it takes a question, given answer and the correct answer.
+        /// Constructor of the UserInput class, it takes a question and the id of the given answer. 
+        /// The other information is extracted in the contructor from the question object. 
         /// </summary>
         /// <param name="question">The question answered by the user as a <c>Question</c></param>
-        /// <param name="given">The answer given by the user as a <c>Answer</c></param>
-        /// <param name="correctAnswer">The correct answer of the question as a <c>Answer</c></param>
-        public UserInput(Question question, Answer given, Answer correctAnswer)
+        /// <param name="givenAnswerId">The id of the answer given by the user as an interger</param>
+        [JsonConstructor]
+        public UserInput(Question question, int givenAnswerId)
         {
             this.Question = question;
-            this.GivenAnswer = given;
-            this.CorrectAnswer = correctAnswer;
+            this.GivenAnswer = question.GetAnswerById(givenAnswerId);
+            this.CorrectAnswer = question.GetCorrectAnswer();
+            if (CorrectAnswer.Id == GivenAnswer.Id)
+                this.WasCorrect = true;
+            else
+                this.WasCorrect = false;
         }
+
     }
 }
