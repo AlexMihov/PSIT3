@@ -2,16 +2,16 @@
 
 var async = require('async');
 
+
 var connection = {};
 
 
 
 exports.router = function (router, connection) {
 
-    
-  //mysql configuration
-  //var connection = mysql.createConnection(config.db);
-  //connection.connect();
+  var async = require('async');
+  var crypto = require('crypto');
+
 
 
   router.post('/friend', function(req, res) {
@@ -305,15 +305,16 @@ exports.router = function (router, connection) {
 
   router.put('/profile/password', function(req, res) {
     printLogStart("Update userdata", req);
-
-    var input = [hashed(req.body.password)
-               , req.user.id];
+    var sha256 = crypto.createHash("sha256");
+  	sha256.update(req.body.password, "utf8");
+  	var hashed = sha256.digest("base64");
+    var input = [hashed, req.user.id];
 
     var sql = "UPDATE player " +
                  "SET password = ? " + 
                "WHERE player_id = ?";
 
-    connection.query(sql, function(err, rows, fields) {
+    connection.query(sql, input, function(err, rows, fields) {
       if (err) throw err;
       res.json({
         status: "OK",

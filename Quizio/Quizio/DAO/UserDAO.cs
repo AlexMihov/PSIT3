@@ -25,7 +25,7 @@ namespace Quizio.DAO
 
             string response = REST.postLogin(req, name, hash(password));
 
-            if (response == "404" || response == "") return null;
+            if (response == "403" || response == "") return null;
 
             User user = JsonConvert.DeserializeObject<User>(response);
             return user;
@@ -66,7 +66,7 @@ namespace Quizio.DAO
         public void updateUserSettings(User user)
         {
             string req = REST.APIURL + "/profile";
-            string json = "{ \"name\":\"" + user.Username + "\", \"email\":\"" + user.Email + "\", \"status\": \"" + user.Status + "\", \"origin\": \"" + user.Location + "\"}"; ;
+            string json = "{ \"name\":\"" + user.Username + "\", \"email\":\"" + user.Email + "\", \"status\": \"" + user.Status + "\", \"location\": \"" + user.Location + "\"}"; ;
             string res = REST.put(req, json);
         }
 
@@ -99,7 +99,7 @@ namespace Quizio.DAO
         public void changePassword(string pw)
         {
             string req = REST.APIURL + "/profile/password";
-            string json = "{\"password\":" + hash(pw) + "}";
+            string json = "{\"password\":" +"\"" + hash(pw) + "\"}";
             string res = REST.put(req, json);
         }
 

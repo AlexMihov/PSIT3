@@ -59,7 +59,7 @@ app.use('/loginsucces', function(req, res){
 });
 
 app.use('/loginfaillure', function(req, res){
-  res.status(403).send({ error: 'Permission denied!' });
+  res.send("403").status(403);
 });
 
 app.get('/logout', function(req, res) {

@@ -18,6 +18,7 @@
                         <RowDefinition></RowDefinition>
                         <RowDefinition></RowDefinition>
                         <RowDefinition></RowDefinition>
+                        <RowDefinition></RowDefinition>
                     </Grid.RowDefinitions>
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition></ColumnDefinition>
@@ -27,16 +28,18 @@
                     <TextBox Grid.Row="0" Grid.Column="1" Text="{Binding Aggregator.User.Username, Mode=TwoWay}"  Margin="0,20"/>
                     <Label Grid.Row="1" Grid.Column="0"  Content="Passwort" FontWeight="Bold" Margin="0,20"></Label>
                     <PasswordBox x:Name="password" Grid.Row="1" Grid.Column="1" Margin="0,20"/>
-                    <Label Grid.Row="2" Grid.Column="0"  Content="Location" FontWeight="Bold" Margin="0,20"></Label>
-                    <TextBox Grid.Row="2" Grid.Column="1" Text="{Binding Aggregator.User.Location, Mode=TwoWay}"  Margin="0,20"/>
-                    <Label Grid.Row="3" Grid.Column="0"  Content="Status" FontWeight="Bold"  Margin="0,20"></Label>
-                    <TextBox Grid.Row="3" Grid.Column="1" Text="{Binding Aggregator.User.Status, Mode=TwoWay}"  Margin="0,20"/>
-                    <mui:ModernButton x:Name="save" Grid.Row="4" Grid.Column="0" Content="Speichern" 
+                    <Label Grid.Row="2" Grid.Column="0"  Content="Email" FontWeight="Bold" Margin="0,20"></Label>
+                    <TextBox Grid.Row="2" Grid.Column="1" Text="{Binding Aggregator.User.Email, Mode=TwoWay}"  Margin="0,20"/>
+                    <Label Grid.Row="3" Grid.Column="0"  Content="Location" FontWeight="Bold" Margin="0,20"></Label>
+                    <TextBox Grid.Row="3" Grid.Column="1" Text="{Binding Aggregator.User.Location, Mode=TwoWay}"  Margin="0,20"/>
+                    <Label Grid.Row="4" Grid.Column="0"  Content="Status" FontWeight="Bold"  Margin="0,20"></Label>
+                    <TextBox Grid.Row="4" Grid.Column="1" Text="{Binding Aggregator.User.Status, Mode=TwoWay}"  Margin="0,20"/>
+                    <mui:ModernButton x:Name="save" Grid.Row="5" Grid.Column="0" Content="Speichern" 
                                       Command="{Binding UpdateUserSettings}"
                                       CommandParameter="{Binding ElementName=password, Path=SecurePassword}"
                                       Margin="0,20">
                     </mui:ModernButton>
-                    <mui:ModernButton Grid.Row="4" Grid.Column="1" Content="Abbrechen" Margin="0,20"/>
+                    <mui:ModernButton Grid.Row="5" Grid.Column="1" Content="Abbrechen" Margin="0,20"/>
                 </Grid>
             </StackPanel>
         </ScrollViewer>
