@@ -3,6 +3,7 @@
 module.exports = function (router, connection) {
 
     var async = require('async');
+    var crypto = require('crypto');
     //mysql configuration
     //var connection = mysql.createConnection(config.db);
     //connection.connect();
@@ -290,7 +291,7 @@ router.post('/player', function(req, res) {
                  "SET name = ?, email = ?, status = ?, origin = ? " + 
                "WHERE player_id = ?";
 
-    connection.query(sql, function(err, rows, fields) {
+    connection.query(sql, input, function(err, rows, fields) {
       if (err) throw err;
       res.json({
         status: "OK",
@@ -303,15 +304,16 @@ router.post('/player', function(req, res) {
 
   router.put('/profile/password', function(req, res) {
     printLogStart("Update userdata", req);
-
-    var input = [hashed(req.body.password)
-               , req.user.id];
+    var sha256 = crypto.createHash("sha256");
+  	sha256.update(req.body.password, "utf8");
+  	var hashed = sha256.digest("base64");
+    var input = [hashed, req.user.id];
 
     var sql = "UPDATE player " +
                  "SET password = ? " + 
                "WHERE player_id = ?";
 
-    connection.query(sql, function(err, rows, fields) {
+    connection.query(sql, input, function(err, rows, fields) {
       if (err) throw err;
       res.json({
         status: "OK",
