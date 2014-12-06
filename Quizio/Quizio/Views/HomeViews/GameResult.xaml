@@ -5,7 +5,7 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:mui="http://firstfloorsoftware.com/ModernUI"
              mc:Ignorable="d" 
-             d:DesignHeight="500" d:DesignWidth="500"
+             d:DesignHeight="500" d:DesignWidth="700"
              DataContext="{Binding GameHistoryViewModel}">
     
     <Grid Style="{StaticResource ContentRoot}">
@@ -24,17 +24,19 @@
                         <RowDefinition Height="Auto"></RowDefinition>
                     </Grid.RowDefinitions>
                     <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="120"></ColumnDefinition>
+                        <ColumnDefinition Width="120"></ColumnDefinition>
+                        <ColumnDefinition Width="120"></ColumnDefinition>
                         <ColumnDefinition Width="150"></ColumnDefinition>
-                        <ColumnDefinition Width="150"></ColumnDefinition>
-                        <ColumnDefinition Width="150"></ColumnDefinition>
-                        <ColumnDefinition Width="150"></ColumnDefinition>
+                        <ColumnDefinition Width="120"></ColumnDefinition>
                     </Grid.ColumnDefinitions>
                     <Label Grid.Row="0" Grid.Column="0" Content="Herausforderer" HorizontalAlignment="Center"/>
                     <Label Grid.Row="0" Grid.Column="1" Content="Gegen" HorizontalAlignment="Center"/>
                     <Label Grid.Row="0" Grid.Column="2" Content="Kategorie" HorizontalAlignment="Center"/>
                     <Label Grid.Row="0" Grid.Column="3" Content="Quiz" HorizontalAlignment="Center"/>
+                    <Label Grid.Row="0" Grid.Column="4" Content="Status" HorizontalAlignment="Center"/>
                 </Grid>
-                <ListBox x:Name="playedGames"  ItemsSource="{Binding Aggregator.Challenges}" Width="620" Margin="0,20"
+                <ListBox x:Name="playedGames"  ItemsSource="{Binding Aggregator.Challenges}" Width="650" Margin="0,20"
                          SelectedItem="{Binding SelectedChallenge}"  HorizontalAlignment="Left">
                     <ListBox.ItemTemplate>
                         <DataTemplate>
@@ -43,15 +45,17 @@
                                     <RowDefinition Height="Auto"></RowDefinition>
                                 </Grid.RowDefinitions>
                                 <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="120"></ColumnDefinition>
+                                    <ColumnDefinition Width="120"></ColumnDefinition>
+                                    <ColumnDefinition Width="120"></ColumnDefinition>
                                     <ColumnDefinition Width="150"></ColumnDefinition>
-                                    <ColumnDefinition Width="150"></ColumnDefinition>
-                                    <ColumnDefinition Width="150"></ColumnDefinition>
-                                    <ColumnDefinition Width="150"></ColumnDefinition>
+                                    <ColumnDefinition Width="120"></ColumnDefinition>
                                 </Grid.ColumnDefinitions>
                                 <TextBlock Grid.Row="0" Grid.Column="0" Text="{Binding ChallengeGame.Player.Name}" HorizontalAlignment="Center"/>
                                 <TextBlock Grid.Row="0" Grid.Column="1" Text="{Binding ResponseGame.Player.Name}" HorizontalAlignment="Center"/>
                                 <TextBlock Grid.Row="0" Grid.Column="2" Text="{Binding ChallengeGame.Category.Name}" HorizontalAlignment="Center"/>
                                 <TextBlock Grid.Row="0" Grid.Column="3" Text="{Binding ChallengeGame.PlayedQuiz.Title}" HorizontalAlignment="Center"/>
+                                <TextBlock Grid.Row="0" Grid.Column="4" Text="{Binding Status}" HorizontalAlignment="Center"/>
                             </Grid>
                         </DataTemplate>
                     </ListBox.ItemTemplate>
