@@ -7,6 +7,7 @@ namespace Quizio.ViewModels
     {
         #region hosted ViewModels for integrated Views
         public RegularGameViewModel RegularGameViewModel { get; set; }
+        public PvpGameViewModel PvpGameViewModel { get; set; }
         public ProfileViewModel ProfileViewModel { get; set; }
         public RankingViewModel RankingViewModel { get; set; }
         public HomeViewModel HomeViewModel { get; set; }
@@ -17,6 +18,7 @@ namespace Quizio.ViewModels
         public MainViewModel(ModelAggregator aggregator)
         {
             this.RegularGameViewModel = new RegularGameViewModel(aggregator);
+            this.PvpGameViewModel = new PvpGameViewModel(aggregator);
             this.ProfileViewModel = new ProfileViewModel(aggregator);
             this.RankingViewModel = new RankingViewModel(aggregator);
             this.HomeViewModel = new HomeViewModel(aggregator);

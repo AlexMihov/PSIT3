@@ -21,7 +21,7 @@
                 <ColumnDefinition Width="Auto" />
             </Grid.ColumnDefinitions>
             <StackPanel Grid.Column="0" Grid.Row="0" HorizontalAlignment="Left" Height="Auto" VerticalAlignment="Top" Width="300" Margin="10">
-                <TextBlock TextWrapping="Wrap" Text="Bitte wählen Sie eine Kategorie aus:" HorizontalAlignment="Left"/>
+                <TextBlock TextWrapping="Wrap" Text="Bitte wähle eine Kategorie aus:" HorizontalAlignment="Left"/>
                 <ListBox x:Name="categoryList" MaxHeight="500" Height="Auto" ItemsSource="{Binding Aggregator.Categories}" Margin="0,20"
                          HorizontalAlignment="Left" Width="300" IsEnabled="True" SelectedIndex="0">
                     <ListBox.ItemTemplate>
@@ -32,7 +32,7 @@
                 </ListBox>
             </StackPanel>
             <StackPanel Grid.Column="1" Grid.Row="0" HorizontalAlignment="Left" Height="Auto" VerticalAlignment="Top" Width="300" Margin="10">
-                <TextBlock TextWrapping="Wrap" Text="Bitte wählen Sie einen Quiz aus:" HorizontalAlignment="Left"/>
+                <TextBlock TextWrapping="Wrap" Text="Bitte wähle einen Quiz aus:" HorizontalAlignment="Left"/>
                 <ListBox Height="100" ItemsSource="{Binding ElementName=categoryList, Path=SelectedItem.Quizies}" Margin="0,20" 
                          HorizontalAlignment="Left" Width="300" SelectedItem="{Binding Aggregator.SelectedQuiz}">
                     <ListBox.ItemTemplate>
@@ -43,7 +43,7 @@
                 </ListBox>
             </StackPanel>
             <mui:ModernButton IsEnabled="True" Grid.Column="1" Grid.Row="1" Content="Spielen" Command="{Binding PlayCommand, Mode=OneWay}" Margin="0,20" VerticalAlignment="Bottom" Width="Auto"
-                          EllipseDiameter="48" EllipseStrokeThickness="2" IconWidth="30" IconHeight="30" HorizontalAlignment="Right" 
+                          EllipseDiameter="40" EllipseStrokeThickness="2" IconWidth="25" IconHeight="25" HorizontalAlignment="Right" 
                           IconData="F1 M 44.3333,19L 57,19L 57,31.6667L 52.25,36.4167L 52.25,27.7083L 34.8333,45.125L 30.875,41.1667L 48.2917,23.75L 39.5833,23.75L 44.3333,19 Z M 19,25.3333L 42.75,25.3333L 38,30.0833L 23.75,30.0833L 23.75,52.25L 45.9167,52.25L 45.9167,38L 50.6667,33.25L 50.6667,57L 19,57L 19,25.3333 Z">
             </mui:ModernButton>
         </Grid>
