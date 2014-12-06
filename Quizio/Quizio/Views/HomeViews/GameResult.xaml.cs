@@ -1,4 +1,6 @@
-﻿using System;
+﻿using FirstFloor.ModernUI.Windows;
+using Quizio.ViewModels;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -18,11 +20,32 @@ namespace Quizio.Views.HomeViews
     /// <summary>
     /// Interaction logic for GameResult.xaml
     /// </summary>
-    public partial class GameResult : UserControl
+    public partial class GameResult : UserControl, IContent
     {
         public GameResult()
         {
             InitializeComponent();
+        }
+
+        public void OnFragmentNavigation(FirstFloor.ModernUI.Windows.Navigation.FragmentNavigationEventArgs e)
+        {
+        }
+
+        public void OnNavigatedFrom(FirstFloor.ModernUI.Windows.Navigation.NavigationEventArgs e)
+        {
+        }
+
+        public void OnNavigatedTo(FirstFloor.ModernUI.Windows.Navigation.NavigationEventArgs e)
+        {
+            GameHistoryViewModel ghvm = this.DataContext as GameHistoryViewModel;
+            if (ghvm != null)
+            {
+                ghvm.ReloadChallenges();
+            }
+        }
+
+        public void OnNavigatingFrom(FirstFloor.ModernUI.Windows.Navigation.NavigatingCancelEventArgs e)
+        {
         }
     }
 }

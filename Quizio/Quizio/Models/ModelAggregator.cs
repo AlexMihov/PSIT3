@@ -141,6 +141,10 @@ namespace Quizio.Models
         public void reloadHomeData()
         {
             Notifications = homeDao.loadNotifications();
+            reloadChallenges();
+        }
+        public void reloadChallenges()
+        {
             Challenges = homeDao.loadChallenges();
         }
         #endregion

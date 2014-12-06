@@ -10,6 +10,7 @@ namespace Quizio.ViewModels
         public ProfileViewModel ProfileViewModel { get; set; }
         public RankingViewModel RankingViewModel { get; set; }
         public HomeViewModel HomeViewModel { get; set; }
+        public GameHistoryViewModel GameHistoryViewModel { get; set; }
         public FriendViewModel FriendViewModel { get; set; }
         #endregion
 
@@ -19,6 +20,7 @@ namespace Quizio.ViewModels
             this.ProfileViewModel = new ProfileViewModel(aggregator);
             this.RankingViewModel = new RankingViewModel(aggregator);
             this.HomeViewModel = new HomeViewModel(aggregator);
+            this.GameHistoryViewModel = new GameHistoryViewModel(aggregator);
             this.FriendViewModel = new FriendViewModel(aggregator);
         }
     }
