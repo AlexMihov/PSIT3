@@ -39,6 +39,10 @@ namespace Quizio.ViewModels
             {
                 ModernDialog.ShowMessage("Die Benutzerdaten konnten nicht gespeichert werden.", "Verbindungsfehler", System.Windows.MessageBoxButton.OK);
             }
+            else
+            {
+                ModernDialog.ShowMessage("Die Daten wurden erfolgreich gespeichert.", "Erfolg", System.Windows.MessageBoxButton.OK);
+            }
         }
 
         private void bw_DoWork(object sender, DoWorkEventArgs e)

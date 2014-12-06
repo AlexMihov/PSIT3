@@ -25,7 +25,7 @@ namespace Quizio.DAO
 
             string response = REST.postLogin(req, name, hash(password));
 
-            if (response == "404" || response == "") return null;
+            if (response == "403" || response == "") return null;
 
             User user = JsonConvert.DeserializeObject<User>(response);
             return user;
