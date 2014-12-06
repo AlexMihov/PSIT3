@@ -18,7 +18,6 @@ var
   LocalStrategy = require('passport-local').Strategy,
   config = require('./config');
 
-
 var app = express(); // define our app using express
 var router = express.Router();
 
@@ -68,7 +67,7 @@ app.get('/logout', function(req, res) {
   res.json({ok:true});
 });
 
-require('./routes')(router, connection);
+require('./routes').router(router, connection);
 
 
 

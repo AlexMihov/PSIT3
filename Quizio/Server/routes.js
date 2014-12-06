@@ -1,11 +1,17 @@
 "use strict";
 
-module.exports = function (router, connection) {
+var async = require('async');
 
-    var async = require('async');
-    //mysql configuration
-    //var connection = mysql.createConnection(config.db);
-    //connection.connect();
+var connection = {};
+
+
+
+exports.router = function (router, connection) {
+
+    
+  //mysql configuration
+  //var connection = mysql.createConnection(config.db);
+  //connection.connect();
 
 
   router.post('/friend', function(req, res) {
@@ -44,7 +50,7 @@ module.exports = function (router, connection) {
   *     \______  /_______  /  |____|
   *            \/        \/
   */
- router.get('/player/:playerID', function(req, res) {
+  router.get('/player/:playerID', function(req, res) {
      printLogStart("get player", req);
      var player = req.params.player;
 
@@ -54,9 +60,9 @@ module.exports = function (router, connection) {
          printLogSuccess("Plyer successfully fetched");
      });
 
- });
+  });
 
-   router.get('/player/by-name/:playername', function(req, res) {
+  router.get('/player/by-name/:playername', function(req, res) {
      printLogStart("get player by name", req);
      var input = [req.user.id, "%" + req.params.playername + "%", req.user.id];
 
@@ -78,7 +84,7 @@ module.exports = function (router, connection) {
          printLogSuccess("Plyers successfully fetched");
      });
 
- });
+  });
 
   router.get('/categories', function(req, res) {
      printLogStart("get categories", req);
@@ -105,7 +111,7 @@ module.exports = function (router, connection) {
             });
      });
 
- });
+  });
 
   router.get('/quiz/:quizID/questions', function(req,res){
     printLogStart("get questions from quiz "+ req.params.quizID, req);
@@ -202,7 +208,14 @@ module.exports = function (router, connection) {
     });
   });
 
-
+  router.get('/challenges/open', function(req, res){
+    printLogStart("get open challenges for user", req);
+    getOpenChallenge(req.user.id, connection, function(err, result){
+      if(err) next(err);
+      console.log(result);
+      res.json(result);
+    });
+  });
 
 
  /***
@@ -214,38 +227,44 @@ module.exports = function (router, connection) {
   *                      \/        \/
   */
 
-
-router.post('/player', function(req, res) {
-  printLogStart("insert player", req);
-  console.log(req.body.password);
-  
-  var sha256 = crypto.createHash("sha256");
-  sha256.update(req.body.password, "utf8");
-  var hashed = sha256.digest("base64");
-  console.log(hashed);
-  var input = [req.body.name, hashed, req.body.email, req.body.status ,req.body.origin];
-
-  var sql = "INSERT INTO player  (name, password, email, status ,origin)" +
-                   " VALUES (?, ?, ?, ?, ?)";
+  router.post('challenge', function(req, res){
 
 
-  connection.query(sql, input, function(err, rows, fields) {
-    if(err) {
-      if (err.code == 'ER_DUP_ENTRY') {
-        console.log(err);
-        res.send('ER_DUP_ENTRY');
-        res.status(409);
-        err = null;
-      } else throw err;
-    } else {
-      res.json({
-        status: "OK",
-        affectedRows: rows.affectedRows,
-      });
-      printLogSuccess("player successfully added");
-    }
-  });  
-});
+  });
+
+
+
+  router.post('/player', function(req, res) {
+    printLogStart("insert player", req);
+    console.log(req.body.password);
+    
+    var sha256 = crypto.createHash("sha256");
+    sha256.update(req.body.password, "utf8");
+    var hashed = sha256.digest("base64");
+    console.log(hashed);
+    var input = [req.body.name, hashed, req.body.email, req.body.status ,req.body.origin];
+
+    var sql = "INSERT INTO player  (name, password, email, status ,origin)" +
+                     " VALUES (?, ?, ?, ?, ?)";
+
+
+    connection.query(sql, input, function(err, rows, fields) {
+      if(err) {
+        if (err.code == 'ER_DUP_ENTRY') {
+          console.log(err);
+          res.send('ER_DUP_ENTRY');
+          res.status(409);
+          err = null;
+        } else throw err;
+      } else {
+        res.json({
+          status: "OK",
+          affectedRows: rows.affectedRows,
+        });
+        printLogSuccess("player successfully added");
+      }
+    });  
+  });
 
 
 
@@ -261,23 +280,6 @@ router.post('/player', function(req, res) {
   *
   */
 
- router.put('/player/:id', function(req, res) {
-     printLogStart("updating player data", req);
-     var playerID = req.params.id;
-     var sql = "UPDATE player SET name = 'Hans' WHERE questionID =" + connection.escape(playerID);
-
-     connection.query(sql, function(err, rows, fields) {
-         if (err) throw err;
-         res.json({
-             status: "OK",
-             affectedRows: rows.affectedRows,
-             changedRows: rows.changedRows
-         });
-         printLogSuccess("Player successfully updated");
-     });
-
- });
-
   router.put('/profile', function(req, res) {
     printLogStart("Update userdata", req);
     var input = [req.body.name
@@ -290,7 +292,7 @@ router.post('/player', function(req, res) {
                  "SET name = ?, email = ?, status = ?, origin = ? " + 
                "WHERE player_id = ?";
 
-    connection.query(sql, function(err, rows, fields) {
+    connection.query(sql, input, function(err, rows, fields) {
       if (err) throw err;
       res.json({
         status: "OK",
@@ -338,7 +340,7 @@ router.post('/player', function(req, res) {
         var input = [req.user.id, req.body.toAdd];
       }
       else {
-        var newPoints = rows[0].points + toAdd;
+        var newPoints = rows[0].points + req.body.toAdd;
         var input = [req.user.id, newPoints];
 
         var sql = "UPDATE ranking SET points = ?" + 
@@ -386,32 +388,31 @@ router.post('/player', function(req, res) {
     });
   });
 
-router.delete('/player', function(req, res) {
-  printLogStart("delete player", req);
+  router.delete('/player', function(req, res) {
+    printLogStart("delete player", req);
 
-  var input = [req.body.name];
+    var input = [req.body.name];
 
-    var sql = "DELETE FROM player " + 
-                    "WHERE name = ? ";
+      var sql = "DELETE FROM player " + 
+                      "WHERE name = ? ";
 
-  connection.query(sql, input, function(err, rows, fields) {
-    if(err) {
-        if (err.code == 'ER_DUP_ENTRY') {
-          console.log(err);
-          res.status(409).send({error: "There is already a player with this name!"});
-          err = null;
-        } else throw err;
-    } else {
-      res.json({
-      status: "OK",
-      affectedRows: rows.affectedRows,
-      });
-      printLogSuccess("player successfully deleted");
-    }
-  });
-});
-    
-}
+    connection.query(sql, input, function(err, rows, fields) {
+      if(err) {
+          if (err.code == 'ER_DUP_ENTRY') {
+            console.log(err);
+            res.status(409).send({error: "There is already a player with this name!"});
+            err = null;
+          } else throw err;
+      } else {
+        res.json({
+        status: "OK",
+        affectedRows: rows.affectedRows,
+        });
+        printLogSuccess("player successfully deleted");
+      }
+    });
+  });   
+};
 
 function printLogSuccess(text) {
   console.log("|");
@@ -424,3 +425,140 @@ function printLogStart(text, req) {
   else
     console.log("Request to: " + text + " with the following data: " + JSON.stringify(req.body));
 }
+
+function getAnswer(item, callback){
+  item.answers = [];
+  var itemsql = 'SELECT a.answer_id as id, a.answer, q.value ' +
+                  'FROM answer a ' +
+            'INNER JOIN answerofquestion q ' +
+                    'ON (a.answer_id = q.answer_answer_id)' +
+                 'WHERE q.question_question_id = ?';
+  connection.query(itemsql, [item.id], function(err, rows, fields){
+    if(err) throw err;
+    rows.forEach(function(answer){
+    if(answer.value == 0){ answer.value = false;}
+      else {answer.value = true;}
+      item['answers'].push(answer);
+    });
+    callback(null, item);
+  });
+}
+
+function getGame(gameId, con, callback){
+    if(arguments.length == 3) {
+    connection = con;
+  } else if(arguments.length == 2) {
+    callback = con;
+  }
+
+  var sql = 'SELECT g.game_id as id' +
+                 ', g.quiz_id as quizId' +
+                 ', g.player_id as playerId' +
+                 ', g.time ' +
+                 ', q.quiz_id as quizId' + 
+                 ', q.title as qTitle' +
+                 ', q.description as qDescription' +
+                 ', c.category_id as categoryId' +
+                 ', c.name as cName' +
+                 ', c.description as cDescription' +
+                 ', p.player_id as playerId' +
+                 ', p.name as pName' +
+                 ', p.status as pStatus' + 
+                 ', p.origin as pLocation' +
+             ' FROM game g ' +
+            ' INNER JOIN player p ON (p.player_id = g.player_id) ' +
+            ' INNER JOIN quiz q ON (q.quiz_id = g.quiz_id) ' +
+            ' INNER JOIN category c ON (c.category_id = q.category_category_id) ' +
+            ' WHERE g.game_id = ?'
+
+  connection.query(sql, [gameId], function(err, rows, fields){
+    if(err) throw err;
+    
+
+    var user = {'id': rows[0].playerId, 'name': rows[0].pName, 'status':rows[0].pStatus, 'location':rows[0].pLocation};
+    var quiz = {'id': rows[0].quizId, 'title': rows[0].qTitle, 'description': rows[0].qDescription};
+    var category = {'id': rows[0].categoryId, 'name': rows[0].cName, 'description': rows[0].cDescription};
+    var result = { 'id': gameId, 'user': user, 'quiz': quiz, 'category': category, 'time': rows[0].time};
+    getGivenAnswers(gameId, function(err, answers){
+      result.rounds = answers;
+      callback(null, result);
+    });  
+  });
+};
+
+
+
+
+
+var getGivenAnswers = function(gameId, con, callback){
+  if(arguments.length == 3) {
+    connection = con;
+  } else if(arguments.length == 2) {
+    callback = con;
+  }
+
+  var sql = 'SELECT q.question_id AS id, q.question, q.hint, a.answer_id as answerId, a.answer, aq.value, ga.answer_id as givenAnswerId '+
+              'FROM given_answer ga ' + 
+             'INNER JOIN question q ON (q.question_id = ga.question_id) '+ 
+             'INNER JOIN answerofquestion aq ON ( ga.question_id = aq.question_question_id ) '+ 
+             'INNER JOIN answer a ON a.answer_id = aq.answer_answer_id ' + 
+             'WHERE ga.game_id =?';
+
+  connection.query(sql, [gameId], function(err, rows, fields){
+    if(err) {
+      callback(err);
+    }
+    var result = [];
+    var last = {'question': {'id':rows[0].id, 'question': rows[0].question, 'hint': rows[0].hint, 'answers': []}, 'givenAnswerId':rows[0].givenAnswerId};
+    rows.forEach(function(item){
+      var value = true;
+      if(item.value == 0){ value = false;}
+      if(item.id === last.question.id){
+        last.question.answers.push({'id':item.answerId, 'answer': item.answer, 'value': value});
+      } else {
+        result.push(last);
+        last = {'question': {'id':item.id, 'question': item.question, 'hint': item.hint, 'answers': []}, 'givenAnswerId':item.givenAnswerId};
+        last.question.answers.push({'id':item.answerId, 'answer': item.answer, 'value': value});
+      }
+    });
+    result.push(last);
+    callback(null, result);
+  });
+};
+
+
+function getOpenChallenge(userId, con, callback) {
+
+  if(arguments.length == 3) {
+    connection = con;
+  } else if(arguments.length == 2) {
+    var callback = con;
+  }
+
+  var sql = 'SELECT c.challenge_id as id, c.challenge_game_id as challengeId , c.challenge_text as text ' +
+              'FROM challenge c ' +
+             'WHERE challenged_player_id = ? ' + 
+               'AND status = ?';
+
+  connection.query(sql, [userId, 'OPEN'], function(err, rows, fields){
+    if(err) throw err;
+    async.map(rows, addGameToChallenge, function(err, result){        
+      callback(null, result);
+    });
+
+  });
+};
+
+function addGameToChallenge(challenge, callback){
+  console.log(challenge);
+  getGame(challenge.challengeId, function(err, result){
+    if(err) callback(err);
+    challenge.challange = result;
+    delete challenge.challengeId;
+    callback(null, challenge);
+  });
+}
+
+
+
+

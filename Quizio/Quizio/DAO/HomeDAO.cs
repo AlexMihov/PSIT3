@@ -18,17 +18,17 @@ namespace Quizio.DAO
 
         public List<Challenge> loadChallenges()
         {
-            string req = REST.APIURL + "/challenges";
-            //string json = REST.get(req);
+            string req = REST.APIURL + "/challenges/open";
+            string json = REST.get(req);
 
-            //List<Challenge> challengesTemp = JsonConvert.DeserializeObject<List<Challenge>>(json);
+            List<Challenge> challenges = JsonConvert.DeserializeObject<List<Challenge>>(json);
 
 
             List<Round> input = new List<Round>();
             List<Question> questions = new List<Question>();
 
 
-
+            /*
             Quiz quiz = new Quiz(0, "Programming Languages", "All About Programming", questions);
 
             Category category = new Category("Computer Science", "All about computer Science", null);
@@ -51,7 +51,7 @@ namespace Quizio.DAO
             List<Challenge> challenges = new List<Challenge>();
             challenges.Add(first);
             challenges.Add(second);
-
+            */
             return challenges;
         }
     }

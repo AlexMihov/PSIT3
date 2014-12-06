@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -54,6 +55,7 @@ namespace Quizio.Models
         /// <param name="rounds">A <c>List</c> of every <c>Round</c> played in the game</param>
         /// <param name="quiz">A the quiz played in this game.</param>
         /// <param name="category">The category to which the quiz belongs.</param>
+        [JsonConstructor]
         public Game(int id, Friend player, int time, List<Round> rounds, Quiz quiz, Category category)
         {
             Id = id;
