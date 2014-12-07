@@ -16,11 +16,11 @@ using System.Windows.Shapes;
 namespace Quizio.Views.MultiplayerGame
 {
     /// <summary>
-    /// Interaction logic for MultiplayerGameResult.xaml
+    /// Interaction logic for SplitResult.xaml
     /// </summary>
-    public partial class MultiplayerGameResult : UserControl
+    public partial class SplitResult : UserControl
     {
-        public MultiplayerGameResult()
+        public SplitResult()
         {
             InitializeComponent();
         }

@@ -1,4 +1,5 @@
 ﻿using Quizio.Models;
+using Quizio.Views.MultiplayerGame;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,6 +13,20 @@ namespace Quizio.ViewModels
         public ResponseGameViewModel(GameAggregator game) : base(game)
         {
 
+        }
+
+        internal override void SwitchView(string viewName)
+        {
+            switch (viewName)
+            {
+                case "Play":
+                    base.ContentControlView = new MultiplayerGamePlay();
+                    break;
+
+                case "Result":
+                    base.ContentControlView = new MultiplayerGameResult();
+                    break;
+            }
         }
     }
 }

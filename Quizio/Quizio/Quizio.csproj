@@ -175,20 +175,23 @@
     <Compile Include="Views\HomeViews\GameResult.xaml.cs">
       <DependentUpon>GameResult.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Views\HomeViews\ResultView\ResultWindow.xaml.cs">
+      <DependentUpon>ResultWindow.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\MultiplayerGame\MultiplayerGamePlay.xaml.cs">
       <DependentUpon>MultiplayerGamePlay.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\MultiplayerGame\MultiPlayerGameResult.xaml.cs">
-      <DependentUpon>MultiPlayerGameResult.xaml</DependentUpon>
+    <Compile Include="Views\MultiplayerGame\MultiplayerGameResult.xaml.cs">
+      <DependentUpon>MultiplayerGameResult.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\MultiplayerGame\MultiplayerGameWindow.xaml.cs">
       <DependentUpon>MultiplayerGameWindow.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\MultiplayerGame\ResultViews\Overview.xaml.cs">
+    <Compile Include="Views\MultiplayerGame\Overview.xaml.cs">
       <DependentUpon>Overview.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\MultiplayerGame\ResultViews\ResultSplit.xaml.cs">
-      <DependentUpon>ResultSplit.xaml</DependentUpon>
+    <Compile Include="Views\MultiplayerGame\SplitResult.xaml.cs">
+      <DependentUpon>SplitResult.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\SoloGame\SoloGamePlay.xaml.cs">
       <DependentUpon>SoloGamePlay.xaml</DependentUpon>
@@ -223,11 +226,15 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Views\HomeViews\ResultView\ResultWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Views\MultiplayerGame\MultiplayerGamePlay.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\MultiplayerGame\MultiPlayerGameResult.xaml">
+    <Page Include="Views\MultiplayerGame\MultiplayerGameResult.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -235,11 +242,11 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\MultiplayerGame\ResultViews\Overview.xaml">
+    <Page Include="Views\MultiplayerGame\Overview.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\MultiplayerGame\ResultViews\ResultSplit.xaml">
+    <Page Include="Views\MultiplayerGame\SplitResult.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

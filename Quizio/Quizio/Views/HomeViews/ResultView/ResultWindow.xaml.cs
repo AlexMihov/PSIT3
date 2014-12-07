@@ -1,4 +1,6 @@
-﻿using System;
+﻿using FirstFloor.ModernUI.Windows.Controls;
+using Quizio.ViewModels;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -13,15 +15,16 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace Quizio.Views.MultiplayerGame.ResultViews
+namespace Quizio.Views.HomeViews.ResultView
 {
     /// <summary>
-    /// Interaction logic for Overview.xaml
+    /// Interaction logic for ResultWindow.xaml
     /// </summary>
-    public partial class Overview : UserControl
+    public partial class ResultWindow : ModernWindow
     {
-        public Overview()
+        public ResultWindow(ResponseGameViewModel vm)
         {
+            this.DataContext = vm;
             InitializeComponent();
         }
     }

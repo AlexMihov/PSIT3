@@ -13,14 +13,14 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace Quizio.Views.MultiplayerGame.ResultViews
+namespace Quizio.Views.MultiplayerGame
 {
     /// <summary>
-    /// Interaction logic for ResultSplit.xaml
+    /// Interaction logic for Overview.xaml
     /// </summary>
-    public partial class ResultSplit : UserControl
+    public partial class Overview : UserControl
     {
-        public ResultSplit()
+        public Overview()
         {
             InitializeComponent();
         }

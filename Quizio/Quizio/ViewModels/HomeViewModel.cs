@@ -11,11 +11,40 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Input;
+using System.Windows.Threading;
 
 namespace Quizio.ViewModels
 {
     public class HomeViewModel : BindableBase
     {
+        private bool _showOrHide;
+        public bool ShowOrHide
+        {
+            get { return this._showOrHide; }
+            set { SetProperty(ref this._showOrHide, value); }
+        }
+
+        private Visibility _showCountDown;
+        public Visibility ShowCountDown
+        {
+            get { return this._showCountDown; }
+            set { SetProperty(ref this._showCountDown, value); }
+        }
+
+        private int _timerTickCountDown;
+        public int TimerTickCountDown
+        {
+            get { return this._timerTickCountDown; }
+            set
+            {
+                SetProperty(ref this._timerTickCountDown, value);
+            }
+        }
+
+        private int timerTickCount;
+        private DispatcherTimer myTimer;
+        private static int COUNTDOWNTIME = 3;
+
         public ModelAggregator Aggregator { get; set; }
 
         private BackgroundWorker bw;
@@ -41,19 +70,42 @@ namespace Quizio.ViewModels
             bw_startChallenge = new BackgroundWorker();
             bw_startChallenge.DoWork += bw_startChallenge_DoWork;
             bw_startChallenge.RunWorkerCompleted += bw_startChallenge_RunWorkerCompleted;
+
+            ShowOrHide = false;
+            ShowCountDown = Visibility.Hidden;
+            timerTickCount = 0;
+            TimerTickCountDown = COUNTDOWNTIME;
+            myTimer = new DispatcherTimer();
+            myTimer.Interval = new TimeSpan(0, 0, 1);
+            myTimer.Tick += new EventHandler(Timer_Tick);
+        }
+
+        private void Timer_Tick(object sender, EventArgs e)
+        {
+            DispatcherTimer timer = sender as DispatcherTimer;
+            if (++timerTickCount == COUNTDOWNTIME)
+            {
+                timer.Stop();
+                showChallengeWindow();
+                ShowCountDown = Visibility.Hidden;
+                timerTickCount = 0;
+            }
+            TimerTickCountDown = COUNTDOWNTIME - timerTickCount;
         }
 
         void bw_startChallenge_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
         {
-            if (e.Result != null)
+            this.ShowOrHide = false;
+
+            if (!(e.Result == null))
             {
-                ModernDialog.ShowMessage("Die Benutzerdaten konnten nicht gespeichert werden.", "Verbindungsfehler", System.Windows.MessageBoxButton.OK);
+                ModernDialog.ShowMessage(e.Result as string, "Fehler", MessageBoxButton.OK);
             }
             else
             {
-                showChallengeWindow();
+                myTimer.Start();
+                ShowCountDown = Visibility.Visible;
             }
-            
         }
 
         void bw_startChallenge_DoWork(object sender, DoWorkEventArgs e)
@@ -73,7 +125,11 @@ namespace Quizio.ViewModels
         private void startChallengeGame(object param)
         {
             challengeToPlay = param as Challenge;
-            bw_startChallenge.RunWorkerAsync();
+            ShowOrHide = true;
+            if (!bw_startChallenge.IsBusy)
+            {
+                bw_startChallenge.RunWorkerAsync();
+            }
         }
 
         private void showChallengeWindow()

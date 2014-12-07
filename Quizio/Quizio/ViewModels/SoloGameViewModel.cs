@@ -184,7 +184,7 @@ namespace Quizio.ViewModels
             }
         }
 
-        private void SwitchView(string viewName)
+        internal virtual void SwitchView(string viewName)
         {
             switch (viewName)
             {
