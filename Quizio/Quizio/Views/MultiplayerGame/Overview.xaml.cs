@@ -13,7 +13,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace Quizio.Views.MultiplayerGame.ResultViews
+namespace Quizio.Views.MultiplayerGame
 {
     /// <summary>
     /// Interaction logic for Overview.xaml
