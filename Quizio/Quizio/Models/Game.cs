@@ -22,7 +22,7 @@ namespace Quizio.Models
         /// <summary>
         /// Gets or sets the user, which played the game.
         /// </summary>
-        public Friend Player { get; set; }
+        public User Player { get; set; }
 
         /// <summary>
         /// Gets or sets the time it took to finish the game in seconds.
@@ -56,10 +56,10 @@ namespace Quizio.Models
         /// <param name="quiz">A the quiz played in this game.</param>
         /// <param name="category">The category to which the quiz belongs.</param>
         [JsonConstructor]
-        public Game(int id, Friend player, int time, List<Round> rounds, Quiz quiz, Category category)
+        public Game(int id, User user, int time, List<Round> rounds, Quiz quiz, Category category)
         {
             Id = id;
-            Player = player;
+            Player = user;
             Time = time;
             Rounds = rounds;
             PlayedQuiz = quiz;
@@ -75,7 +75,7 @@ namespace Quizio.Models
         /// <param name="rounds">A <c>List</c> of every <c>Round</c> played in the game</param>
         /// <param name="quiz">A the quiz played in this game.</param>
         /// <param name="category">The category to which the quiz belongs.</param>
-        public Game(Friend player, int time, List<Round> rounds, Quiz quiz, Category category) : this(0, player, time, rounds, quiz, category) { }
+        public Game(User user, int time, List<Round> rounds, Quiz quiz, Category category) : this(0, user, time, rounds, quiz, category) { }
 
         /// <summary>
         /// Converts the game to a json string.

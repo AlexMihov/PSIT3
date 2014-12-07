@@ -12,6 +12,9 @@ using System.Windows.Threading;
 
 namespace Quizio.ViewModels
 {
+    /// <summary>
+    /// 
+    /// </summary>
     public class RegularGameViewModel : BindableBase
     {
         private bool _showOrHide;
@@ -46,6 +49,10 @@ namespace Quizio.ViewModels
         private DispatcherTimer myTimer;
         private static int COUNTDOWNTIME = 3;
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="aggregator"></param>
         public RegularGameViewModel(ModelAggregator aggregator)
         {
             this.Aggregator = aggregator;
@@ -80,7 +87,7 @@ namespace Quizio.ViewModels
             }
             else
             {
-                ModernDialog.ShowMessage("Bitte wähle ein Quiz aus", "ERROR", MessageBoxButton.OK);
+                ModernDialog.ShowMessage("Bitte wähle ein Quiz aus", "Fehler", MessageBoxButton.OK);
             }
         }
 
@@ -121,15 +128,19 @@ namespace Quizio.ViewModels
             if (++timerTickCount == COUNTDOWNTIME)
             {
                 timer.Stop();
-                var wnd = new SoloGameWindow(new SoloGameViewModel(gameToStart));
-                App.Current.MainWindow.Hide(); //hide the mainwindow -> show after game ends or when user cancels the game
-                ShowCountDown = Visibility.Hidden;
-                wnd.WindowStartupLocation = WindowStartupLocation.CenterScreen;
-                wnd.Show();
+                createGameWindow();
 
                 timerTickCount = 0;
             }
             TimerTickCountDown = COUNTDOWNTIME - timerTickCount;
+        }
+
+        internal virtual void createGameWindow(){
+            var wnd = new SoloGameWindow(new SoloGameViewModel(gameToStart));
+            App.Current.MainWindow.Hide(); //hide the mainwindow -> show after game ends or when user cancels the game
+            ShowCountDown = Visibility.Hidden;
+            wnd.WindowStartupLocation = WindowStartupLocation.CenterScreen;
+            wnd.Show();
         }
 
     }

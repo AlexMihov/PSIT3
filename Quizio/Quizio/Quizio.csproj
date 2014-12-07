@@ -38,9 +38,10 @@
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
     <OutputPath>bin\Debug\</OutputPath>
-    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <DefineConstants>TRACE;DEBUG;d</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <DocumentationFile>bin\docu\Quizio.XML</DocumentationFile>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -118,9 +119,11 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="DAO\IHomeDAO.cs" />
+    <Compile Include="DAO\IMultiplayerGameDAO.cs" />
     <Compile Include="DAO\IQuestionDAO.cs" />
     <Compile Include="DAO\IRankingDAO.cs" />
     <Compile Include="DAO\IUserDAO.cs" />
+    <Compile Include="DAO\MultiplayerGameDAO.cs" />
     <Compile Include="Models\Answer.cs" />
     <Compile Include="Models\Category.cs" />
     <Compile Include="Models\Challenge.cs" />
@@ -128,6 +131,7 @@
     <Compile Include="Models\Game.cs" />
     <Compile Include="Models\GameAggregator.cs" />
     <Compile Include="Models\ModelAggregator.cs" />
+    <Compile Include="Models\MultiplayerGameAggregator.cs" />
     <Compile Include="Models\Notification.cs" />
     <Compile Include="Models\Question.cs" />
     <Compile Include="Models\Quiz.cs" />

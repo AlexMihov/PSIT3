@@ -1,5 +1,7 @@
 ﻿using Microsoft.Practices.Prism.Mvvm;
 using Quizio.DAO;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace Quizio.Models
 {
@@ -14,6 +16,12 @@ namespace Quizio.Models
 
         public User User { get; set; }
 
+        public int TimeNeededSum { get; set; }
+
+        public List<Round> CorrectUserInputs { get; set; }
+        public List<Round> FalseUserInputs { get; set; }
+        public List<Round> TimedOutUserInputs { get; set; }
+
         #region DAO Interfaces
         private IQuestionDAO questionDao;
         private IRankingDAO rankingDao;
@@ -24,6 +32,11 @@ namespace Quizio.Models
             // create a new instance of swappable DAO and assign them to the private Interfaces
             questionDao = new QuestionDAO();
             rankingDao = new RankingDAO();
+
+            CorrectUserInputs = new List<Round>();
+            FalseUserInputs = new List<Round>();
+            TimedOutUserInputs = new List<Round>();
+
         }
 
         public GameAggregator(IQuestionDAO questionDao, IRankingDAO rankingDao)
@@ -31,6 +44,10 @@ namespace Quizio.Models
             // assign swappable DAO to the private Interfaces
             this.questionDao = questionDao;
             this.rankingDao = rankingDao;
+
+            CorrectUserInputs = new List<Round>();
+            FalseUserInputs = new List<Round>();
+            TimedOutUserInputs = new List<Round>();
         }
 
         public void loadGameData(Quiz quiz)

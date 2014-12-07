@@ -16,6 +16,8 @@ namespace Quizio.ViewModels
     public class SoloGameViewModel : BindableBase
     {
         #region Datafields with Raising Events
+        public GameAggregator Game { get; set; }
+
         private FrameworkElement _contentControlView;
         public FrameworkElement ContentControlView
         {
@@ -78,14 +80,7 @@ namespace Quizio.ViewModels
         #endregion
 
         #region Shared Datafields without raising events
-        public GameAggregator Game { get; set; }
-
-        public List<Round> CorrectUserInputs { get; set; }
-        public List<Round> FalseUserInputs { get; set; }
-        public List<Round> TimedOutUserInputs { get; set; }
-
         private List<int> timeNeeded;
-        public int TimeNeededSum { get; set; }
 
         public ICommand NextQuestion { get; private set; }
         public ICommand CloseAndSave { get; private set; }
@@ -104,9 +99,6 @@ namespace Quizio.ViewModels
             QuestionsDone = 1;
             QuestionsRemaining = Game.Quiz.Questions.Count;
 
-            CorrectUserInputs = new List<Round>();
-            FalseUserInputs = new List<Round>();
-            TimedOutUserInputs = new List<Round>();
             timeNeeded = new List<int>();
 
             NextQuestion = new DelegateCommand<object>(this.GetNextQuestion);
@@ -133,7 +125,7 @@ namespace Quizio.ViewModels
         {
             try
             {
-                int pointsToAdd = CorrectUserInputs.Count * ((QuestionsRemaining * ANSWERTIME) - TimeNeededSum);
+                int pointsToAdd = Game.CorrectUserInputs.Count * ((QuestionsRemaining * ANSWERTIME) - Game.TimeNeededSum);
                 Game.updateRanking(pointsToAdd);
             }
             catch (Exception ex)
@@ -166,7 +158,7 @@ namespace Quizio.ViewModels
         {
             if (this.QuestionsDone == this.QuestionsRemaining+1)
             {
-                TimeNeededSum = timeNeeded.Sum();
+                Game.TimeNeededSum = timeNeeded.Sum();
                 SwitchView("Result");
             }
             else
@@ -202,13 +194,13 @@ namespace Quizio.ViewModels
 
             if (!CurrentQuestion.checkAnswer(answerText))
             {
-                this.FalseUserInputs.Add(new Round(CurrentQuestion,
+                Game.FalseUserInputs.Add(new Round(CurrentQuestion,
                     CurrentQuestion.GetAnswerByText(answerText).Id));
             }
             else
             {
                 Answer ans = CurrentQuestion.GetCorrectAnswer();
-                this.CorrectUserInputs.Add(new Round(CurrentQuestion, ans.Id));
+                Game.CorrectUserInputs.Add(new Round(CurrentQuestion, ans.Id));
             }
 
             myTimer.Stop();
@@ -249,7 +241,7 @@ namespace Quizio.ViewModels
                 Answer timedOutAnswer = new Answer("Timeout", false);
                 Answer ans = CurrentQuestion.GetCorrectAnswer();
                 Round timedOutInput = new Round(CurrentQuestion, timedOutAnswer.Id);
-                TimedOutUserInputs.Add(timedOutInput);
+                Game.TimedOutUserInputs.Add(timedOutInput);
 
                 this.QuestionsDone++;
                 getRandomQuestion();

@@ -20,14 +20,6 @@ namespace Quizio.Models
         /// Gets or sets the correct answer to the question.
         /// </summary>
         public Answer CorrectAnswer { get; set; }
-
-        /// <summary>
-        /// Gets and sets a value indicating whether this is the correct answer was given.
-        /// </summary>
-        /// <returns>
-        /// <c>true</c> if the answer given was correct; otherwise, <c>false</c>.
-        /// </returns>
-        public bool WasCorrect { get; set; }
         
         /// <summary>
         /// Constructor of the Round class, it takes a question and the id of the given answer. 
@@ -41,10 +33,6 @@ namespace Quizio.Models
             this.Question = question;
             this.GivenAnswer = question.GetAnswerById(givenAnswerId);
             this.CorrectAnswer = question.GetCorrectAnswer();
-            if (CorrectAnswer.Id == GivenAnswer.Id)
-                this.WasCorrect = true;
-            else
-                this.WasCorrect = false;
         }
 
 
