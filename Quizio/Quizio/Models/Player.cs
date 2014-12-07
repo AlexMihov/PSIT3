@@ -30,5 +30,10 @@ namespace Quizio.Models
             this.Id = id;
             this.Name = name;
         }
+
+        internal virtual string ToJson()
+        {
+            return "{\"id\": " + Id + ", \"name\": \"" + Name + "\"}"; 
+        }
     }
 }

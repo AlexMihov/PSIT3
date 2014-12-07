@@ -99,7 +99,7 @@ namespace Quizio.Models
             }
             if (Rounds != null)
             {
-                json += ", \"givenanswers\": [" + roundsToJson() + "]";
+                json += ", \"givenAnswers\": [" + roundsToJson() + "]";
             }  
             json += "}";
             return json;

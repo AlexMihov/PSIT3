@@ -230,9 +230,17 @@ exports.router = function (router, connection) {
   *                      \/        \/
   */
 
-  router.post('challenge', function(req, res){
-
-
+  router.post('/challenge', function(req, res){
+    var newChallenge = req.body;
+    if(newChallenge.status == null){
+      newChallenge.status = 'offen';
+    }
+    insertChallenge(req.body, connection, function(err, result){
+      if(err) throw err;
+      if(err) callback(err);
+      console.log(result);
+      res.json({'statis': 'OK'});
+    });
   });
 
 
@@ -653,5 +661,70 @@ function addGameToChallenge(challenge, callback){
 };
 
 
+function insertChallenge(challenge, con, callback){
+  var sql = 'INSERT INTO challenge (status, challenge_game_id, challenged_player_id, challenge_text) ' +
+                'VALUES (?, ?, ?, ?)';
 
+  insertGame(challenge.challenge, con, function(err, result){
+    console.log(result)
+    var input = [challenge.status, result, challenge.challengedPlayer.id, challenge.text];
+
+    con.query(sql, input, function(err, result){
+      if(err) throw err;
+      printLogSuccess('challenge inserted');
+      callback(null, {'status': 'OK'});
+    });
+  });
+};
+
+function insertGame(game, con, callback){
+  var sql = 'INSERT INTO game (date, quiz_id, player_id, time) ' +
+                 'VALUES (CURRENT_DATE, ?, ?, ?)';
+
+  var input = [game.quizId, game.playerId, game.time];
+
+  con.query(sql, input, function(err, result){
+    if(err) throw err;
+    var gameId = result.insertId;
+    console.log('rounds:', game);
+
+    insertRounds(gameId, game.givenAnswers, con, function(err){
+      if(err) callback(err);
+      else {
+        printLogSuccess('game inserted');
+        console.log('rounds:', gameId);
+        callback(null, gameId);
+      }
+    });
+  }); 
+};
+
+function insertRounds(gameId, rounds, con, callback){
+  if(rounds == null){ 
+    callback('rounds is not defined');
+  } else if(rounds.length == null || rounds.length === 0){ callback(null, null)}
+  else {
+    var sql = 'INSERT INTO given_answer (game_id, question_id, answer_id) VALUES';
+    var input = [];
+    console.log(rounds);
+    rounds.forEach(function(item){
+      sql += '(?, ?, ?),'
+      input.push(gameId);
+      input.push(item.questionId);
+      input.push(item.answerId);
+    });
+    sql = sql.slice(0,-1);
+
+    console.log(sql);
+    console.log(input);
+
+    con.query(sql, input, function(err, result){
+      if(err) throw err;
+      else {
+        printLogSuccess('rounds inserted');
+        callback(null, {'status': 'ok'});
+      }
+    });
+  }
+};
 

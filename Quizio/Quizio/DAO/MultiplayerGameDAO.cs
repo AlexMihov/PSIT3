@@ -1,4 +1,5 @@
 ﻿using Quizio.Models;
+using Quizio.Utilities;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,7 +13,12 @@ namespace Quizio.DAO
 
         public void saveChallengeGame(Game challengeGame, Player challengedFriend, string challengeText)
         {
-            //save
+            string json = "{ \"text\":\"" + challengeText + "\"";
+            json += ", \"challengedPlayer\": " + challengedFriend.ToJson();
+            json += ", \"challenge\": " + challengeGame.ToJson();
+            json += "}";
+            string req = REST.APIURL + "/challenge";
+            string response = REST.post(req, json);
         }
     }
 }
