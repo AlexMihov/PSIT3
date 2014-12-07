@@ -175,6 +175,9 @@
     <Compile Include="Views\HomeViews\GameResult.xaml.cs">
       <DependentUpon>GameResult.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Views\HomeViews\ResultView\ResultWindow.xaml.cs">
+      <DependentUpon>ResultWindow.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\MultiplayerGame\MultiplayerGamePlay.xaml.cs">
       <DependentUpon>MultiplayerGamePlay.xaml</DependentUpon>
     </Compile>
@@ -220,6 +223,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\HomeViews\GameResult.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\HomeViews\ResultView\ResultWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

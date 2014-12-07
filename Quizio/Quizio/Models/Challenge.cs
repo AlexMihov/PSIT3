@@ -25,8 +25,6 @@ namespace Quizio.Models
 
         public string ChallengeText { get; set; }
 
-        public string Status { get; set; }
-
         [JsonConstructor]
         public Challenge(int id, Game challange, Game response, Player challengedPlayer, string text, string status)
         {
