@@ -21,8 +21,8 @@ namespace Quizio.Models
         public List<Round> Rounds { get; set; }
 
         #region DAO Interfaces
-        private IQuestionDAO questionDao;
-        private IRankingDAO rankingDao;
+        internal IQuestionDAO questionDao;
+        internal IRankingDAO rankingDao;
         #endregion
 
         public GameAggregator()
@@ -41,7 +41,7 @@ namespace Quizio.Models
             this.rankingDao = rankingDao;
         }
 
-        public void loadGameData(Quiz quiz)
+        public virtual void loadGameData(Quiz quiz)
         {
             this.Quiz = quiz;
             Quiz.Questions = questionDao.loadQuestionsOfQuiz(quiz.Id);

@@ -10,5 +10,6 @@ namespace Quizio.DAO
     public interface IMultiplayerGameDAO
     {
         void saveChallengeGame(Game challengeGame, Player challengedFriend, string challengeText);
+        void saveChallengeResponse(Challenge challenge);
     }
 }

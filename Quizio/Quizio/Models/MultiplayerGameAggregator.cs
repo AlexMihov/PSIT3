@@ -13,7 +13,7 @@ namespace Quizio.Models
         private Player challengedFriend;
 
         #region DAO Interfaces
-        private IMultiplayerGameDAO multiplayerGameDAO;
+        internal IMultiplayerGameDAO multiplayerGameDAO;
         #endregion
 
         public MultiplayerGameAggregator()

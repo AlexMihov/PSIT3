@@ -20,5 +20,11 @@ namespace Quizio.DAO
             string req = REST.APIURL + "/challenge";
             string response = REST.post(req, json);
         }
+
+
+        public void saveChallengeResponse(Challenge challenge)
+        {
+            //save
+        }
     }
 }

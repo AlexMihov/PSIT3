@@ -12,7 +12,6 @@ namespace Quizio.ViewModels
     {
         public ResponseGameViewModel(GameAggregator game) : base(game)
         {
-
         }
 
         internal override void SwitchView(string viewName)

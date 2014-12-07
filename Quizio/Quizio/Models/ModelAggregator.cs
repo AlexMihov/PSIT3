@@ -147,9 +147,8 @@ namespace Quizio.Models
 
         public ResponseGameAggregator loadMultiplayerResponseGameData(Challenge challenge)
         {
-            ResponseGameAggregator newGame = new ResponseGameAggregator(challenge.ChallengeGame);
+            ResponseGameAggregator newGame = new ResponseGameAggregator(challenge);
             newGame.User = User;
-            newGame.loadGameData(challenge.ChallengeGame.PlayedQuiz);
             return newGame;
         }
 
