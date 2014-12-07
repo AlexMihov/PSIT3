@@ -15,7 +15,7 @@
             <StackPanel MinWidth="200">
                 <TextBlock>
                     <Run Text="Hallo, "></Run>
-                    <Run Text="{Binding Aggregator.User.Username}" FontWeight="Bold"></Run>
+                    <Run Text="{Binding Aggregator.User.Name}" FontWeight="Bold"></Run>
                 </TextBlock>
                 <Grid Width="650" Margin="0,20,0,0" HorizontalAlignment="Left" VerticalAlignment="Top">
                     <Grid.RowDefinitions>

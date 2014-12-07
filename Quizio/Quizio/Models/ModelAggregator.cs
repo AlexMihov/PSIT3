@@ -137,9 +137,9 @@ namespace Quizio.Models
             return newGame;
         }
 
-        public MultiplayerGameAggregator loadMultiplayerGameData()
+        public MultiplayerGameAggregator loadMultiplayerGameData(Player friendToChallange, string challangeText)
         {
-            MultiplayerGameAggregator newGame = new MultiplayerGameAggregator();
+            MultiplayerGameAggregator newGame = new MultiplayerGameAggregator(friendToChallange, challangeText);
             newGame.User = User;
             newGame.loadGameData(SelectedQuiz);
             return newGame;

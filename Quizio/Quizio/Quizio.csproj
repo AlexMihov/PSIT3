@@ -133,6 +133,7 @@
     <Compile Include="Models\ModelAggregator.cs" />
     <Compile Include="Models\MultiplayerGameAggregator.cs" />
     <Compile Include="Models\Notification.cs" />
+    <Compile Include="Models\Player.cs" />
     <Compile Include="Models\Question.cs" />
     <Compile Include="Models\Quiz.cs" />
     <Compile Include="Models\Ranking.cs" />
@@ -149,6 +150,7 @@
     <Compile Include="DAO\HomeDAO.cs" />
     <Compile Include="DAO\QuestionDAO.cs" />
     <Compile Include="DAO\RankingDAO.cs" />
+    <Compile Include="ViewModels\ChallangeGameViewModel.cs" />
     <Compile Include="ViewModels\FriendViewModel.cs" />
     <Compile Include="ViewModels\GameHistoryViewModel.cs" />
     <Compile Include="ViewModels\HomeViewModel.cs" />

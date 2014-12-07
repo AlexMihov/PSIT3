@@ -18,9 +18,7 @@ namespace Quizio.Models
 
         public int TimeNeededSum { get; set; }
 
-        public List<Round> CorrectUserInputs { get; set; }
-        public List<Round> FalseUserInputs { get; set; }
-        public List<Round> TimedOutUserInputs { get; set; }
+        public List<Round> Rounds { get; set; }
 
         #region DAO Interfaces
         private IQuestionDAO questionDao;
@@ -33,10 +31,7 @@ namespace Quizio.Models
             questionDao = new QuestionDAO();
             rankingDao = new RankingDAO();
 
-            CorrectUserInputs = new List<Round>();
-            FalseUserInputs = new List<Round>();
-            TimedOutUserInputs = new List<Round>();
-
+            Rounds = new List<Round>();
         }
 
         public GameAggregator(IQuestionDAO questionDao, IRankingDAO rankingDao)
@@ -44,10 +39,6 @@ namespace Quizio.Models
             // assign swappable DAO to the private Interfaces
             this.questionDao = questionDao;
             this.rankingDao = rankingDao;
-
-            CorrectUserInputs = new List<Round>();
-            FalseUserInputs = new List<Round>();
-            TimedOutUserInputs = new List<Round>();
         }
 
         public void loadGameData(Quiz quiz)

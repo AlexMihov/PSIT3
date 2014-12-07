@@ -82,6 +82,10 @@ namespace Quizio.ViewModels
         #region Shared Datafields without raising events
         private List<int> timeNeeded;
 
+        public List<Round> CorrectUserInputs { get; set; }
+        public List<Round> FalseUserInputs { get; set; }
+        public List<Round> TimedOutUserInputs { get; set; }
+
         public ICommand NextQuestion { get; private set; }
         public ICommand CloseAndSave { get; private set; }
 
@@ -100,6 +104,10 @@ namespace Quizio.ViewModels
             QuestionsRemaining = Game.Quiz.Questions.Count;
 
             timeNeeded = new List<int>();
+
+            CorrectUserInputs = new List<Round>();
+            FalseUserInputs = new List<Round>();
+            TimedOutUserInputs = new List<Round>();
 
             NextQuestion = new DelegateCommand<object>(this.GetNextQuestion);
             CloseAndSave = new DelegateCommand<object>(this.SaveAndClose);
@@ -125,13 +133,17 @@ namespace Quizio.ViewModels
         {
             try
             {
-                int pointsToAdd = Game.CorrectUserInputs.Count * ((QuestionsRemaining * ANSWERTIME) - Game.TimeNeededSum);
-                Game.updateRanking(pointsToAdd);
+                finishGame();
             }
             catch (Exception ex)
             {
                 e.Result = ex.Message; // abusing e.Result as exception messanger
             }
+        }
+
+        internal virtual void finishGame(){
+            int pointsToAdd = CorrectUserInputs.Count * ((QuestionsRemaining * ANSWERTIME) - Game.TimeNeededSum);
+            Game.updateRanking(pointsToAdd);
         }
 
         private void bw_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
@@ -194,13 +206,17 @@ namespace Quizio.ViewModels
 
             if (!CurrentQuestion.checkAnswer(answerText))
             {
-                Game.FalseUserInputs.Add(new Round(CurrentQuestion,
-                    CurrentQuestion.GetAnswerByText(answerText).Id));
+                Round round = new Round(CurrentQuestion,
+                CurrentQuestion.GetAnswerByText(answerText).Id);
+                FalseUserInputs.Add(round);
+                Game.Rounds.Add(round);
             }
             else
             {
                 Answer ans = CurrentQuestion.GetCorrectAnswer();
-                Game.CorrectUserInputs.Add(new Round(CurrentQuestion, ans.Id));
+                Round round = new Round(CurrentQuestion, ans.Id);
+                CorrectUserInputs.Add(round);
+                Game.Rounds.Add(round);
             }
 
             myTimer.Stop();
@@ -238,10 +254,9 @@ namespace Quizio.ViewModels
 
                 timeNeeded.Add(TimerTickCount);
 
-                Answer timedOutAnswer = new Answer("Timeout", false);
-                Answer ans = CurrentQuestion.GetCorrectAnswer();
-                Round timedOutInput = new Round(CurrentQuestion, timedOutAnswer.Id);
-                Game.TimedOutUserInputs.Add(timedOutInput);
+                Round timedOutInput = new Round(CurrentQuestion, 0);
+                TimedOutUserInputs.Add(timedOutInput);
+                Game.Rounds.Add(timedOutInput);
 
                 this.QuestionsDone++;
                 getRandomQuestion();

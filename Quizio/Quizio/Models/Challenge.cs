@@ -19,14 +19,17 @@ namespace Quizio.Models
 
         public Game ResponseGame { get; set; }
 
+        public Player ChallengedPlayer { get; set; }
+
         public string ChallengeText { get; set; }
 
         [JsonConstructor]
-        public Challenge(int id, Game challange, Game response, string text)
+        public Challenge(int id, Game challange, Game response, Player challengedPlayer, string text)
         {
             this.Id = id;
             this.ChallengeGame = challange;
             this.ResponseGame = response;
+            this.ChallengedPlayer = challengedPlayer;
             this.ChallengeText = text;
         }
     }

@@ -66,7 +66,7 @@ namespace Quizio.DAO
         public void updateUserSettings(User user)
         {
             string req = REST.APIURL + "/profile";
-            string json = "{ \"name\":\"" + user.Username + "\", \"email\":\"" + user.Email + "\", \"status\": \"" + user.Status + "\", \"location\": \"" + user.Location + "\"}"; ;
+            string json = "{ \"name\":\"" + user.Name + "\", \"email\":\"" + user.Email + "\", \"status\": \"" + user.Status + "\", \"location\": \"" + user.Location + "\"}"; ;
             string res = REST.put(req, json);
         }
 

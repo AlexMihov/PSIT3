@@ -44,7 +44,7 @@ namespace Quizio.ViewModels
         public ModelAggregator Aggregator { get; set; }
 
         private BackgroundWorker bw;
-        private GameAggregator gameToStart;
+        internal GameAggregator gameToStart;
         private int timerTickCount;
         private DispatcherTimer myTimer;
         private static int COUNTDOWNTIME = 3;
@@ -98,13 +98,18 @@ namespace Quizio.ViewModels
             {
                 if (!worker.CancellationPending)
                 {
-                    gameToStart = Aggregator.loadGameData();
+                    loadGame();
                 }
             }
             catch (Exception ex)
             {
                 e.Result = ex.Message; // e.Result abused as exeption messanger
             }
+        }
+
+        internal virtual void loadGame()
+        {
+            gameToStart = Aggregator.loadGameData();
         }
 
         private void bw_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)

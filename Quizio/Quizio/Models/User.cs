@@ -5,18 +5,8 @@ namespace Quizio.Models
     /// <summary>
     /// The class user is a model for a player of the game. It saves the id, the name, the status, the location and the email address of the friend.
     /// </summary>
-    public class User
+    public class User : Player
     {
-        /// <summary>
-        /// Gets or sets the id of a user as an integer.
-        /// </summary>
-        public int Id { get; set; }
-
-        /// <summary>
-        /// Gets or sets the name of a user as a string.
-        /// </summary>
-        public string Username { get; set; }
-
         /// <summary>
         /// Gets or sets the location of a user as a string.
         /// </summary>
@@ -41,10 +31,8 @@ namespace Quizio.Models
         /// <param name="location">The name of the user as a string</param>
         /// <param name="email">The email address of the user as a string</param>
         [JsonConstructor]
-        public User(int id, string name, string status, string location, string email)
+        public User(int id, string name, string status, string location, string email) : base(id, name)
         {
-            this.Id = id;
-            this.Username = name;
             this.Status = status;
             this.Location = location;
             this.Email = email;

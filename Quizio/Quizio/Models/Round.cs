@@ -30,9 +30,23 @@ namespace Quizio.Models
         [JsonConstructor]
         public Round(Question question, int givenAnswerId)
         {
+            if (givenAnswerId == 0)
+            {
+                this.GivenAnswer = new Answer("timeout", false);
+            }
             this.Question = question;
             this.GivenAnswer = question.GetAnswerById(givenAnswerId);
             this.CorrectAnswer = question.GetCorrectAnswer();
+        }
+
+        public bool isCorrect()
+        {
+            return (GivenAnswer.Equals(CorrectAnswer));
+        }
+
+        public bool isTimedOut()
+        {
+            return GivenAnswer.Id == 0;
         }
 
 

@@ -10,9 +10,9 @@ namespace Quizio.DAO
     public class MultiplayerGameDAO : IMultiplayerGameDAO
     {
 
-        public void saveChallengeGame(Game challengeGame, string challengeText)
+        public void saveChallengeGame(Game challengeGame, Player challengedFriend, string challengeText)
         {
-            // save
+            //save
         }
     }
 }
