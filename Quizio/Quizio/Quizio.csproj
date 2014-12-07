@@ -137,6 +137,7 @@
     <Compile Include="Models\Question.cs" />
     <Compile Include="Models\Quiz.cs" />
     <Compile Include="Models\Ranking.cs" />
+    <Compile Include="Models\ResponseGameAggregator.cs" />
     <Compile Include="Models\User.cs" />
     <Compile Include="Models\Round.cs" />
     <Compile Include="Tests\Integrationtests\FriendIntegrationTest.cs" />
@@ -159,6 +160,7 @@
     <Compile Include="ViewModels\PvpGameViewModel.cs" />
     <Compile Include="ViewModels\RankingViewModel.cs" />
     <Compile Include="ViewModels\RegularGameViewModel.cs" />
+    <Compile Include="ViewModels\ResponseGameViewModel.cs" />
     <Compile Include="ViewModels\SoloGameViewModel.cs" />
     <Compile Include="Views\Dialogs\Login.xaml.cs">
       <DependentUpon>Login.xaml</DependentUpon>
@@ -172,6 +174,21 @@
     </Compile>
     <Compile Include="Views\HomeViews\GameResult.xaml.cs">
       <DependentUpon>GameResult.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\MultiplayerGame\MultiplayerGamePlay.xaml.cs">
+      <DependentUpon>MultiplayerGamePlay.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\MultiplayerGame\MultiPlayerGameResult.xaml.cs">
+      <DependentUpon>MultiPlayerGameResult.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\MultiplayerGame\MultiplayerGameWindow.xaml.cs">
+      <DependentUpon>MultiplayerGameWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\MultiplayerGame\ResultViews\Overview.xaml.cs">
+      <DependentUpon>Overview.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\MultiplayerGame\ResultViews\ResultSplit.xaml.cs">
+      <DependentUpon>ResultSplit.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\SoloGame\SoloGamePlay.xaml.cs">
       <DependentUpon>SoloGamePlay.xaml</DependentUpon>
@@ -203,6 +220,26 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\HomeViews\GameResult.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\MultiplayerGame\MultiplayerGamePlay.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\MultiplayerGame\MultiPlayerGameResult.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\MultiplayerGame\MultiplayerGameWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\MultiplayerGame\ResultViews\Overview.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\MultiplayerGame\ResultViews\ResultSplit.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -284,7 +321,6 @@
   <ItemGroup>
     <Folder Include="Tests\Systemtests\" />
     <Folder Include="Tests\Unittests\" />
-    <Folder Include="Views\MultiplayerGame\" />
   </ItemGroup>
   <ItemGroup>
     <BootstrapperPackage Include=".NETFramework,Version=v4.5">

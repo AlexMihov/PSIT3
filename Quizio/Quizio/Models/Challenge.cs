@@ -15,6 +15,8 @@ namespace Quizio.Models
     {
         public int Id { get; set; }
 
+        public string Status { get; set; }
+
         public Game ChallengeGame { get; set; }
 
         public Game ResponseGame { get; set; }
@@ -24,13 +26,14 @@ namespace Quizio.Models
         public string ChallengeText { get; set; }
 
         [JsonConstructor]
-        public Challenge(int id, Game challange, Game response, Player challengedPlayer, string text)
+        public Challenge(int id, Game challange, Game response, Player challengedPlayer, string text, string status)
         {
             this.Id = id;
             this.ChallengeGame = challange;
             this.ResponseGame = response;
             this.ChallengedPlayer = challengedPlayer;
             this.ChallengeText = text;
+            this.Status = status;
         }
     }
 }
