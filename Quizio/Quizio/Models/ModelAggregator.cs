@@ -37,6 +37,13 @@ namespace Quizio.Models
             set { SetProperty(ref this._challenges, value); }
         }
 
+        private List<Challenge> _openChallenges;
+        public List<Challenge> OpenChallenges
+        {
+            get { return this._openChallenges; }
+            set { SetProperty(ref this._openChallenges, value); }
+        }
+
         private List<Ranking> _rankings;
         public  List<Ranking> Rankings
         {
@@ -123,6 +130,7 @@ namespace Quizio.Models
             loadFriends();
 
             reloadHomeData();
+            reloadAllChallenges();
 
             loadRankings();
 
@@ -156,9 +164,13 @@ namespace Quizio.Models
         public void reloadHomeData()
         {
             Notifications = homeDao.loadNotifications();
-            reloadChallenges();
+            reloadOpenChallenges();
         }
-        public void reloadChallenges()
+        public void reloadOpenChallenges()
+        {
+            OpenChallenges = homeDao.loadOpenChallenges();
+        }
+        public void reloadAllChallenges()
         {
             Challenges = homeDao.loadChallenges();
         }

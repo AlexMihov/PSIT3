@@ -125,7 +125,7 @@ namespace Quizio.ViewModels
             {
                 if (!worker.CancellationPending)
                 {
-                    Aggregator.reloadChallenges();
+                    Aggregator.reloadAllChallenges();
                 }
             }
             catch (Exception ex)

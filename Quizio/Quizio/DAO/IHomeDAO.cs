@@ -7,5 +7,6 @@ namespace Quizio.DAO
     {
         List<Notification> loadNotifications();
         List<Challenge> loadChallenges();
+        List<Challenge> loadOpenChallenges();
     }
 }

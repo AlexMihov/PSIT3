@@ -44,8 +44,8 @@
                     </StackPanel>
                     <StackPanel Grid.Row="0" Grid.Column="1" HorizontalAlignment="Right" Width="Auto">
                         <Label Content="Herausforderungen:" Margin="0,10" FontWeight="Bold" />
-                        <ScrollViewer MaxHeight="300">
-                            <ItemsControl x:Name="challanges" ItemsSource="{Binding Aggregator.Challenges}">
+                        <ScrollViewer MaxHeight="350">
+                            <ItemsControl x:Name="challanges" ItemsSource="{Binding Aggregator.OpenChallenges}">
                                 <ItemsControl.ItemTemplate>
                                     <DataTemplate>
                                         <Border BorderBrush="{DynamicResource Accent}" BorderThickness="1" CornerRadius="1" 

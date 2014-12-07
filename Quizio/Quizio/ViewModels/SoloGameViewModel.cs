@@ -92,7 +92,7 @@ namespace Quizio.ViewModels
         private BackgroundWorker bw;
         private Window gameWindow;
         private DispatcherTimer myTimer;
-        private static int ANSWERTIME = 10;
+        internal static int ANSWERTIME = 10;
         #endregion
 
         public SoloGameViewModel(GameAggregator game)
@@ -171,6 +171,7 @@ namespace Quizio.ViewModels
             if (this.QuestionsDone == this.QuestionsRemaining+1)
             {
                 Game.TimeNeededSum = timeNeeded.Sum();
+                fillListsOfRounds();
                 SwitchView("Result");
             }
             else
@@ -182,6 +183,11 @@ namespace Quizio.ViewModels
                 myTimer.Interval = new TimeSpan(0, 0, 1);
                 myTimer.Start();
             }
+        }
+
+        internal virtual void fillListsOfRounds()
+        {
+            //for derived classes
         }
 
         internal virtual void SwitchView(string viewName)

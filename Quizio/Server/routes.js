@@ -200,24 +200,21 @@ exports.router = function (router, connection) {
     });
   });
 
+  router.get('/challenges', function(req, res, next){
+    printLogStart("get all challenges", req);
+    getChallengesOfUser(req.user.id, connection, function(err, result){
+        if(err) next(err);
+        res.json(result);
+      });
+  });
 
   router.get('/challenges/:status', function(req, res, next){
     printLogStart("get open challenges for user", req);
-    if(req.params == null || req.params.status == null){
-      console.log("status equals null or undefined");
-      getChallengesOfUser(req.user.id, connection, function(err, result){
-        if(err) next(err);
-        res.json(result);
-      });
-    }
-    else { 
       var status = req.params.status;
       getChallengesOfUser(req.user.id, status, connection, function(err, result){
         if(err) next(err);
-        console.log('result in route1: ', result);
         res.json(result);
       });
-    }
   });
 
   router.get('/challenge/:id', function(req, res, next){
