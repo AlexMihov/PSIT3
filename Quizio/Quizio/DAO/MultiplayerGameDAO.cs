@@ -25,7 +25,13 @@ namespace Quizio.DAO
 
         public void saveChallengeResponse(Challenge challenge)
         {
-            //save
+            string json = "{ \"text\":\"" + challenge.ChallengeText + "\"";
+            json += ", \"challengedPlayer\": " + challenge.ChallengedPlayer.ToJson();
+            json += ", \"challenge\": " + challenge.ChallengeGame.ToJson();
+            json += ", \"response\": " + challenge.ResponseGame.ToJson();
+            json += "}";
+            string req = REST.APIURL + "/challenge";
+            string response = REST.put(req, json);
         }
 
 
