@@ -16,6 +16,12 @@ namespace Quizio.Models
         private IMultiplayerGameDAO multiplayerGameDAO;
         #endregion
 
+        public MultiplayerGameAggregator()
+            : base()
+        {
+            this.multiplayerGameDAO = new MultiplayerGameDAO();
+        }
+
         public MultiplayerGameAggregator(Player challengedFriend, string challengeText)
             : base()
         {

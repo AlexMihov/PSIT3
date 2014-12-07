@@ -145,6 +145,14 @@ namespace Quizio.Models
             return newGame;
         }
 
+        public ResponseGameAggregator loadMultiplayerResponseGameData(Challenge challenge)
+        {
+            ResponseGameAggregator newGame = new ResponseGameAggregator(challenge.ChallengeGame);
+            newGame.User = User;
+            newGame.loadGameData(challenge.ChallengeGame.PlayedQuiz);
+            return newGame;
+        }
+
         #region related to HomeViewModel
         public void reloadHomeData()
         {

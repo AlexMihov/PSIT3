@@ -15,6 +15,8 @@ namespace Quizio.Models
     {
         public int Id { get; set; }
 
+        public string Status { get; set; }
+
         public Game ChallengeGame { get; set; }
 
         public Game ResponseGame { get; set; }
