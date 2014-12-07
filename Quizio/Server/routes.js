@@ -19,8 +19,6 @@ exports.router = function (router, connection) {
     var playerId = req.user.id;
     var friendId = parseInt(req.body.friendId, 10);
 
-    console.log(req.body);
-
     var sql = "INSERT INTO friend (player_player_id, player_friend_id) " +
                    "VALUES (" + connection.escape(playerId) + ", " + connection.escape(friendId) +")";
 
@@ -28,7 +26,6 @@ exports.router = function (router, connection) {
     connection.query(sql, function(err, rows, fields) {
       if(err) {
         if (err.code == 'ER_DUP_ENTRY') {
-          console.log(err);
           res.status(409).send({error: "You have this friend already added!"});
           err = null;
         } else throw err;
@@ -65,8 +62,6 @@ exports.router = function (router, connection) {
   router.get('/player/by-name/:playername', function(req, res) {
      printLogStart("get player by name", req);
      var input = [req.user.id, "%" + req.params.playername + "%", req.user.id];
-
-     console.log("hahaha:", input);
 
      var sql = "SELECT player_id as id, name, origin as location, status " +
                  "FROM player " +
@@ -137,13 +132,11 @@ exports.router = function (router, connection) {
             else {answer.value = true;}
             item['answers'].push(answer);
           });
-          console.log(item);
           callback(null, item);
         });
       };
 
       async.map(questions, getAnswers, function(err, results){
-        console.log("results: " ,results);
         res.json(results);
         printLogSuccess("Questions successfully fetched");
       });
@@ -153,7 +146,6 @@ exports.router = function (router, connection) {
 
   router.get('/friends', function(req,res){
     printLogStart("get friends for user " + req.params.userID, req);
-    console.log("what up", req.user.id);
     var sql = 'SELECT  p.player_id as Id, p.name, p.origin as location, p.status ' +
               'FROM friend f ' +
               'INNER JOIN player p ' +
@@ -208,13 +200,24 @@ exports.router = function (router, connection) {
     });
   });
 
-  router.get('/challenges/open', function(req, res){
+
+  router.get('/challenges/:status', function(req, res, next){
     printLogStart("get open challenges for user", req);
-    getOpenChallenge(req.user.id, connection, function(err, result){
-      if(err) next(err);
-      console.log(result);
-      res.json(result);
-    });
+    if(req.params == null || req.params.status == null){
+      console.log("status equals null or undefined");
+      getChallenge(req.user.id, connection, function(err, result){
+        if(err) next(err);
+        res.json(result);
+      });
+    }
+    else { 
+      var status = req.params.status;
+      getChallenge(req.user.id, status, connection, function(err, result){
+        if(err) next(err);
+        console.log('result in route1: ', result);
+        res.json(result);
+      });
+    }
   });
 
 
@@ -236,12 +239,10 @@ exports.router = function (router, connection) {
 
   router.post('/player', function(req, res) {
     printLogStart("insert player", req);
-    console.log(req.body.password);
     
     var sha256 = crypto.createHash("sha256");
     sha256.update(req.body.password, "utf8");
     var hashed = sha256.digest("base64");
-    console.log(hashed);
     var input = [req.body.name, hashed, req.body.email, req.body.status ,req.body.origin];
 
     var sql = "INSERT INTO player  (name, password, email, status ,origin)" +
@@ -251,7 +252,6 @@ exports.router = function (router, connection) {
     connection.query(sql, input, function(err, rows, fields) {
       if(err) {
         if (err.code == 'ER_DUP_ENTRY') {
-          console.log(err);
           res.send('ER_DUP_ENTRY');
           res.status(409);
           err = null;
@@ -400,7 +400,6 @@ exports.router = function (router, connection) {
     connection.query(sql, input, function(err, rows, fields) {
       if(err) {
           if (err.code == 'ER_DUP_ENTRY') {
-            console.log(err);
             res.status(409).send({error: "There is already a player with this name!"});
             err = null;
           } else throw err;
@@ -445,6 +444,43 @@ function getAnswer(item, callback){
   });
 }
 
+function getSimpleGame(gameId, con, callback){
+    if(arguments.length == 3) {
+    connection = con;
+  } else if(arguments.length == 2) {
+    callback = con;
+  }
+
+  var sql = 'SELECT g.game_id as id' +
+                 ', g.quiz_id as quizId' +
+                 ', g.player_id as playerId' +
+                 ', g.time ' +
+                 ', q.quiz_id as quizId' + 
+                 ', q.title as qTitle' +
+                 ', q.description as qDescription' +
+                 ', c.category_id as categoryId' +
+                 ', c.name as cName' +
+                 ', c.description as cDescription' +
+                 ', p.player_id as playerId' +
+                 ', p.name as pName' +
+             ' FROM game g ' +
+            ' INNER JOIN player p ON (p.player_id = g.player_id) ' +
+            ' INNER JOIN quiz q ON (q.quiz_id = g.quiz_id) ' +
+            ' INNER JOIN category c ON (c.category_id = q.category_category_id) ' +
+            ' WHERE g.game_id = ?'
+
+  connection.query(sql, [gameId], function(err, rows, fields){
+    if(err) throw err;
+    
+
+    var user = {'id': rows[0].playerId, 'name': rows[0].pName, 'status':rows[0].pStatus, 'location':rows[0].pLocation};
+    var quiz = {'id': rows[0].quizId, 'title': rows[0].qTitle, 'description': rows[0].qDescription};
+    var category = {'id': rows[0].categoryId, 'name': rows[0].cName, 'description': rows[0].cDescription};
+    var result = { 'id': gameId, 'user': user, 'quiz': quiz, 'category': category, 'time': rows[0].time};
+  });
+};
+
+/*
 function getGame(gameId, con, callback){
     if(arguments.length == 3) {
     connection = con;
@@ -464,8 +500,6 @@ function getGame(gameId, con, callback){
                  ', c.description as cDescription' +
                  ', p.player_id as playerId' +
                  ', p.name as pName' +
-                 ', p.status as pStatus' + 
-                 ', p.origin as pLocation' +
              ' FROM game g ' +
             ' INNER JOIN player p ON (p.player_id = g.player_id) ' +
             ' INNER JOIN quiz q ON (q.quiz_id = g.quiz_id) ' +
@@ -476,22 +510,22 @@ function getGame(gameId, con, callback){
     if(err) throw err;
     
 
-    var user = {'id': rows[0].playerId, 'name': rows[0].pName, 'status':rows[0].pStatus, 'location':rows[0].pLocation};
+    var player = {'id': rows[0].playerId, 'name': rows[0].pName};
     var quiz = {'id': rows[0].quizId, 'title': rows[0].qTitle, 'description': rows[0].qDescription};
     var category = {'id': rows[0].categoryId, 'name': rows[0].cName, 'description': rows[0].cDescription};
-    var result = { 'id': gameId, 'user': user, 'quiz': quiz, 'category': category, 'time': rows[0].time};
-    getGivenAnswers(gameId, function(err, answers){
+    var result = { 'id': gameId, 'user': player, 'quiz': quiz, 'category': category, 'time': rows[0].time};
+    getRounds(gameId, function(err, answers){
       result.rounds = answers;
       callback(null, result);
     });  
   });
-};
+};*/
 
 
 
 
 
-var getGivenAnswers = function(gameId, con, callback){
+var getRounds = function(gameId, con, callback){
   if(arguments.length == 3) {
     connection = con;
   } else if(arguments.length == 2) {
@@ -528,6 +562,65 @@ var getGivenAnswers = function(gameId, con, callback){
 };
 
 
+
+function getChallenge(userId, status, con, callback){
+
+  var sql = 'SELECT c.challenge_id as id' +
+                 ', c.challenge_text as text ' +
+                 ', c.status' +
+                 ', g.game_id as gameid' +
+                 ', g.player_id as gamePlayerId' +
+                 ', gp.name as gamePlayerName' +
+                 ', g.time ' +
+                 ', q.quiz_id as quizId' + 
+                 ', q.title as qTitle' +
+                 ', q.description as qDescription' +
+                 ', ca.category_id as categoryId' +
+                 ', ca.name as cName' +
+                 ', ca.description as cDescription' +
+                 ', c.challenged_player_id as challengedPayerId' +
+                 ', cp.name as challengedPlayerName ' +
+              'FROM challenge c ' +
+             'INNER JOIN game g ON (g.game_id = c.challenge_game_id) ' +
+             'INNER JOIN player gp ON (g.player_id = gp.player_id) ' +
+             'INNER JOIN player cp ON (cp.player_id = c.challenged_player_id) ' +
+             'INNER JOIN quiz q ON (g.quiz_id = q.quiz_id) ' +
+             'INNER JOIN category ca ON (ca.category_id = q.category_category_id) ' +
+             'WHERE challenged_player_id = ? ';
+
+  var input = [userId];
+
+  if(arguments.length == 4) {
+    connection = con;
+    sql += 'AND c.status = ?'
+    input.push(status);
+  } else if(arguments.length == 3) {
+    var connection = status;
+    var callback = con;
+  } else if(arguments.length == 2) {
+    var callback = status;
+  }
+
+  connection.query(sql, input, function(err, rows, fields){
+    if(err) callback(err);
+    var challenges = [];
+    if(rows != null){
+      rows.forEach(function(item){
+        var user = {'id': item.gamePlayerId, 'name': item.gamePlayerName };
+        var quiz = {'id': item.quizId, 'title': item.qTitle, 'description': item.qDescription};
+        var category = {'id': item.categoryId, 'name': item.cName, 'description': item.cDescription};
+
+        var challenge = { 'id': item.gameid, 'user': user, 'time': item.time, 'quiz': quiz, 'category': category};
+        var challengedPlayer = { 'id':item.challengedPayerId, 'name': item.challengedPlayerName};
+        var tempChallenge = { 'id': item.id, 'status': item.status, 'test': item.text, 'challange': challenge, 'challengedPlayer': challengedPlayer};
+        challenges.push(tempChallenge);
+      }); 
+    }
+    callback(null, challenges);
+  });
+};
+
+/*
 function getOpenChallenge(userId, con, callback) {
 
   if(arguments.length == 3) {
@@ -548,17 +641,16 @@ function getOpenChallenge(userId, con, callback) {
     });
 
   });
-};
+};*/
 
 function addGameToChallenge(challenge, callback){
-  console.log(challenge);
   getGame(challenge.challengeId, function(err, result){
     if(err) callback(err);
     challenge.challange = result;
     delete challenge.challengeId;
     callback(null, challenge);
   });
-}
+};
 
 
 
