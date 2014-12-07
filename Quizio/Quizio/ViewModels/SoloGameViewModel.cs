@@ -101,7 +101,7 @@ namespace Quizio.ViewModels
             this.gameWindow = null;
             
             QuestionsDone = 1;
-            QuestionsRemaining = Game.Quiz.Questions.Count;
+            QuestionsRemaining = 10;
 
             timeNeeded = new List<int>();
 
@@ -168,7 +168,7 @@ namespace Quizio.ViewModels
         #region VM private functions
         private void getRandomQuestion()
         {
-            if (this.QuestionsDone == this.QuestionsRemaining+1)
+            if (this.QuestionsDone == QuestionsRemaining+1)
             {
                 Game.TimeNeededSum = timeNeeded.Sum();
                 fillListsOfRounds();

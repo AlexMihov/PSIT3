@@ -655,14 +655,17 @@ function getChallengesOfUser(userId, status, con, callback){
              'INNER JOIN quiz q ON (g.quiz_id = q.quiz_id) ' +
              'INNER JOIN category ca ON (ca.category_id = q.category_category_id) ' +
              'WHERE challenged_player_id = ? ';
+             
 
   var input = [userId];
 
   if(arguments.length == 4) {
     connection = con;
-    sql += 'AND c.status = ?'
+    sql += 'AND c.status = ?';
     input.push(status);
   } else if(arguments.length == 3) {
+    sql += 'OR g.player_id = ?';
+    input.push(userId);
     var connection = status;
     var callback = con;
   } else if(arguments.length == 2) {
