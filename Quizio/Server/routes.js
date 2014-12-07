@@ -732,11 +732,14 @@ function updateChallenge(challenge, con, callback){
                  ', status = ? ' +
              'WHERE challenge_id = ?';
 
+
+
   var input = [challenge.response.id, challenge.status, challenge.id];
 
-  connection.query(sql, input, function(err, result){
+  con.query(sql, input, function(err, result){
     if(err) throw err;
-    else callback(null, result);
+    console.log(result);
+    callback(null, result);
   });
 
 
@@ -777,13 +780,11 @@ function insertGame(game, con, callback){
   con.query(sql, input, function(err, result){
     if(err) throw err;
     var gameId = result.insertId;
-    console.log('rounds:', game);
 
     insertRounds(gameId, game.givenAnswers, con, function(err){
       if(err) callback(err);
       else {
         printLogSuccess('game inserted');
-        console.log('rounds:', gameId);
         callback(null, gameId);
       }
     });
