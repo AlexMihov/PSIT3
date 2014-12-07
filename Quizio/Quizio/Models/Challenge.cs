@@ -26,10 +26,10 @@ namespace Quizio.Models
         public string ChallengeText { get; set; }
 
         [JsonConstructor]
-        public Challenge(int id, Game challange, Game response, Player challengedPlayer, string text, string status)
+        public Challenge(int id, Game challenge, Game response, Player challengedPlayer, string text, string status)
         {
             this.Id = id;
-            this.ChallengeGame = challange;
+            this.ChallengeGame = challenge;
             this.ResponseGame = response;
             this.ChallengedPlayer = challengedPlayer;
             this.ChallengeText = text;

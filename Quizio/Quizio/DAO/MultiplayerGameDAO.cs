@@ -1,4 +1,5 @@
-﻿using Quizio.Models;
+﻿using Newtonsoft.Json;
+using Quizio.Models;
 using Quizio.Utilities;
 using System;
 using System.Collections.Generic;
@@ -25,6 +26,16 @@ namespace Quizio.DAO
         public void saveChallengeResponse(Challenge challenge)
         {
             //save
+        }
+
+
+        public Challenge getChallenge(int challengeId)
+        {
+            string req = REST.APIURL + "/challenge/" + challengeId;
+            string json = REST.get(req);
+
+
+            return JsonConvert.DeserializeObject<Challenge>(json);
         }
     }
 }

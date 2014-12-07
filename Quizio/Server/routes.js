@@ -205,14 +205,14 @@ exports.router = function (router, connection) {
     printLogStart("get open challenges for user", req);
     if(req.params == null || req.params.status == null){
       console.log("status equals null or undefined");
-      getChallenge(req.user.id, connection, function(err, result){
+      getChallengesOfUser(req.user.id, connection, function(err, result){
         if(err) next(err);
         res.json(result);
       });
     }
     else { 
       var status = req.params.status;
-      getChallenge(req.user.id, status, connection, function(err, result){
+      getChallengesOfUser(req.user.id, status, connection, function(err, result){
         if(err) next(err);
         console.log('result in route1: ', result);
         res.json(result);
@@ -220,6 +220,16 @@ exports.router = function (router, connection) {
     }
   });
 
+  router.get('/challenge/:id', function(req, res, next){
+    printLogStart("get challenge for user", req);
+
+    getChallenge(req.params.id, connection, function(err, result){
+      if(err) next(err);
+      res.json(result);
+    });
+
+
+  });
 
  /***
   *    __________________    ____________________
@@ -571,7 +581,60 @@ var getRounds = function(gameId, con, callback){
 
 
 
-function getChallenge(userId, status, con, callback){
+function getChallenge(challengeId, con, callback){
+
+  if(arguments.length == 3) {
+    connection = con;
+  } else if(arguments.length == 2) {
+    callback = con;
+  }
+
+  var sql = 'SELECT c.challenge_id as id' +
+                 ', c.challenge_text as text ' +
+                 ', c.status' +
+                 ', g.game_id as gameId' +
+                 ', g.time ' +
+                 ', q.quiz_id as quizId' + 
+                 ', q.title as qTitle' +
+                 ', q.description as qDescription' +
+                 ', ca.category_id as categoryId' +
+                 ', ca.name as cName' +
+                 ', ca.description as cDescription' +
+                 ', gp.player_id as playerId' +
+                 ', gp.name as pName' +
+                 ', c.challenged_player_id as challengedPayerId' +
+                 ', cp.name as challengedPlayerName ' +
+             ' FROM challenge c ' +
+             ' INNER JOIN game g ON (c.challenge_game_id = g.game_id) ' +
+             'INNER JOIN player cp ON (cp.player_id = c.challenged_player_id) ' +
+            ' INNER JOIN player gp ON (gp.player_id = g.player_id) ' +
+            ' INNER JOIN quiz q ON (q.quiz_id = g.quiz_id) ' +
+            ' INNER JOIN category ca ON (ca.category_id = q.category_category_id) ' +
+            ' WHERE c.challenge_id = ?'
+
+  connection.query(sql, [challengeId], function(err, rows, fields){
+    if(err) throw err;
+    
+
+
+
+    var player = {'id': rows[0].playerId, 'name': rows[0].pName};
+    var quiz = {'id': rows[0].quizId, 'title': rows[0].qTitle, 'description': rows[0].qDescription};
+    var category = {'id': rows[0].categoryId, 'name': rows[0].cName, 'description': rows[0].cDescription};
+    var game = { 'id': rows[0].gameId, 'user': player, 'quiz': quiz, 'category': category, 'time': rows[0].time};
+    var challengedPlayer = { 'id':rows[0].challengedPayerId, 'name': rows[0].challengedPlayerName};
+    var challenge = { 'id': rows[0].id, 'status': rows[0].status, 'text': rows[0].text, 'challenge': game, 'challengedPlayer': challengedPlayer};
+
+    getRounds(challenge.challenge.id, function(err, answers){
+      challenge.challenge.rounds = answers;
+      callback(null, challenge);
+    });  
+  });
+
+}
+
+
+function getChallengesOfUser(userId, status, con, callback){
 
   var sql = 'SELECT c.challenge_id as id' +
                  ', c.challenge_text as text ' +
@@ -620,7 +683,7 @@ function getChallenge(userId, status, con, callback){
 
         var challenge = { 'id': item.gameid, 'user': user, 'time': item.time, 'quiz': quiz, 'category': category};
         var challengedPlayer = { 'id':item.challengedPayerId, 'name': item.challengedPlayerName};
-        var tempChallenge = { 'id': item.id, 'status': item.status, 'test': item.text, 'challange': challenge, 'challengedPlayer': challengedPlayer};
+        var tempChallenge = { 'id': item.id, 'status': item.status, 'text': item.text, 'challenge': challenge, 'challengedPlayer': challengedPlayer};
         challenges.push(tempChallenge);
       }); 
     }
@@ -654,7 +717,7 @@ function getOpenChallenge(userId, con, callback) {
 function addGameToChallenge(challenge, callback){
   getGame(challenge.challengeId, function(err, result){
     if(err) callback(err);
-    challenge.challange = result;
+    challenge.challenge = result;
     delete challenge.challengeId;
     callback(null, challenge);
   });

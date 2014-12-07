@@ -18,16 +18,13 @@ namespace Quizio.Models
         public Player Challenger { get; set; }
         public int ChallangerTime { get; set; }
 
-        private List<Question> fullQuizList;
-
         public ResponseGameAggregator(Challenge challenge) : base()
         {
-            Challenge = challenge;
+            loadGameData(challenge.Id);
             base.Quiz = challenge.ChallengeGame.PlayedQuiz;
-            loadGameData();
-            base.Quiz.Questions = filterQuestions(challenge.ChallengeGame.Rounds);
-            Challenger = challenge.ChallengeGame.Player;
-            ChallangerTime = challenge.ChallengeGame.Time;
+            base.Quiz.Questions = filterQuestions(Challenge.ChallengeGame.Rounds);
+            Challenger = Challenge.ChallengeGame.Player;
+            ChallangerTime = Challenge.ChallengeGame.Time;
         }
 
         public void saveChallengeResponse()
@@ -35,9 +32,9 @@ namespace Quizio.Models
             base.multiplayerGameDAO.saveChallengeResponse(Challenge);
         }
 
-        public void loadGameData()
+        public void loadGameData(int challengeId)
         {
-            fullQuizList = questionDao.loadQuestionsOfQuiz(base.Quiz.Id);
+            Challenge = base.multiplayerGameDAO.getChallenge(challengeId);
         }
 
         private List<Question> filterQuestions(List<Round> rounds)
@@ -46,18 +43,7 @@ namespace Quizio.Models
             var it = rounds.GetEnumerator();
             while (it.MoveNext())
             {
-                var question = it.Current.Question;
-                var it2 = fullQuizList.GetEnumerator();
-                while (it2.MoveNext())
-                {
-                    var questionWithAnswer = it2.Current;
-                    if (question.QuestionString.Equals(questionWithAnswer.QuestionString))
-                    {
-                        question.Answers = questionWithAnswer.Answers;
-                        fullQuizList.Remove(questionWithAnswer);
-                    }
-                }
-                questions.Add(question);
+                questions.Add(it.Current.Question);
             }
             return questions;
         }

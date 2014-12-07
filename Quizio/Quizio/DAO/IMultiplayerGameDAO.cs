@@ -11,5 +11,6 @@ namespace Quizio.DAO
     {
         void saveChallengeGame(Game challengeGame, Player challengedFriend, string challengeText);
         void saveChallengeResponse(Challenge challenge);
+        Challenge getChallenge(int challengeId);
     }
 }
