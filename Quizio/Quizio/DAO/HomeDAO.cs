@@ -18,6 +18,21 @@ namespace Quizio.DAO
 
         public List<Challenge> loadChallenges()
         {
+            string req = REST.APIURL + "/challenges";
+            string json = REST.get(req);
+
+            List<Challenge> challenges = JsonConvert.DeserializeObject<List<Challenge>>(json);
+
+
+            List<Round> input = new List<Round>();
+            List<Question> questions = new List<Question>();
+
+            return challenges;
+        }
+
+
+        public List<Challenge> loadOpenChallenges()
+        {
             string req = REST.APIURL + "/challenges/offen";
             string json = REST.get(req);
 

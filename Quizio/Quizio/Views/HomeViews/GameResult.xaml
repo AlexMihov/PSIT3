@@ -52,7 +52,7 @@
                                     <ColumnDefinition Width="120"></ColumnDefinition>
                                 </Grid.ColumnDefinitions>
                                 <TextBlock Grid.Row="0" Grid.Column="0" Text="{Binding ChallengeGame.Player.Name}" HorizontalAlignment="Center"/>
-                                <TextBlock Grid.Row="0" Grid.Column="1" Text="{Binding ResponseGame.Player.Name}" HorizontalAlignment="Center"/>
+                                <TextBlock Grid.Row="0" Grid.Column="1" Text="{Binding ChallengedPlayer.Name}" HorizontalAlignment="Center"/>
                                 <TextBlock Grid.Row="0" Grid.Column="2" Text="{Binding ChallengeGame.Category.Name}" HorizontalAlignment="Center"/>
                                 <TextBlock Grid.Row="0" Grid.Column="3" Text="{Binding ChallengeGame.PlayedQuiz.Title}" HorizontalAlignment="Center"/>
                                 <TextBlock Grid.Row="0" Grid.Column="4" Text="{Binding Status}" HorizontalAlignment="Center"/>
