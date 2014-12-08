@@ -507,7 +507,7 @@ function getSimpleGame(gameId, con, callback){
   });
 };
 
-/*
+
 function getGame(gameId, con, callback){
     if(arguments.length == 3) {
     connection = con;
@@ -546,7 +546,7 @@ function getGame(gameId, con, callback){
       callback(null, result);
     });  
   });
-};*/
+};
 
 
 
@@ -601,6 +601,7 @@ function getChallenge(challengeId, con, callback){
   var sql = 'SELECT c.challenge_id as id' +
                  ', c.challenge_text as text ' +
                  ', c.status' +
+                 ', c.response_game_id as responseGameId' +
                  ', g.game_id as gameId' +
                  ', g.time ' +
                  ', q.quiz_id as quizId' + 
@@ -631,16 +632,30 @@ function getChallenge(challengeId, con, callback){
     var quiz = {'id': rows[0].quizId, 'title': rows[0].qTitle, 'description': rows[0].qDescription};
     var category = {'id': rows[0].categoryId, 'name': rows[0].cName, 'description': rows[0].cDescription};
     var game = { 'id': rows[0].gameId, 'user': player, 'quiz': quiz, 'category': category, 'time': rows[0].time};
+
+
     var challengedPlayer = { 'id':rows[0].challengedPayerId, 'name': rows[0].challengedPlayerName};
-    var challenge = { 'id': rows[0].id, 'status': rows[0].status, 'text': rows[0].text, 'challenge': game, 'challengedPlayer': challengedPlayer};
+    var challenge = { 'id': rows[0].id, 'status': rows[0].status, 'text': rows[0].text, 'challenge': game, 'challengedPlayer': challengedPlayer};  
 
-    getRounds(challenge.challenge.id, function(err, answers){
-      challenge.challenge.rounds = answers;
-      callback(null, challenge);
-    });  
+    if(rows[0].responseGameId != null){
+      getGame(rows[0].responseGameId, connection, function(err, result){
+        if(err) callback(err);
+        else {
+          challenge.response = result;
+          getRounds(challenge.challenge.id, function(err, answers){
+            challenge.challenge.rounds = answers;
+            callback(null, challenge);
+          }); 
+        }
+      });
+    } else {
+      getRounds(challenge.challenge.id, function(err, answers){
+        challenge.challenge.rounds = answers;
+        callback(null, challenge);
+      });  
+    }
   });
-
-}
+};
 
 
 function getChallengesOfUser(userId, status, con, callback){
@@ -673,16 +688,19 @@ function getChallengesOfUser(userId, status, con, callback){
 
   if(arguments.length == 4) {
     connection = con;
-    sql += 'AND c.status = ?';
+    sql += 'AND c.status = ? ';
     input.push(status);
   } else if(arguments.length == 3) {
-    sql += 'OR g.player_id = ?';
+    sql += 'OR g.player_id = ? ';
+    sql += 'LIMIT 20';
     input.push(userId);
     var connection = status;
     var callback = con;
   } else if(arguments.length == 2) {
     var callback = status;
   }
+
+
 
   connection.query(sql, input, function(err, rows, fields){
     if(err) callback(err);
