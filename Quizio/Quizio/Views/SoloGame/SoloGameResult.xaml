@@ -9,7 +9,7 @@
     <Grid Style="{StaticResource ContentRoot}">
         <StackPanel MinWidth="200">
             <TextBlock Text="Benötigte Zeit: " Style="{StaticResource Heading2}" HorizontalAlignment="Right">
-                    <Run Text="{Binding Game.TimeNeededSum, Mode=OneWay}"></Run>
+                    <Run Text="{Binding GameAggregator.TimeNeededSum, Mode=OneWay}"></Run>
                     <Run Text="Sekunden"></Run>
             </TextBlock>
             <TextBlock Text="Richtig Beantwortete Fragen: " Style="{StaticResource Heading2}" Margin="0,10">

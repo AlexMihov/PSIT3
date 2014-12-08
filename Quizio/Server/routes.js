@@ -698,9 +698,11 @@ function getChallengesOfUser(userId, status, con, callback){
   if(arguments.length == 4) {
     connection = con;
     sql += 'AND c.status = ? ';
+    sql += 'ORDER BY c.challenge_id DESC ';
     input.push(status);
   } else if(arguments.length == 3) {
     sql += 'OR g.player_id = ? ';
+    sql += 'ORDER BY c.challenge_id DESC ';
     sql += 'LIMIT 20';
     input.push(userId);
     var connection = status;
@@ -712,7 +714,7 @@ function getChallengesOfUser(userId, status, con, callback){
 
 
   connection.query(sql, input, function(err, rows, fields){
-    if(err) callback(err);
+    if(err) throw err;
     var challenges = [];
     if(rows != null){
       rows.forEach(function(item){

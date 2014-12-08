@@ -18,6 +18,7 @@ namespace Quizio.ViewModels
 {
     public class GameHistoryViewModel : BindableBase
     {
+        #region datafield which raise events
         private bool _showOrHide;
         public bool ShowOrHide
         {
@@ -25,14 +26,15 @@ namespace Quizio.ViewModels
             set { SetProperty(ref this._showOrHide, value); }
         }
 
-        public ModelAggregator Aggregator { get; set; }
-
         private Challenge _selectedChellange;
         public Challenge SelectedChallenge
         {
             get { return this._selectedChellange; }
             set { SetProperty(ref this._selectedChellange, value); }
         }
+        #endregion
+
+        public ModelAggregator Aggregator { get; set; }
 
         public ICommand ShowChallengeResults { get; set; }
 

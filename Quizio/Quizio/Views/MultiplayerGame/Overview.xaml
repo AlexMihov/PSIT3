@@ -35,11 +35,11 @@
                     <TextBlock Grid.Row="5" Grid.Column="0" Text="Falsch beantwortet"></TextBlock>
                     <TextBlock Grid.Row="6" Grid.Column="0" Text="Timeouts"></TextBlock>
 
-                    <TextBlock Grid.Row="1" Grid.Column="1" Text="{Binding Game.Challenge.ChallengeGame.Player.Name}"></TextBlock>
-                    <TextBlock Grid.Row="1" Grid.Column="2" Text="{Binding Game.User.Name}"></TextBlock>
+                    <TextBlock Grid.Row="1" Grid.Column="1" Text="{Binding GameAggregator.Challenge.ChallengeGame.Player.Name}"></TextBlock>
+                    <TextBlock Grid.Row="1" Grid.Column="2" Text="{Binding GameAggregator.User.Name}"></TextBlock>
 
-                    <TextBlock Grid.Row="2" Grid.Column="1" Text="{Binding Game.Challenge.ChallengeGame.Time}"></TextBlock>
-                    <TextBlock Grid.Row="2" Grid.Column="2" Text="{Binding Game.TimeNeededSum}"></TextBlock>
+                    <TextBlock Grid.Row="2" Grid.Column="1" Text="{Binding GameAggregator.Challenge.ChallengeGame.Time}"></TextBlock>
+                    <TextBlock Grid.Row="2" Grid.Column="2" Text="{Binding GameAggregator.TimeNeededSum}"></TextBlock>
                     
                     <TextBlock Grid.Row="3" Grid.Column="1" Text="{Binding ChallengerPoints}"></TextBlock>
                     <TextBlock Grid.Row="3" Grid.Column="2" Text="{Binding ResponsePlayerPoints}"></TextBlock>

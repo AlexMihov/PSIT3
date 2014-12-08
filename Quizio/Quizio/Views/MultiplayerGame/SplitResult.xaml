@@ -21,10 +21,10 @@
         <ScrollViewer Margin="{StaticResource SplitLeft}">
             <StackPanel MinWidth="200" MaxWidth="300">
                 <TextBlock HorizontalAlignment="Left" Style="{StaticResource Heading2}">
-                    <Run Text="{Binding Game.User.Name, Mode=OneWay}"></Run>
+                    <Run Text="{Binding GameAggregator.User.Name, Mode=OneWay}"></Run>
                 </TextBlock>
                 <TextBlock Text="Benötigte Zeit: " Style="{StaticResource Heading2}" HorizontalAlignment="Right">
-                    <Run Text="{Binding Game.TimeNeededSum, Mode=OneWay}"></Run>
+                    <Run Text="{Binding GameAggregator.TimeNeededSum, Mode=OneWay}"></Run>
                     <Run Text="Sekunden"></Run>
                 </TextBlock>
                 <TextBlock Text="Richtig Beantwortete Fragen: " Style="{StaticResource Heading2}" Margin="0,10">
@@ -102,10 +102,10 @@
         <ScrollViewer Grid.Column="2 " Margin="{StaticResource SplitRight}">
             <StackPanel MinWidth="200" MaxWidth="300">
                 <TextBlock HorizontalAlignment="Left" Style="{StaticResource Heading2}">
-                    <Run Text="{Binding Game.Challenge.ChallengeGame.Player.Name, Mode=OneWay}"></Run>
+                    <Run Text="{Binding GameAggregator.Challenge.ChallengeGame.Player.Name, Mode=OneWay}"></Run>
                 </TextBlock>
                 <TextBlock Text="Benötigte Zeit: " Style="{StaticResource Heading2}" HorizontalAlignment="Right">
-                    <Run Text="{Binding Game.ChallangerTime, Mode=OneWay}"></Run>
+                    <Run Text="{Binding GameAggregator.ChallangerTime, Mode=OneWay}"></Run>
                     <Run Text="Sekunden"></Run>
                 </TextBlock>
                 <TextBlock Text="Richtig Beantwortete Fragen: " Style="{StaticResource Heading2}" Margin="0,10">
@@ -137,7 +137,7 @@
                                     </TextBlock>
                                     <TextBlock Grid.Column="0" Grid.Row="2" HorizontalAlignment="Left" TextWrapping="Wrap">
                                         <Run Text="Antwort von"></Run>
-                                        <Run Text="{Binding ElementName=wrong_right, Path=DataContext.Game.Challenge.ChallengeGame.Player.Name}"></Run>
+                                        <Run Text="{Binding ElementName=wrong_right, Path=DataContext.GameAggregator.Challenge.ChallengeGame.Player.Name}"></Run>
                                         <Run Text=":  "></Run>
                                         <Run FontWeight="Bold" Text="{Binding GivenAnswer.AnswerText}"></Run>
                                     </TextBlock>
@@ -171,7 +171,7 @@
                                         <Run FontWeight="Bold" Text="{Binding CorrectAnswer.AnswerText}"></Run>
                                     </TextBlock>
                                     <TextBlock TextWrapping="Wrap" Grid.Column="0" Grid.Row="2" HorizontalAlignment="Left">
-                                        <Run Text="{Binding ElementName=timeout_right, Path=DataContext.Game.Challenge.ChallengeGame.Player.Name}"></Run>
+                                        <Run Text="{Binding ElementName=timeout_right, Path=DataContext.GameAggregator.Challenge.ChallengeGame.Player.Name}"></Run>
                                         <Run Text="hat zu lange gebraucht:"></Run>
                                         <Run FontWeight="Bold" Text="{Binding GivenAnswer.AnswerText}"></Run>
                                     </TextBlock>
