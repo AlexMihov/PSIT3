@@ -30,12 +30,15 @@ namespace Quizio.Models
         [JsonConstructor]
         public Round(Question question, int givenAnswerId)
         {
-            if (givenAnswerId == 0)
+            if (givenAnswerId == 0 || givenAnswerId == 1 || givenAnswerId == null)
             {
-                this.GivenAnswer = new Answer("timeout", false);
+                this.GivenAnswer = new Answer(1, "Zeit abgelaufen", false);
+            } 
+            else 
+            {
+                this.GivenAnswer = question.GetAnswerById(givenAnswerId);
             }
             this.Question = question;
-            this.GivenAnswer = question.GetAnswerById(givenAnswerId);
             this.CorrectAnswer = question.GetCorrectAnswer();
         }
 
@@ -46,7 +49,9 @@ namespace Quizio.Models
 
         public bool isTimedOut()
         {
-            return GivenAnswer.Id == 0;
+            if(GivenAnswer == null) return true;
+            if (GivenAnswer.Id == 0 || GivenAnswer.Id == 1) return true;
+            else return false;
         }
 
 
