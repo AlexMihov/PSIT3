@@ -1,10 +1,11 @@
 ﻿using Microsoft.Practices.Prism.Mvvm;
 using Quizio.DAO;
+using Quizio.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace Quizio.Models
+namespace Quizio.Aggregators
 {
     public class ModelAggregator : BindableBase
     {
@@ -137,23 +138,23 @@ namespace Quizio.Models
             loadCategories();
         }
 
-        public GameAggregator loadGameData()
+        public SoloGameAggregator loadGameData()
         {
-            GameAggregator newGame = new GameAggregator();
+            SoloGameAggregator newGame = new SoloGameAggregator();
             newGame.User = User;
             newGame.loadGameData(SelectedQuiz);
             return newGame;
         }
 
-        public MultiplayerGameAggregator loadMultiplayerGameData(Player friendToChallange, string challangeText)
+        public ChallengeGameAggregator loadChallengeGameData(Player friendToChallange, string challangeText)
         {
-            MultiplayerGameAggregator newGame = new MultiplayerGameAggregator(friendToChallange, challangeText);
+            ChallengeGameAggregator newGame = new ChallengeGameAggregator(friendToChallange, challangeText);
             newGame.User = User;
             newGame.loadGameData(SelectedQuiz);
             return newGame;
         }
 
-        public ResponseGameAggregator loadMultiplayerResponseGameData(Challenge challenge)
+        public ResponseGameAggregator loadResponseGameData(Challenge challenge)
         {
             ResponseGameAggregator newGame = new ResponseGameAggregator(challenge);
             newGame.User = User;
@@ -170,6 +171,9 @@ namespace Quizio.Models
         {
             OpenChallenges = homeDao.loadOpenChallenges();
         }
+        #endregion
+
+        #region related to GameHistoryViewModel
         public void reloadAllChallenges()
         {
             Challenges = homeDao.loadChallenges();

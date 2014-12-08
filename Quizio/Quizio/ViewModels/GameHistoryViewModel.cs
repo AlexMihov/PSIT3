@@ -1,6 +1,7 @@
 ﻿using FirstFloor.ModernUI.Windows.Controls;
 using Microsoft.Practices.Prism.Commands;
 using Microsoft.Practices.Prism.Mvvm;
+using Quizio.Aggregators;
 using Quizio.Models;
 using Quizio.Views.HomeViews.ResultView;
 using Quizio.Views.MultiplayerGame;
@@ -37,7 +38,7 @@ namespace Quizio.ViewModels
 
         private BackgroundWorker bw;
         private BackgroundWorker bw_show;
-        private GameAggregator gameDataToShow;
+        private SoloGameAggregator gameAggregator;
         private bool showAgain;
 
         public GameHistoryViewModel(ModelAggregator aggregator)
@@ -79,7 +80,7 @@ namespace Quizio.ViewModels
             {
                 if (!worker.CancellationPending)
                 {
-                    gameDataToShow = Aggregator.loadMultiplayerResponseGameData(SelectedChallenge);
+                    gameAggregator = Aggregator.loadResponseGameData(SelectedChallenge);
                 }
             }
             catch (Exception ex)
@@ -90,7 +91,7 @@ namespace Quizio.ViewModels
 
         private void showResult()
         {
-            var wnd = new ResultWindow(new ResponseGameViewModel(gameDataToShow));
+            var wnd = new ResultWindow();
             wnd.Content = new MultiplayerGameResult();
             wnd.WindowStartupLocation = WindowStartupLocation.CenterScreen;
             wnd.Show();

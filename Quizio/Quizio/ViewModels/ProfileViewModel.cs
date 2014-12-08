@@ -1,6 +1,7 @@
 ﻿using FirstFloor.ModernUI.Windows.Controls;
 using Microsoft.Practices.Prism.Commands;
 using Microsoft.Practices.Prism.Mvvm;
+using Quizio.Aggregators;
 using Quizio.Models;
 using System;
 using System.ComponentModel;

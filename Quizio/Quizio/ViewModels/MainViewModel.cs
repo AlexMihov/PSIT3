@@ -1,4 +1,5 @@
 using Microsoft.Practices.Prism.Mvvm;
+using Quizio.Aggregators;
 using Quizio.Models;
 
 namespace Quizio.ViewModels
@@ -6,8 +7,8 @@ namespace Quizio.ViewModels
     public class MainViewModel : BindableBase
     {
         #region hosted ViewModels for integrated Views
-        public RegularGameViewModel RegularGameViewModel { get; set; }
-        public PvpGameViewModel PvpGameViewModel { get; set; }
+        public SoloGameSelectionViewModel RegularGameViewModel { get; set; }
+        public ChallengeGameSelectionViewModel PvpGameViewModel { get; set; }
         public ProfileViewModel ProfileViewModel { get; set; }
         public RankingViewModel RankingViewModel { get; set; }
         public HomeViewModel HomeViewModel { get; set; }
@@ -17,8 +18,8 @@ namespace Quizio.ViewModels
 
         public MainViewModel(ModelAggregator aggregator)
         {
-            this.RegularGameViewModel = new RegularGameViewModel(aggregator);
-            this.PvpGameViewModel = new PvpGameViewModel(aggregator);
+            this.RegularGameViewModel = new SoloGameSelectionViewModel(aggregator);
+            this.PvpGameViewModel = new ChallengeGameSelectionViewModel(aggregator);
             this.ProfileViewModel = new ProfileViewModel(aggregator);
             this.RankingViewModel = new RankingViewModel(aggregator);
             this.HomeViewModel = new HomeViewModel(aggregator);

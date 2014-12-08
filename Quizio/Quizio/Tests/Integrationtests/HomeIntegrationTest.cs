@@ -3,6 +3,7 @@ using Moq;
 using Quizio.DAO;
 using System.Collections.Generic;
 using Quizio.Models;
+using Quizio.Aggregators;
 
 namespace Quizio.Tests.Integrationtests
 {

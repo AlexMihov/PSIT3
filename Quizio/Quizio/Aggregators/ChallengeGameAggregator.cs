@@ -1,13 +1,14 @@
 ﻿using Quizio.DAO;
+using Quizio.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Quizio.Models
+namespace Quizio.Aggregators
 {
-    public class MultiplayerGameAggregator : GameAggregator
+    public class ChallengeGameAggregator : SoloGameAggregator
     {
         private string challengeText;
         private Player challengedFriend;
@@ -16,13 +17,13 @@ namespace Quizio.Models
         internal IMultiplayerGameDAO multiplayerGameDAO;
         #endregion
 
-        public MultiplayerGameAggregator()
+        public ChallengeGameAggregator()
             : base()
         {
             this.multiplayerGameDAO = new MultiplayerGameDAO();
         }
 
-        public MultiplayerGameAggregator(Player challengedFriend, string challengeText)
+        public ChallengeGameAggregator(Player challengedFriend, string challengeText)
             : base()
         {
             this.multiplayerGameDAO = new MultiplayerGameDAO();
@@ -30,7 +31,7 @@ namespace Quizio.Models
             this.challengeText = challengeText;
         }
 
-        public MultiplayerGameAggregator(IMultiplayerGameDAO multiplayerGameDAO) : base()
+        public ChallengeGameAggregator(IMultiplayerGameDAO multiplayerGameDAO) : base()
         {
             this.multiplayerGameDAO = multiplayerGameDAO;
         }

@@ -129,15 +129,15 @@
     <Compile Include="Models\Challenge.cs" />
     <Compile Include="Models\Friend.cs" />
     <Compile Include="Models\Game.cs" />
-    <Compile Include="Models\GameAggregator.cs" />
-    <Compile Include="Models\ModelAggregator.cs" />
-    <Compile Include="Models\MultiplayerGameAggregator.cs" />
+    <Compile Include="Aggregators\SoloGameAggregator.cs" />
+    <Compile Include="Aggregators\ModelAggregator.cs" />
+    <Compile Include="Aggregators\ChallengeGameAggregator.cs" />
     <Compile Include="Models\Notification.cs" />
     <Compile Include="Models\Player.cs" />
     <Compile Include="Models\Question.cs" />
     <Compile Include="Models\Quiz.cs" />
     <Compile Include="Models\Ranking.cs" />
-    <Compile Include="Models\ResponseGameAggregator.cs" />
+    <Compile Include="Aggregators\ResponseGameAggregator.cs" />
     <Compile Include="Models\User.cs" />
     <Compile Include="Models\Round.cs" />
     <Compile Include="Tests\Integrationtests\FriendIntegrationTest.cs" />
@@ -151,15 +151,15 @@
     <Compile Include="DAO\HomeDAO.cs" />
     <Compile Include="DAO\QuestionDAO.cs" />
     <Compile Include="DAO\RankingDAO.cs" />
-    <Compile Include="ViewModels\ChallangeGameViewModel.cs" />
+    <Compile Include="ViewModels\ChallengeGameViewModel.cs" />
     <Compile Include="ViewModels\FriendViewModel.cs" />
     <Compile Include="ViewModels\GameHistoryViewModel.cs" />
     <Compile Include="ViewModels\HomeViewModel.cs" />
     <Compile Include="ViewModels\MainViewModel.cs" />
     <Compile Include="ViewModels\ProfileViewModel.cs" />
-    <Compile Include="ViewModels\PvpGameViewModel.cs" />
+    <Compile Include="ViewModels\ChallengeGameSelectionViewModel.cs" />
     <Compile Include="ViewModels\RankingViewModel.cs" />
-    <Compile Include="ViewModels\RegularGameViewModel.cs" />
+    <Compile Include="ViewModels\SoloGameSelectionViewModel.cs" />
     <Compile Include="ViewModels\ResponseGameViewModel.cs" />
     <Compile Include="ViewModels\SoloGameViewModel.cs" />
     <Compile Include="Views\Dialogs\Login.xaml.cs">
@@ -326,7 +326,6 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Tests\Systemtests\" />
     <Folder Include="Tests\Unittests\" />
   </ItemGroup>
   <ItemGroup>
