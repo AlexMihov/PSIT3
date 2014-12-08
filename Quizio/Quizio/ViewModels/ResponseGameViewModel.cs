@@ -73,6 +73,15 @@ namespace Quizio.ViewModels
             }
         }
 
+        internal override void OnWindowClosing(object sender, System.ComponentModel.CancelEventArgs e)
+        {
+            if (ContentControlView.GetType().IsInstanceOfType(new MultiplayerGameResult()))
+            {
+                CloseAndSave.Execute(sender);
+            }
+            App.Current.MainWindow.Show();
+        }
+
         internal override void reloadHomeView()
         {
             MainViewModel mvm = App.Current.MainWindow.DataContext as MainViewModel;

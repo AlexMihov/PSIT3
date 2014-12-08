@@ -55,7 +55,9 @@
                                         <Run FontWeight="Bold" Text="{Binding CorrectAnswer.AnswerText}"></Run>
                                     </TextBlock>
                                     <TextBlock Grid.Column="0" Grid.Row="2" HorizontalAlignment="Left">
-                                        <Run Text="Deine Antwort: "></Run>
+                                        <Run Text="Antwort von"></Run>
+                                        <Run Text="{Binding ElementName=wrong_left, Path=DataContext.ResultDataAggregator.Challenge.ChallengeGame.Player.Name}"></Run>
+                                        <Run Text=":  "></Run>
                                         <Run FontWeight="Bold" Text="{Binding GivenAnswer.AnswerText}"></Run>
                                     </TextBlock>
                                 </Grid>
@@ -88,7 +90,8 @@
                                         <Run FontWeight="Bold" Text="{Binding CorrectAnswer.AnswerText}"></Run>
                                     </TextBlock>
                                     <TextBlock TextWrapping="Wrap" Grid.Column="0" Grid.Row="2" HorizontalAlignment="Left">
-                                        <Run Text="Du hast zu lange gebraucht: "></Run>
+                                        <Run Text="{Binding ElementName=timeout_left, Path=DataContext.ResultDataAggregator.Challenge.ChallengeGame.Player.Name}"></Run>
+                                        <Run Text="hat zu lange gebraucht: "></Run>
                                         <Run FontWeight="Bold" Text="{Binding GivenAnswer.AnswerText}"></Run>
                                     </TextBlock>
                                 </Grid>
@@ -137,7 +140,7 @@
                                     </TextBlock>
                                     <TextBlock Grid.Column="0" Grid.Row="2" HorizontalAlignment="Left" TextWrapping="Wrap">
                                         <Run Text="Antwort von"></Run>
-                                        <Run Text="{Binding ElementName=wrong_right, Path=DataContext.Game.Challenge.ChallengeGame.Player.Name}"></Run>
+                                        <Run Text="{Binding ElementName=wrong_right, Path=DataContext.ResultDataAggregator.Challenge.ResponseGame.Player.Name}"></Run>
                                         <Run Text=":  "></Run>
                                         <Run FontWeight="Bold" Text="{Binding GivenAnswer.AnswerText}"></Run>
                                     </TextBlock>
@@ -171,7 +174,7 @@
                                         <Run FontWeight="Bold" Text="{Binding CorrectAnswer.AnswerText}"></Run>
                                     </TextBlock>
                                     <TextBlock TextWrapping="Wrap" Grid.Column="0" Grid.Row="2" HorizontalAlignment="Left">
-                                        <Run Text="{Binding ElementName=timeout_right, Path=DataContext.Game.Challenge.ChallengeGame.Player.Name}"></Run>
+                                        <Run Text="{Binding ElementName=timeout_right, Path=DataContext.ResultDataAggregator.Challenge.ResponseGame.Player.Name}"></Run>
                                         <Run Text="hat zu lange gebraucht:"></Run>
                                         <Run FontWeight="Bold" Text="{Binding GivenAnswer.AnswerText}"></Run>
                                     </TextBlock>
