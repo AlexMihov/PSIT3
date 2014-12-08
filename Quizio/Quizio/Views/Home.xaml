@@ -44,6 +44,7 @@
                     </StackPanel>
                     <StackPanel Grid.Row="0" Grid.Column="1" HorizontalAlignment="Right" Width="Auto">
                         <Label Content="Herausforderungen:" Margin="0,10" FontWeight="Bold" />
+                        <TextBlock Text="Keine Herausforderungen vorhanden." Visibility="{Binding ShowChallengeListEmpty}"></TextBlock>
                         <ScrollViewer MaxHeight="350">
                             <ItemsControl x:Name="challanges" ItemsSource="{Binding Aggregator.OpenChallenges}">
                                 <ItemsControl.ItemTemplate>

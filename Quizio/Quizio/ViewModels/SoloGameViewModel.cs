@@ -18,6 +18,13 @@ namespace Quizio.ViewModels
         #region Datafields with Raising Events
         public GameAggregator Game { get; set; }
 
+        private bool _showOrHide;
+        public bool ShowOrHide
+        {
+            get { return this._showOrHide; }
+            set { SetProperty(ref this._showOrHide, value); }
+        }
+
         private FrameworkElement _contentControlView;
         public FrameworkElement ContentControlView
         {
@@ -99,7 +106,9 @@ namespace Quizio.ViewModels
         {
             this.Game = game;
             this.gameWindow = null;
-            
+
+            this.ShowOrHide = false;
+
             QuestionsDone = 1;
             QuestionsRemaining = 10;
 
@@ -148,19 +157,22 @@ namespace Quizio.ViewModels
 
         private void bw_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
         {
+            reloadHomeView();
             if (e.Result != null)
             {
+                this.ShowOrHide = false;
                 ModernDialog.ShowMessage("Deine Punkte konnten leider nicht hochgeladen werden.\n" + 
                     e.Result + "\n\nVersuche es bitte erneut oder schliesse das Fenster manuell.",
                     "Fehler", MessageBoxButton.OK);
             }
             else if(gameWindow != null)
             {
-                reloadHomeView();
+                this.ShowOrHide = false;
                 gameWindow.Close();
             }
             else
             {
+                this.ShowOrHide = false;
                 ModernDialog.ShowMessage("Interner Fehler, bitte schliesse das Spiel manuell. Deine Punkte wurden aber hochgeladen!", "Fehler", MessageBoxButton.OK);
             }
         }
@@ -238,6 +250,7 @@ namespace Quizio.ViewModels
 
         private void SaveAndClose(object parameter)
         {
+            this.ShowOrHide = true;
             if (parameter is System.Windows.Window)
             {
                 this.gameWindow = parameter as System.Windows.Window;

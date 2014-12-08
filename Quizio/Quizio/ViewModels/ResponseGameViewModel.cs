@@ -77,6 +77,7 @@ namespace Quizio.ViewModels
         {
             MainViewModel mvm = App.Current.MainWindow.DataContext as MainViewModel;
             mvm.HomeViewModel.ReloadHomeData();
+            mvm.HomeViewModel.Aggregator.reloadAllChallenges();
         }
     }
 }

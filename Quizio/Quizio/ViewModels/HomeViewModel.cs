@@ -24,6 +24,13 @@ namespace Quizio.ViewModels
             set { SetProperty(ref this._showOrHide, value); }
         }
 
+        private Visibility _showChallengeListEmpty;
+        public Visibility ShowChallengeListEmpty
+        {
+            get { return this._showChallengeListEmpty; }
+            set { SetProperty(ref this._showChallengeListEmpty, value); }
+        }
+
         private Visibility _showCountDown;
         public Visibility ShowCountDown
         {
@@ -79,6 +86,11 @@ namespace Quizio.ViewModels
             bw_declineChallenge.RunWorkerCompleted += bw_declineChallenge_RunWorkerCompleted;
 
             ShowOrHide = false;
+            ShowChallengeListEmpty = Visibility.Collapsed;
+            if (Aggregator.OpenChallenges.Count == 0)
+            {
+                ShowChallengeListEmpty = Visibility.Visible;
+            }
             ShowCountDown = Visibility.Hidden;
             timerTickCount = 0;
             TimerTickCountDown = COUNTDOWNTIME;
@@ -209,6 +221,10 @@ namespace Quizio.ViewModels
                 if (!worker.CancellationPending)
                 {
                     Aggregator.reloadHomeData();
+                    if (Aggregator.OpenChallenges.Count == 0)
+                    {
+                        ShowChallengeListEmpty = Visibility.Visible;
+                    }
                 }
             }
             catch (Exception ex)

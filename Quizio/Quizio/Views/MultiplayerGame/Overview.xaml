@@ -54,6 +54,8 @@
                 </Grid>
             </StackPanel>
         </ScrollViewer>
+        <mui:ModernProgressRing Width="50" Height="50" IsEnabled="True" IsActive="{Binding ShowOrHide}" VerticalAlignment="Bottom" HorizontalAlignment="Center">
+        </mui:ModernProgressRing>
         <mui:ModernButton Content="Schliessen" Command="{Binding CloseAndSave}" CommandParameter="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType=Window}}"
                           EllipseDiameter="40" EllipseStrokeThickness="2" IconWidth="20" IconHeight="20" HorizontalAlignment="Right" VerticalAlignment="Bottom"
                           Margin="0,10,0,0"
