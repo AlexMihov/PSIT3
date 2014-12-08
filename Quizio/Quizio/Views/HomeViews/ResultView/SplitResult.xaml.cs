@@ -1,6 +1,4 @@
-﻿using FirstFloor.ModernUI.Windows.Controls;
-using Quizio.ViewModels;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -18,13 +16,12 @@ using System.Windows.Shapes;
 namespace Quizio.Views.HomeViews.ResultView
 {
     /// <summary>
-    /// Interaction logic for ResultWindow.xaml
+    /// Interaction logic for SplitResult.xaml
     /// </summary>
-    public partial class ResultWindow : ModernWindow
+    public partial class SplitResult : UserControl
     {
-        public ResultWindow(GameResultViewModel grvm)
+        public SplitResult()
         {
-            this.DataContext = grvm;
             InitializeComponent();
         }
     }

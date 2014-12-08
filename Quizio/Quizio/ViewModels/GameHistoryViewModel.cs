@@ -38,12 +38,15 @@ namespace Quizio.ViewModels
 
         private BackgroundWorker bw;
         private BackgroundWorker bw_show;
-        private SoloGameAggregator gameAggregator;
+        private GameResultAggregator resultDataAggregator;
         private bool showAgain;
 
         public GameHistoryViewModel(ModelAggregator aggregator)
         {
             this.Aggregator = aggregator;
+            SelectedChallenge = Aggregator.Challenges.FirstOrDefault();
+
+            this.resultDataAggregator = new GameResultAggregator();
             this.showAgain = true;
 
             this.ShowChallengeResults = new DelegateCommand(showChallengeResult);
@@ -59,6 +62,7 @@ namespace Quizio.ViewModels
             bw_show.RunWorkerCompleted += bw_show_RunWorkerCompleted;
         }
 
+        #region worker methods
         void bw_show_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
         {
             this.ShowOrHide = false;
@@ -73,6 +77,14 @@ namespace Quizio.ViewModels
             }
         }
 
+        private void showResult()
+        {
+            GameResultViewModel grvm = new GameResultViewModel(resultDataAggregator);
+            var wnd = new ResultWindow(grvm);
+            wnd.WindowStartupLocation = WindowStartupLocation.CenterScreen;
+            wnd.Show();
+        }
+
         void bw_show_DoWork(object sender, DoWorkEventArgs e)
         {
             BackgroundWorker worker = sender as BackgroundWorker;
@@ -80,29 +92,13 @@ namespace Quizio.ViewModels
             {
                 if (!worker.CancellationPending)
                 {
-                    gameAggregator = Aggregator.loadResponseGameData(SelectedChallenge);
+                    resultDataAggregator.Challenge = SelectedChallenge;
+                    resultDataAggregator.loadSelectedChallenge();
                 }
             }
             catch (Exception ex)
             {
                 e.Result = ex.Message; // e.Result abused as exeption messanger
-            }
-        }
-
-        private void showResult()
-        {
-            var wnd = new ResultWindow();
-            wnd.Content = new MultiplayerGameResult();
-            wnd.WindowStartupLocation = WindowStartupLocation.CenterScreen;
-            wnd.Show();
-        }
-
-        private void showChallengeResult()
-        {
-            ShowOrHide = true;
-            if (!bw_show.IsBusy)
-            {
-                bw_show.RunWorkerAsync();
             }
         }
 
@@ -134,6 +130,25 @@ namespace Quizio.ViewModels
                 e.Result = ex.Message;
             }
         }
+        #endregion
+
+        #region command methods
+        private void showChallengeResult()
+        {
+            if (SelectedChallenge.Status.Equals("gespielt"))
+            {
+                ShowOrHide = true;
+                if (!bw_show.IsBusy)
+                {
+                    bw_show.RunWorkerAsync();
+                }
+            }
+            else
+            {
+                ModernDialog.ShowMessage("Es können nur Spiele mit Status \"gespielt\" angezeigt werden.", "Hinweis", MessageBoxButton.OK);
+            }
+            
+        }
 
         public void ReloadChallenges()
         {
@@ -142,5 +157,6 @@ namespace Quizio.ViewModels
                 bw.RunWorkerAsync();
             }
         }
+        #endregion
     }
 }
