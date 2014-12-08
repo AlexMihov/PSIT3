@@ -22,9 +22,9 @@ namespace Quizio.Views.HomeViews.ResultView
     /// </summary>
     public partial class ResultWindow : ModernWindow
     {
-        public ResultWindow(ResponseGameViewModel vm)
+        public ResultWindow()
         {
-            this.DataContext = vm;
+            this.DataContext = null;
             InitializeComponent();
         }
     }

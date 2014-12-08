@@ -1,6 +1,7 @@
 ﻿using FirstFloor.ModernUI.Windows.Controls;
 using Microsoft.Practices.Prism.Commands;
 using Microsoft.Practices.Prism.Mvvm;
+using Quizio.Aggregators;
 using Quizio.Models;
 using Quizio.Views.SoloGame;
 using System;
@@ -15,8 +16,9 @@ namespace Quizio.ViewModels
     /// <summary>
     /// 
     /// </summary>
-    public class RegularGameViewModel : BindableBase
+    public class SoloGameSelectionViewModel : BindableBase
     {
+        #region Datafields with event raising
         private bool _showOrHide;
         public bool ShowOrHide
         {
@@ -40,11 +42,13 @@ namespace Quizio.ViewModels
                 SetProperty(ref this._timerTickCountDown, value);
             }
         }
+        #endregion
 
         public ModelAggregator Aggregator { get; set; }
 
-        private BackgroundWorker bw;
-        internal GameAggregator gameToStart;
+        internal SoloGameAggregator gameAggregator;
+        internal BackgroundWorker bw;
+
         private int timerTickCount;
         private DispatcherTimer myTimer;
         private static int COUNTDOWNTIME = 3;
@@ -53,7 +57,7 @@ namespace Quizio.ViewModels
         /// 
         /// </summary>
         /// <param name="aggregator"></param>
-        public RegularGameViewModel(ModelAggregator aggregator)
+        public SoloGameSelectionViewModel(ModelAggregator aggregator)
         {
             this.Aggregator = aggregator;
 
@@ -75,7 +79,8 @@ namespace Quizio.ViewModels
 
         public ICommand PlayCommand { get; private set; }
 
-        private void Play()
+        #region Command methods
+        internal virtual void Play()
         {
             if (Aggregator.SelectedQuiz != null)
             {
@@ -87,10 +92,12 @@ namespace Quizio.ViewModels
             }
             else
             {
-                ModernDialog.ShowMessage("Bitte wähle ein Quiz aus", "Fehler", MessageBoxButton.OK);
+                ModernDialog.ShowMessage("Bitte wähle ein Quiz aus", "Hinweis", MessageBoxButton.OK);
             }
         }
+        #endregion
 
+        #region Worker methods
         private void bw_DoWork(object sender, DoWorkEventArgs e)
         {
             BackgroundWorker worker = sender as BackgroundWorker;
@@ -109,7 +116,7 @@ namespace Quizio.ViewModels
 
         internal virtual void loadGame()
         {
-            gameToStart = Aggregator.loadGameData();
+            gameAggregator = Aggregator.loadGameData();
         }
 
         private void bw_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
@@ -118,7 +125,7 @@ namespace Quizio.ViewModels
 
             if (!(e.Result == null))
             {
-                ModernDialog.ShowMessage(e.Result as string, "Error", MessageBoxButton.OK);
+                ModernDialog.ShowMessage(e.Result as string, "Fehler", MessageBoxButton.OK);
             }
             else
             {
@@ -126,7 +133,9 @@ namespace Quizio.ViewModels
                 ShowCountDown = Visibility.Visible;
             }
         }
+        #endregion
 
+        #region Eventhandler methods
         private void Timer_Tick(object sender, EventArgs e)
         {
             DispatcherTimer timer = sender as DispatcherTimer;
@@ -141,12 +150,13 @@ namespace Quizio.ViewModels
         }
 
         internal virtual void createGameWindow(){
-            var wnd = new SoloGameWindow(new SoloGameViewModel(gameToStart));
+            var wnd = new SoloGameWindow(new SoloGameViewModel(gameAggregator));
             App.Current.MainWindow.Hide(); //hide the mainwindow -> show after game ends or when user cancels the game
             ShowCountDown = Visibility.Hidden;
             wnd.WindowStartupLocation = WindowStartupLocation.CenterScreen;
             wnd.Show();
         }
+        #endregion
 
     }
 }

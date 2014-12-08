@@ -1,11 +1,12 @@
 ﻿using Microsoft.Practices.Prism.Mvvm;
 using Quizio.DAO;
+using Quizio.Models;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace Quizio.Models
+namespace Quizio.Aggregators
 {
-    public class GameAggregator : BindableBase
+    public class SoloGameAggregator : BindableBase
     {
         private Quiz _quiz;
         public Quiz Quiz
@@ -25,7 +26,7 @@ namespace Quizio.Models
         internal IRankingDAO rankingDao;
         #endregion
 
-        public GameAggregator()
+        public SoloGameAggregator()
         {
             // create a new instance of swappable DAO and assign them to the private Interfaces
             questionDao = new QuestionDAO();
@@ -34,7 +35,7 @@ namespace Quizio.Models
             Rounds = new List<Round>();
         }
 
-        public GameAggregator(IQuestionDAO questionDao, IRankingDAO rankingDao)
+        public SoloGameAggregator(IQuestionDAO questionDao, IRankingDAO rankingDao)
         {
             // assign swappable DAO to the private Interfaces
             this.questionDao = questionDao;

@@ -1,12 +1,13 @@
-﻿using System;
+﻿using Quizio.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Quizio.Models
+namespace Quizio.Aggregators
 {
-    public class ResponseGameAggregator : MultiplayerGameAggregator
+    public class ResponseGameAggregator : ChallengeGameAggregator
     {
         private Challenge _challenge;
         public Challenge Challenge

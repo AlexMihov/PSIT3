@@ -3,6 +3,7 @@ using Moq;
 using Quizio.Models;
 using System.Collections.Generic;
 using Quizio.DAO;
+using Quizio.Aggregators;
 
 namespace Quizio.Tests.Integrationtests
 {
@@ -50,7 +51,7 @@ namespace Quizio.Tests.Integrationtests
 
         /// <summary>
         /// testLoadGameData tests from Model Aggregator to Model while
-        /// the Data Acces Layer is Mocked, Class under test: ModelAggregator, GameAggregator,
+        /// the Data Acces Layer is Mocked, Class under test: ModelAggregator, SoloGameAggregator,
         /// Question and Answer
         /// </summary>
         [Fact]
@@ -70,7 +71,7 @@ namespace Quizio.Tests.Integrationtests
 
             IQuestionDAO questionDao = questionDaoMock.Object;
 
-            GameAggregator gameAggregator = new GameAggregator(questionDao, null);
+            SoloGameAggregator gameAggregator = new SoloGameAggregator(questionDao, null);
             //endsetup
 
             // quiz should be null

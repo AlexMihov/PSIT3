@@ -1,6 +1,7 @@
 ﻿using FirstFloor.ModernUI.Windows.Controls;
 using Microsoft.Practices.Prism.Commands;
 using Microsoft.Practices.Prism.Mvvm;
+using Quizio.Aggregators;
 using Quizio.Models;
 using Quizio.Views.MultiplayerGame;
 using System;
@@ -59,7 +60,7 @@ namespace Quizio.ViewModels
         private BackgroundWorker bw_declineChallenge;
         private bool showAgain;
         private Challenge challengeToPlay;
-        private GameAggregator gameAggregator;
+        private SoloGameAggregator gameAggregator;
 
         public ICommand RespondChallenge { get; set; }
         public ICommand DeclineChallange { get; set; }
@@ -160,7 +161,7 @@ namespace Quizio.ViewModels
         {
             try
             {
-                this.gameAggregator = Aggregator.loadMultiplayerResponseGameData(challengeToPlay);
+                this.gameAggregator = Aggregator.loadResponseGameData(challengeToPlay);
             }
             catch (Exception ex)
             {

@@ -3,6 +3,7 @@ using Moq;
 using Quizio.DAO;
 using Quizio.Models;
 using System.Collections.Generic;
+using Quizio.Aggregators;
 
 namespace Quizio.Tests.Integrationtests
 {
@@ -45,8 +46,8 @@ namespace Quizio.Tests.Integrationtests
         }
 
         /// <summary>
-        /// testRankingUpdate tests from GameAggregator to Model while
-        /// the Data Acces Layer is Mocked, Class under test: GameAggregator
+        /// testRankingUpdate tests from SoloGameAggregator to Model while
+        /// the Data Acces Layer is Mocked, Class under test: SoloGameAggregator
         /// </summary>
         [Fact]
         public void testRankingUpdate()
@@ -59,7 +60,7 @@ namespace Quizio.Tests.Integrationtests
 
             IRankingDAO rankingDao = rankingDaoMock.Object;
 
-            GameAggregator gameAggregator = new GameAggregator(null, rankingDao);
+            SoloGameAggregator gameAggregator = new SoloGameAggregator(null, rankingDao);
             gameAggregator.User = testUser;
             // endsetup
 

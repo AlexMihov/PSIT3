@@ -10,13 +10,14 @@ using System.Windows;
 using Quizio.Views.SoloGame;
 using System.Windows.Threading;
 using FirstFloor.ModernUI.Windows.Controls;
+using Quizio.Aggregators;
 
 namespace Quizio.ViewModels
 {
     public class SoloGameViewModel : BindableBase
     {
         #region Datafields with Raising Events
-        public GameAggregator Game { get; set; }
+        public SoloGameAggregator GameAggregator { get; set; }
 
         private bool _showOrHide;
         public bool ShowOrHide
@@ -102,9 +103,9 @@ namespace Quizio.ViewModels
         internal static int ANSWERTIME = 10;
         #endregion
 
-        public SoloGameViewModel(GameAggregator game)
+        public SoloGameViewModel(SoloGameAggregator game)
         {
-            this.Game = game;
+            this.GameAggregator = game;
             this.gameWindow = null;
 
             this.ShowOrHide = false;
@@ -137,7 +138,7 @@ namespace Quizio.ViewModels
             myTimer.Start();
         }
 
-        #region worker functions
+        #region Worker functions
         private void bw_DoWork(object sender, DoWorkEventArgs e)
         {
             try
@@ -151,8 +152,8 @@ namespace Quizio.ViewModels
         }
 
         internal virtual void finishGame(){
-            int pointsToAdd = CorrectUserInputs.Count * ((QuestionsRemaining * ANSWERTIME) - Game.TimeNeededSum);
-            Game.updateRanking(pointsToAdd);
+            int pointsToAdd = CorrectUserInputs.Count * ((QuestionsRemaining * ANSWERTIME) - GameAggregator.TimeNeededSum);
+            GameAggregator.updateRanking(pointsToAdd);
         }
 
         private void bw_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
@@ -186,14 +187,14 @@ namespace Quizio.ViewModels
         {
             if (this.QuestionsDone == QuestionsRemaining+1)
             {
-                Game.TimeNeededSum = timeNeeded.Sum();
+                GameAggregator.TimeNeededSum = timeNeeded.Sum();
                 fillListsOfRounds();
                 SwitchView("Result");
             }
             else
             {
-                this.CurrentQuestion = Game.Quiz.getRandomQuestion();
-                Game.Quiz.Questions.Remove(this.CurrentQuestion);
+                this.CurrentQuestion = GameAggregator.Quiz.getRandomQuestion();
+                GameAggregator.Quiz.Questions.Remove(this.CurrentQuestion);
                 TimerTickCount = 0;
                 TimerTickCountDown = ANSWERTIME;
                 myTimer.Interval = new TimeSpan(0, 0, 1);
@@ -231,14 +232,14 @@ namespace Quizio.ViewModels
                 Round round = new Round(CurrentQuestion,
                 CurrentQuestion.GetAnswerByText(answerText).Id);
                 FalseUserInputs.Add(round);
-                Game.Rounds.Add(round);
+                GameAggregator.Rounds.Add(round);
             }
             else
             {
                 Answer ans = CurrentQuestion.GetCorrectAnswer();
                 Round round = new Round(CurrentQuestion, ans.Id);
                 CorrectUserInputs.Add(round);
-                Game.Rounds.Add(round);
+                GameAggregator.Rounds.Add(round);
             }
 
             myTimer.Stop();
@@ -279,7 +280,7 @@ namespace Quizio.ViewModels
 
                 Round timedOutInput = new Round(CurrentQuestion, 0);
                 TimedOutUserInputs.Add(timedOutInput);
-                Game.Rounds.Add(timedOutInput);
+                GameAggregator.Rounds.Add(timedOutInput);
 
                 this.QuestionsDone++;
                 getRandomQuestion();

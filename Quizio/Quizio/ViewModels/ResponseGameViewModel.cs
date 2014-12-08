@@ -1,4 +1,5 @@
-﻿using Quizio.Models;
+﻿using Quizio.Aggregators;
+using Quizio.Models;
 using Quizio.Views.MultiplayerGame;
 using System;
 using System.Collections.Generic;
@@ -17,9 +18,8 @@ namespace Quizio.ViewModels
         public int ChallengerPoints { get; set; }
         public int ResponsePlayerPoints { get; set; }
 
-        public ResponseGameViewModel(GameAggregator game) : base(game)
-        {
-        }
+        public ResponseGameViewModel(ResponseGameAggregator game)
+            : base(game){}
 
         internal override void SwitchView(string viewName)
         {
@@ -37,7 +37,7 @@ namespace Quizio.ViewModels
 
         internal override void fillListsOfRounds()
         {
-            ResponseGameAggregator rga = base.Game as ResponseGameAggregator;
+            ResponseGameAggregator rga = base.GameAggregator as ResponseGameAggregator;
 
             rga.sortRounds();
 
@@ -49,13 +49,13 @@ namespace Quizio.ViewModels
             FalseChallengerInputs = rga.getFalseRounds(rga.Challenge.ChallengeGame.Rounds);
             TimedOutChallengerInputs = rga.getTimedOutRounds(rga.Challenge.ChallengeGame.Rounds);
 
-            ResponsePlayerPoints = CorrectUserInputs.Count * ((QuestionsRemaining * ANSWERTIME) - Game.TimeNeededSum);
+            ResponsePlayerPoints = CorrectUserInputs.Count * ((QuestionsRemaining * ANSWERTIME) - GameAggregator.TimeNeededSum);
             ChallengerPoints = CorrectChallengerInputs.Count * ((QuestionsRemaining * ANSWERTIME) - rga.Challenge.ChallengeGame.Time);
         }
 
         internal override void finishGame()
         {
-            ResponseGameAggregator rga = base.Game as ResponseGameAggregator;
+            ResponseGameAggregator rga = base.GameAggregator as ResponseGameAggregator;
             rga.saveChallengeResponse();
 
             if (ResponsePlayerPoints > ChallengerPoints)
