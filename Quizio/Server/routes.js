@@ -386,16 +386,13 @@ exports.router = function (router, connection) {
           res.send({'status': 'OK'});
         });
       });
+
     } else {
       updateChallenge(challenge, connection, function(err, result){
         if(err) callback(err);
         res.send({'status': 'OK'});
       });
     }
-    }
-
-
-
   });
 
 /***

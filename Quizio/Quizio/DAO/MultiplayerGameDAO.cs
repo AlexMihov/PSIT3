@@ -25,30 +25,19 @@ namespace Quizio.DAO
 
         public void saveChallengeResponse(Challenge challenge)
         {
-            if (challenge.ResponseGame != null)
-            {
+
                 string json = "{\"id\": \"" + challenge.Id + "\"";
                 json += ", \"text\":\"" + challenge.ChallengeText + "\"";
                 json += ", \"status\": \"" + challenge.Status + "\"";
                 json += ", \"challengedPlayer\": " + challenge.ChallengedPlayer.ToJson();
                 json += ", \"challenge\": " + challenge.ChallengeGame.ToJson();
-                json += ", \"response\": " + challenge.ResponseGame.ToJson();
+                if (challenge.ResponseGame != null)
+                {    
+                    json += ", \"response\": " + challenge.ResponseGame.ToJson();
+                }
                 json += "}";
                 string req = REST.APIURL + "/challenge";
                 string response = REST.put(req, json);
-            }
-            else
-            {
-                string json = "{\"id\": \"" + challenge.Id + "\"";
-                json += ", \"text\":\"" + challenge.ChallengeText + "\"";
-                json += ", \"status\": \"" + challenge.Status + "\"";
-                json += ", \"challengedPlayer\": " + challenge.ChallengedPlayer.ToJson();
-                json += ", \"challenge\": " + challenge.ChallengeGame.ToJson();
-                json += ", \"response\": " + "null";
-                json += "}";
-                string req = REST.APIURL + "/challenge";
-                string response = REST.put(req, json);
-            }
             
         }
 

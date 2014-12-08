@@ -96,6 +96,7 @@ namespace Quizio.ViewModels
             else
             {
                 ReloadHomeData();
+                Aggregator.reloadAllChallenges();
             }
             this.ShowOrHide = false;
         }
