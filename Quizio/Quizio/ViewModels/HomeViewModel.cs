@@ -49,11 +49,13 @@ namespace Quizio.ViewModels
 
         private BackgroundWorker bw;
         private BackgroundWorker bw_startChallenge;
+        private BackgroundWorker bw_declineChallenge;
         private bool showAgain;
         private Challenge challengeToPlay;
         private GameAggregator gameAggregator;
 
         public ICommand RespondChallenge { get; set; }
+        public ICommand DeclineChallange { get; set; }
 
         public HomeViewModel(ModelAggregator aggregator)
         {
@@ -62,6 +64,7 @@ namespace Quizio.ViewModels
             this.challengeToPlay = null;
 
             this.RespondChallenge = new DelegateCommand<object>(startChallengeGame);
+            this.DeclineChallange = new DelegateCommand<object>(declineChallenge);
 
             bw = new BackgroundWorker();
             bw.DoWork += bw_DoWork;
@@ -71,6 +74,10 @@ namespace Quizio.ViewModels
             bw_startChallenge.DoWork += bw_startChallenge_DoWork;
             bw_startChallenge.RunWorkerCompleted += bw_startChallenge_RunWorkerCompleted;
 
+            bw_declineChallenge = new BackgroundWorker();
+            bw_declineChallenge.DoWork += bw_declineChallenge_DoWork;
+            bw_declineChallenge.RunWorkerCompleted += bw_declineChallenge_RunWorkerCompleted;
+
             ShowOrHide = false;
             ShowCountDown = Visibility.Hidden;
             timerTickCount = 0;
@@ -78,6 +85,34 @@ namespace Quizio.ViewModels
             myTimer = new DispatcherTimer();
             myTimer.Interval = new TimeSpan(0, 0, 1);
             myTimer.Tick += new EventHandler(Timer_Tick);
+        }
+
+        void bw_declineChallenge_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
+        {
+            if (!(e.Result == null))
+            {
+                ModernDialog.ShowMessage(e.Result as string, "Fehler", MessageBoxButton.OK);
+            }
+            else
+            {
+                ReloadHomeData();
+            }
+            this.ShowOrHide = false;
+        }
+
+        void bw_declineChallenge_DoWork(object sender, DoWorkEventArgs e)
+        {
+            try
+            {
+                this.gameAggregator = new ResponseGameAggregator(challengeToPlay);
+                var rga = this.gameAggregator as ResponseGameAggregator;
+                rga.declineChallenge(challengeToPlay);
+                rga.updateRanking(challengeToPlay.ChallengeGame.Player, 100);
+            }
+            catch (Exception ex)
+            {
+                e.Result = ex.Message;
+            }
         }
 
         private void Timer_Tick(object sender, EventArgs e)
@@ -114,10 +149,9 @@ namespace Quizio.ViewModels
             {
                 this.gameAggregator = Aggregator.loadMultiplayerResponseGameData(challengeToPlay);
             }
-            catch (Exception)
+            catch (Exception ex)
             {
-                
-                throw;
+                e.Result = ex.Message;
             }
         }
 
@@ -129,6 +163,16 @@ namespace Quizio.ViewModels
             if (!bw_startChallenge.IsBusy)
             {
                 bw_startChallenge.RunWorkerAsync();
+            }
+        }
+
+        private void declineChallenge(object param)
+        {
+            challengeToPlay = param as Challenge;
+            ShowOrHide = true;
+            if (!bw_declineChallenge.IsBusy)
+            {
+                bw_declineChallenge.RunWorkerAsync();
             }
         }
 

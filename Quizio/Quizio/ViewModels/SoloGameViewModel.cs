@@ -156,12 +156,16 @@ namespace Quizio.ViewModels
             }
             else if(gameWindow != null)
             {
+                reloadHomeView();
                 gameWindow.Close();
             }
             else
             {
                 ModernDialog.ShowMessage("Interner Fehler, bitte schliesse das Spiel manuell. Deine Punkte wurden aber hochgeladen!", "Fehler", MessageBoxButton.OK);
             }
+        }
+        internal virtual void reloadHomeView(){
+            // for class inheritence
         }
         #endregion
 

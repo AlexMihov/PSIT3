@@ -17,7 +17,7 @@ namespace Quizio.DAO
         public void updateRanking(Player fromUser, int pointsToAdd)
         {
             string putReq = REST.APIURL + "/ranking";
-            string json = "{\"toAdd\":" + pointsToAdd + "}";
+            string json = "{\"toAdd\":" + pointsToAdd + ",\"playerId\":" +fromUser.Id+ "}";
             REST.put(putReq, json);
         }
     }

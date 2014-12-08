@@ -346,18 +346,18 @@ exports.router = function (router, connection) {
 
     var sqlSelect = "SELECT points FROM ranking WHERE player_id = ?";
 
-    connection.query(sqlSelect, [req.user.id], function(err, rows, fields){
+    connection.query(sqlSelect, [req.body.playerId], function(err, rows, fields){
       if (err) throw err;
       var sql = "";
       var input = [];
       if(rows.length === 0) {
         var sql = "INSERT INTO ranking  (player_id, points)" +
                    " VALUES (?, ?)";
-        var input = [req.user.id, req.body.toAdd];
+        var input = [req.body.playerId, req.body.toAdd];
       }
       else {
         var newPoints = rows[0].points + req.body.toAdd;
-        var input = [req.user.id, newPoints];
+        var input = [newPoints, req.body.playerId];
 
         var sql = "UPDATE ranking SET points = ?" + 
                   " WHERE player_id = ?";
@@ -843,7 +843,7 @@ function insertRounds(gameId, rounds, con, callback){
   else {
     var sql = 'INSERT INTO given_answer (game_id, question_id, answer_id) VALUES';
     var input = [];
-    console.log(rounds);
+
     rounds.forEach(function(item){
       sql += '(?, ?, ?),'
       input.push(gameId);
@@ -851,9 +851,6 @@ function insertRounds(gameId, rounds, con, callback){
       input.push(item.answerId);
     });
     sql = sql.slice(0,-1);
-
-    console.log(sql);
-    console.log(input);
 
     con.query(sql, input, function(err, result){
       if(err) throw err;

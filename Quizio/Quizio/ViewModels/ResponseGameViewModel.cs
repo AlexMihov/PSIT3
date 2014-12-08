@@ -72,5 +72,11 @@ namespace Quizio.ViewModels
                 rga.updateRanking(rga.Challenge.ChallengeGame.Player, ChallengerPoints);
             }
         }
+
+        internal override void reloadHomeView()
+        {
+            MainViewModel mvm = App.Current.MainWindow.DataContext as MainViewModel;
+            mvm.HomeViewModel.ReloadHomeData();
+        }
     }
 }
