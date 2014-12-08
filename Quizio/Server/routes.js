@@ -377,13 +377,25 @@ exports.router = function (router, connection) {
   router.put('/challenge', function(req, res){
     printLogStart("updating ranking data", req);
     var challenge = req.body;
-    insertGame(challenge.response, connection, function(err, result){
-      challenge.response.id = result;
+
+    if(challenge.response != null){
+      insertGame(challenge.response, connection, function(err, result){
+        challenge.response.id = result;
+        updateChallenge(challenge, connection, function(err, result){
+          if(err) throw err;
+          res.send({'status': 'OK'});
+        });
+      });
+    } else {
       updateChallenge(challenge, connection, function(err, result){
-        if(err) throw err;
+        if(err) callback(err);
         res.send({'status': 'OK'});
       });
-    });
+    }
+    }
+
+
+
   });
 
 /***
@@ -745,20 +757,35 @@ function getOpenChallenge(userId, con, callback) {
 };*/
 
 function updateChallenge(challenge, con, callback){
-  var sql = 'UPDATE challenge ' +
-               'SET response_game_id = ? ' +
-                 ', status = ? ' +
-             'WHERE challenge_id = ?';
+
+  if(challenge.response != null){
+    var sql = 'UPDATE challenge ' +
+                 'SET response_game_id = ? ' +
+                   ', status = ? ' +
+               'WHERE challenge_id = ?';
+
+    var input = [challenge.response.id, challenge.status, challenge.id];
+
+    con.query(sql, input, function(err, result){
+      if(err) throw err;
+      console.log(result);
+      callback(null, result);
+    });
+  } else {
+    var sql = 'UPDATE challenge ' +
+                 'SET status = ? ' +
+               'WHERE challenge_id = ?';
+
+    var input = [challenge.status, challenge.id];
+
+    con.query(sql, input, function(err, result){
+      if(err) throw err;
+      console.log(result);
+      callback(null, result);
+    });
+  }
 
 
-
-  var input = [challenge.response.id, challenge.status, challenge.id];
-
-  con.query(sql, input, function(err, result){
-    if(err) throw err;
-    console.log(result);
-    callback(null, result);
-  });
 
 
 }
