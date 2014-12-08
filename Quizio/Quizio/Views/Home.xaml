@@ -64,7 +64,9 @@
                                                     <mui:ModernButton Content="annehmen" Margin="0,0,10,0" 
                                                                       Command="{Binding ElementName=challanges, Path=DataContext.RespondChallenge}" 
                                                                       CommandParameter="{Binding}"/>
-                                                    <mui:ModernButton Content="ablehnen"/>
+                                                    <mui:ModernButton Content="ablehnen"
+                                                                      Command="{Binding ElementName=challanges, Path=DataContext.DeclineChallange}" 
+                                                                      CommandParameter="{Binding}"/>
                                                 </StackPanel>
                                             </StackPanel>
                                         </Border>

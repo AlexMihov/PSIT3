@@ -40,5 +40,13 @@ namespace Quizio.Models
             Game challangeGame = new Game(base.User, base.TimeNeededSum, base.Rounds, base.Quiz, null);
             multiplayerGameDAO.saveChallengeGame(challangeGame, challengedFriend, challengeText);
         }
+
+        public void declineChallenge(Challenge challengeToDecline)
+        {
+            var challenge = challengeToDecline;
+            challenge.ResponseGame = null;
+            challenge.Status = "abgelehnt";
+            multiplayerGameDAO.saveChallengeResponse(challenge);
+        }
     }
 }
