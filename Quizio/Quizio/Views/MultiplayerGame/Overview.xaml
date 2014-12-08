@@ -5,14 +5,15 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:mui="http://firstfloorsoftware.com/ModernUI"
              mc:Ignorable="d" 
-             d:DesignHeight="300" d:DesignWidth="700">
+             d:DesignHeight="500" d:DesignWidth="700">
     <Grid Style="{StaticResource ContentRoot}">
         <ScrollViewer MinHeight="300">
             <StackPanel MinWidth="200">
                 <TextBlock Text="Übersicht des Spiels" Style="{StaticResource Heading2}" />
-                <Grid Margin="0,10">
+                <Grid Margin="0,20">
                     <Grid.RowDefinitions>
-                        <RowDefinition Height="20"/>
+                        <RowDefinition Height="40"/>
+                        <RowDefinition Height="40"/>
                         <RowDefinition Height="40"/>
                         <RowDefinition Height="40"/>
                         <RowDefinition Height="40"/>
@@ -20,17 +21,36 @@
                         <RowDefinition Height="40"/>
                     </Grid.RowDefinitions>
                     <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="150" />
+                        <ColumnDefinition Width="200" />
                         <ColumnDefinition Width="200" />
                         <ColumnDefinition Width="200" />
                     </Grid.ColumnDefinitions>
                     <TextBlock Grid.Row="0" Grid.Column="1" Text="Herausforderer"></TextBlock>
                     <TextBlock Grid.Row="0" Grid.Column="2" Text="Rückspieler"></TextBlock>
-                    <TextBlock Grid.Row="1" Grid.Column="0" Text="Zeit"></TextBlock>
-                    <TextBlock Grid.Row="2" Grid.Column="0" Text="Punkte"></TextBlock>
-                    <TextBlock Grid.Row="3" Grid.Column="0" Text="Richtig beantwortet"></TextBlock>
-                    <TextBlock Grid.Row="4" Grid.Column="0" Text="Falsch beantwortet"></TextBlock>
-                    <TextBlock Grid.Row="5" Grid.Column="0" Text="Timeouts"></TextBlock>
+                    <TextBlock Grid.Row="1" Grid.Column="0" Text="Name"></TextBlock>
+                    <TextBlock Grid.Row="2" Grid.Column="0" Text="Zeit"></TextBlock>
+                    <TextBlock Grid.Row="3" Grid.Column="0" Text="Punkte"></TextBlock>
+                    <TextBlock Grid.Row="4" Grid.Column="0" Text="Richtig beantwortet"></TextBlock>
+                    <TextBlock Grid.Row="5" Grid.Column="0" Text="Falsch beantwortet"></TextBlock>
+                    <TextBlock Grid.Row="6" Grid.Column="0" Text="Timeouts"></TextBlock>
+
+                    <TextBlock Grid.Row="1" Grid.Column="1" Text="{Binding Game.Challenge.ChallengeGame.Player.Name}"></TextBlock>
+                    <TextBlock Grid.Row="1" Grid.Column="2" Text="{Binding Game.User.Name}"></TextBlock>
+
+                    <TextBlock Grid.Row="2" Grid.Column="1" Text="{Binding Game.Challenge.ChallengeGame.Time}"></TextBlock>
+                    <TextBlock Grid.Row="2" Grid.Column="2" Text="{Binding Game.TimeNeededSum}"></TextBlock>
+                    
+                    <TextBlock Grid.Row="3" Grid.Column="1" Text="{Binding ChallengerPoints}"></TextBlock>
+                    <TextBlock Grid.Row="3" Grid.Column="2" Text="{Binding ResponsePlayerPoints}"></TextBlock>
+
+                    <TextBlock Grid.Row="4" Grid.Column="1" Text="{Binding CorrectChallengerInputs.Count}"></TextBlock>
+                    <TextBlock Grid.Row="4" Grid.Column="2" Text="{Binding CorrectUserInputs.Count}"></TextBlock>
+
+                    <TextBlock Grid.Row="5" Grid.Column="1" Text="{Binding FalseChallengerInputs.Count}"></TextBlock>
+                    <TextBlock Grid.Row="5" Grid.Column="2" Text="{Binding FalseUserInputs.Count}"></TextBlock>
+
+                    <TextBlock Grid.Row="6" Grid.Column="1" Text="{Binding TimedOutChallengerInputs.Count}"></TextBlock>
+                    <TextBlock Grid.Row="6" Grid.Column="2" Text="{Binding TimedOutUserInputs.Count}"></TextBlock>
                 </Grid>
             </StackPanel>
         </ScrollViewer>

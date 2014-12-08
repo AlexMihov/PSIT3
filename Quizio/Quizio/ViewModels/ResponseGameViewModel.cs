@@ -14,6 +14,9 @@ namespace Quizio.ViewModels
         public List<Round> FalseChallengerInputs { get; set; }
         public List<Round> TimedOutChallengerInputs { get; set; }
 
+        public int ChallengerPoints { get; set; }
+        public int ResponsePlayerPoints { get; set; }
+
         public ResponseGameViewModel(GameAggregator game) : base(game)
         {
         }
@@ -45,12 +48,29 @@ namespace Quizio.ViewModels
             CorrectChallengerInputs = rga.getCorrectRounds(rga.Challenge.ChallengeGame.Rounds);
             FalseChallengerInputs = rga.getFalseRounds(rga.Challenge.ChallengeGame.Rounds);
             TimedOutChallengerInputs = rga.getTimedOutRounds(rga.Challenge.ChallengeGame.Rounds);
+
+            ResponsePlayerPoints = CorrectUserInputs.Count * ((QuestionsRemaining * ANSWERTIME) - Game.TimeNeededSum);
+            ChallengerPoints = CorrectChallengerInputs.Count * ((QuestionsRemaining * ANSWERTIME) - rga.Challenge.ChallengeGame.Time);
         }
 
         internal override void finishGame()
         {
             ResponseGameAggregator rga = base.Game as ResponseGameAggregator;
             rga.saveChallengeResponse();
+
+            if (ResponsePlayerPoints > ChallengerPoints)
+            {
+                rga.updateRanking(rga.User, ResponsePlayerPoints);
+            }
+            else if (ResponsePlayerPoints == ChallengerPoints)
+            {
+                rga.updateRanking(rga.Challenge.ChallengeGame.Player, (int)ChallengerPoints / 2);
+                rga.updateRanking(rga.User, (int)ResponsePlayerPoints / 2);
+            }
+            else
+            {
+                rga.updateRanking(rga.Challenge.ChallengeGame.Player, ChallengerPoints);
+            }
         }
     }
 }

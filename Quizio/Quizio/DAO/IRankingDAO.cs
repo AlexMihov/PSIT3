@@ -7,6 +7,6 @@ namespace Quizio.DAO
     public interface IRankingDAO
     {
         List<Ranking> loadRankings();
-        void updateRanking(User fromUser, int pointsToAdd);
+        void updateRanking(Player fromUser, int pointsToAdd);
     }
 }

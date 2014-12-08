@@ -5,7 +5,7 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:mui="http://firstfloorsoftware.com/ModernUI"
              mc:Ignorable="d" 
-             d:DesignHeight="300" d:DesignWidth="700">
+             d:DesignHeight="500" d:DesignWidth="700">
     
     <Grid Style="{StaticResource ContentRoot}">
         <Grid.ColumnDefinitions>
@@ -15,7 +15,10 @@
         </Grid.ColumnDefinitions>
 
         <ScrollViewer Margin="{StaticResource SplitLeft}">
-            <StackPanel MinWidth="200">
+            <StackPanel MinWidth="200" MaxWidth="300">
+                <TextBlock HorizontalAlignment="Left" Style="{StaticResource Heading2}">
+                    <Run Text="{Binding Game.User.Name, Mode=OneWay}"></Run>
+                </TextBlock>
                 <TextBlock Text="Benötigte Zeit: " Style="{StaticResource Heading2}" HorizontalAlignment="Right">
                     <Run Text="{Binding Game.TimeNeededSum, Mode=OneWay}"></Run>
                     <Run Text="Sekunden"></Run>
@@ -27,19 +30,19 @@
                     <Run Text="{Binding FalseUserInputs.Count, Mode=OneWay}"></Run>
                 </TextBlock>
                 <ScrollViewer MaxHeight="200">
-                    <ItemsControl x:Name="wrong_left" ItemsSource="{Binding FalseUserInputs}" VerticalAlignment="Bottom" HorizontalAlignment="Left">
+                    <ItemsControl x:Name="wrong_left" ItemsSource="{Binding FalseUserInputs}" VerticalAlignment="Bottom" HorizontalAlignment="Left" MinWidth="200" MaxWidth="300">
                         <ItemsControl.ItemTemplate>
                             <DataTemplate>
-                                <Grid Margin="0,10">
+                                <Grid Margin="0,10" MinWidth="200" MaxWidth="300">
                                     <Grid.RowDefinitions>
+                                        <RowDefinition Height="Auto"></RowDefinition>
                                         <RowDefinition Height="Auto"></RowDefinition>
                                         <RowDefinition Height="Auto"></RowDefinition>
                                     </Grid.RowDefinitions>
                                     <Grid.ColumnDefinitions>
-                                        <ColumnDefinition Width="400"></ColumnDefinition>
-                                        <ColumnDefinition Width="300"></ColumnDefinition>
+                                        <ColumnDefinition Width="Auto"></ColumnDefinition>
                                     </Grid.ColumnDefinitions>
-                                    <TextBlock  Grid.Column="0" Grid.Row="0" TextWrapping="Wrap" HorizontalAlignment="Left">
+                                    <TextBlock MaxWidth="200"  Grid.Column="0" Grid.Row="0" TextWrapping="Wrap" HorizontalAlignment="Left">
                                         <Run Text="Frage: "></Run>
                                         <Run Text="{Binding Question.QuestionString}"></Run>
                                     </TextBlock>
@@ -47,7 +50,7 @@
                                         <Run Text="Korrekte Antwort: "></Run>
                                         <Run FontWeight="Bold" Text="{Binding CorrectAnswer.AnswerText}"></Run>
                                     </TextBlock>
-                                    <TextBlock Grid.Column="1" Grid.Row="1" HorizontalAlignment="Center">
+                                    <TextBlock Grid.Column="0" Grid.Row="2" HorizontalAlignment="Left">
                                         <Run Text="Deine Antwort: "></Run>
                                         <Run FontWeight="Bold" Text="{Binding GivenAnswer.AnswerText}"></Run>
                                     </TextBlock>
@@ -60,27 +63,27 @@
                     <Run Text="{Binding TimedOutUserInputs.Count, Mode=OneWay}"></Run>
                 </TextBlock>
                 <ScrollViewer MaxHeight="100">
-                    <ItemsControl x:Name="timeout_left" ItemsSource="{Binding TimedOutUserInputs}" VerticalAlignment="Top" HorizontalAlignment="Left">
+                    <ItemsControl x:Name="timeout_left" ItemsSource="{Binding TimedOutUserInputs}" VerticalAlignment="Top" HorizontalAlignment="Left" MinWidth="200" MaxWidth="300">
                         <ItemsControl.ItemTemplate>
                             <DataTemplate>
-                                <Grid Margin="0,10">
+                                <Grid Margin="0,10" MinWidth="200" MaxWidth="300">
                                     <Grid.RowDefinitions>
+                                        <RowDefinition Height="Auto"></RowDefinition>
                                         <RowDefinition Height="Auto"></RowDefinition>
                                         <RowDefinition Height="Auto"></RowDefinition>
                                     </Grid.RowDefinitions>
                                     <Grid.ColumnDefinitions>
-                                        <ColumnDefinition Width="400"></ColumnDefinition>
-                                        <ColumnDefinition Width="300"></ColumnDefinition>
+                                        <ColumnDefinition Width="Auto"></ColumnDefinition>
                                     </Grid.ColumnDefinitions>
-                                    <TextBlock  Grid.Column="0" Grid.Row="0" TextWrapping="Wrap" HorizontalAlignment="Left">
+                                    <TextBlock MaxWidth="200" Grid.Column="0" Grid.Row="0" TextWrapping="Wrap" HorizontalAlignment="Left">
                                         <Run Text="Frage: "></Run>
-                                        <Run Text="{Binding QuestionText}"></Run>
+                                        <Run Text="{Binding Question.QuestionString}"></Run>
                                     </TextBlock>
                                     <TextBlock Grid.Column="0" Grid.Row="1" HorizontalAlignment="Left">
                                         <Run Text="Korrekte Antwort: "></Run>
                                         <Run FontWeight="Bold" Text="{Binding CorrectAnswer.AnswerText}"></Run>
                                     </TextBlock>
-                                    <TextBlock TextWrapping="NoWrap" Grid.Column="1" Grid.Row="1" HorizontalAlignment="Center">
+                                    <TextBlock TextWrapping="Wrap" Grid.Column="0" Grid.Row="2" HorizontalAlignment="Left">
                                         <Run Text="Du hast zu lange gebraucht: "></Run>
                                         <Run FontWeight="Bold" Text="{Binding GivenAnswer.AnswerText}"></Run>
                                     </TextBlock>
@@ -93,7 +96,10 @@
         </ScrollViewer>
         <GridSplitter Grid.Column="1" />
         <ScrollViewer Grid.Column="2 " Margin="{StaticResource SplitRight}">
-            <StackPanel MinWidth="200">
+            <StackPanel MinWidth="200" MaxWidth="300">
+                <TextBlock HorizontalAlignment="Left" Style="{StaticResource Heading2}">
+                    <Run Text="{Binding Game.Challenge.ChallengeGame.Player.Name, Mode=OneWay}"></Run>
+                </TextBlock>
                 <TextBlock Text="Benötigte Zeit: " Style="{StaticResource Heading2}" HorizontalAlignment="Right">
                     <Run Text="{Binding Game.ChallangerTime, Mode=OneWay}"></Run>
                     <Run Text="Sekunden"></Run>
@@ -105,28 +111,30 @@
                     <Run Text="{Binding FalseChallengerInputs.Count, Mode=OneWay}"></Run>
                 </TextBlock>
                 <ScrollViewer MaxHeight="200">
-                    <ItemsControl x:Name="wrong_right" ItemsSource="{Binding FalseChallengerInputs}" VerticalAlignment="Bottom" HorizontalAlignment="Left">
+                    <ItemsControl x:Name="wrong_right" ItemsSource="{Binding FalseChallengerInputs}" VerticalAlignment="Bottom" HorizontalAlignment="Left" MinWidth="200" MaxWidth="300">
                         <ItemsControl.ItemTemplate>
                             <DataTemplate>
-                                <Grid Margin="0,10">
+                                <Grid Margin="0,10" MinWidth="200" MaxWidth="300">
                                     <Grid.RowDefinitions>
+                                        <RowDefinition Height="Auto"></RowDefinition>
                                         <RowDefinition Height="Auto"></RowDefinition>
                                         <RowDefinition Height="Auto"></RowDefinition>
                                     </Grid.RowDefinitions>
                                     <Grid.ColumnDefinitions>
-                                        <ColumnDefinition Width="400"></ColumnDefinition>
-                                        <ColumnDefinition Width="300"></ColumnDefinition>
+                                        <ColumnDefinition Width="Auto"></ColumnDefinition>
                                     </Grid.ColumnDefinitions>
-                                    <TextBlock  Grid.Column="0" Grid.Row="0" TextWrapping="Wrap" HorizontalAlignment="Left">
+                                    <TextBlock MaxWidth="200" Grid.Column="0" Grid.Row="0" TextWrapping="Wrap" HorizontalAlignment="Left">
                                         <Run Text="Frage: "></Run>
                                         <Run Text="{Binding Question.QuestionString}"></Run>
                                     </TextBlock>
-                                    <TextBlock Grid.Column="0" Grid.Row="1" HorizontalAlignment="Left">
+                                    <TextBlock Grid.Column="0" Grid.Row="1" HorizontalAlignment="Left" TextWrapping="Wrap">
                                         <Run Text="Korrekte Antwort: "></Run>
                                         <Run FontWeight="Bold" Text="{Binding CorrectAnswer.AnswerText}"></Run>
                                     </TextBlock>
-                                    <TextBlock Grid.Column="1" Grid.Row="1" HorizontalAlignment="Center">
-                                        <Run Text="Deine Antwort: "></Run>
+                                    <TextBlock Grid.Column="0" Grid.Row="2" HorizontalAlignment="Left" TextWrapping="Wrap">
+                                        <Run Text="Antwort von"></Run>
+                                        <Run Text="{Binding ElementName=wrong_right, Path=DataContext.Game.Challenge.ChallengeGame.Player.Name}"></Run>
+                                        <Run Text=":  "></Run>
                                         <Run FontWeight="Bold" Text="{Binding GivenAnswer.AnswerText}"></Run>
                                     </TextBlock>
                                 </Grid>
@@ -138,28 +146,29 @@
                     <Run Text="{Binding TimedOutChallengerInputs.Count, Mode=OneWay}"></Run>
                 </TextBlock>
                 <ScrollViewer MaxHeight="100">
-                    <ItemsControl x:Name="timeout_right" ItemsSource="{Binding TimedOutChallengerInputs}" VerticalAlignment="Top" HorizontalAlignment="Left">
+                    <ItemsControl x:Name="timeout_right" ItemsSource="{Binding TimedOutChallengerInputs}" VerticalAlignment="Top" HorizontalAlignment="Left" MinWidth="200" MaxWidth="300">
                         <ItemsControl.ItemTemplate>
                             <DataTemplate>
-                                <Grid Margin="0,10">
+                                <Grid Margin="0,10" MinWidth="200" MaxWidth="300">
                                     <Grid.RowDefinitions>
+                                        <RowDefinition Height="Auto"></RowDefinition>
                                         <RowDefinition Height="Auto"></RowDefinition>
                                         <RowDefinition Height="Auto"></RowDefinition>
                                     </Grid.RowDefinitions>
                                     <Grid.ColumnDefinitions>
-                                        <ColumnDefinition Width="400"></ColumnDefinition>
-                                        <ColumnDefinition Width="300"></ColumnDefinition>
+                                        <ColumnDefinition Width="Auto"></ColumnDefinition>
                                     </Grid.ColumnDefinitions>
-                                    <TextBlock  Grid.Column="0" Grid.Row="0" TextWrapping="Wrap" HorizontalAlignment="Left">
+                                    <TextBlock MaxWidth="200" Grid.Column="0" Grid.Row="0" TextWrapping="Wrap" HorizontalAlignment="Left">
                                         <Run Text="Frage: "></Run>
-                                        <Run Text="{Binding QuestionText}"></Run>
+                                        <Run Text="{Binding Question.QuestionString}"></Run>
                                     </TextBlock>
                                     <TextBlock Grid.Column="0" Grid.Row="1" HorizontalAlignment="Left">
                                         <Run Text="Korrekte Antwort: "></Run>
                                         <Run FontWeight="Bold" Text="{Binding CorrectAnswer.AnswerText}"></Run>
                                     </TextBlock>
-                                    <TextBlock TextWrapping="NoWrap" Grid.Column="1" Grid.Row="1" HorizontalAlignment="Center">
-                                        <Run Text="Du hast zu lange gebraucht: "></Run>
+                                    <TextBlock TextWrapping="Wrap" Grid.Column="0" Grid.Row="2" HorizontalAlignment="Left">
+                                        <Run Text="{Binding ElementName=timeout_right, Path=DataContext.Game.Challenge.ChallengeGame.Player.Name}"></Run>
+                                        <Run Text="hat zu lange gebraucht:"></Run>
                                         <Run FontWeight="Bold" Text="{Binding GivenAnswer.AnswerText}"></Run>
                                     </TextBlock>
                                 </Grid>

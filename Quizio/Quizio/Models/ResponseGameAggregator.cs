@@ -35,6 +35,11 @@ namespace Quizio.Models
             base.multiplayerGameDAO.saveChallengeResponse(Challenge);
         }
 
+        public void updateRanking(Player player, int pointsToAdd)
+        {
+            base.rankingDao.updateRanking(player, pointsToAdd);
+        }
+
         public void loadGameData(int challengeId)
         {
             Challenge = base.multiplayerGameDAO.getChallenge(challengeId);
