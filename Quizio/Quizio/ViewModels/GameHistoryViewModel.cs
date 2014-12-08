@@ -135,17 +135,25 @@ namespace Quizio.ViewModels
         #region command methods
         private void showChallengeResult()
         {
-            if (SelectedChallenge.Status.Equals("gespielt"))
+            if (SelectedChallenge != null)
             {
-                ShowOrHide = true;
-                if (!bw_show.IsBusy)
+                if (SelectedChallenge.Status.Equals("gespielt"))
                 {
-                    bw_show.RunWorkerAsync();
+                    ShowOrHide = true;
+                    if (!bw_show.IsBusy)
+                    {
+                        bw_show.RunWorkerAsync();
+                    }
                 }
+                else
+                {
+                    ModernDialog.ShowMessage("Es können nur Spiele mit Status \"gespielt\" angezeigt werden.", "Hinweis", MessageBoxButton.OK);
+                }
+                
             }
             else
             {
-                ModernDialog.ShowMessage("Es können nur Spiele mit Status \"gespielt\" angezeigt werden.", "Hinweis", MessageBoxButton.OK);
+                ModernDialog.ShowMessage("Bitte wähle ein zuerst ein Spiel aus.", "Hinweis", MessageBoxButton.OK);
             }
             
         }
