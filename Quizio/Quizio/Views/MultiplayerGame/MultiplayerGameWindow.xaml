@@ -11,7 +11,7 @@
                   Style="{StaticResource BlankWindow}">
     
     <StackPanel Style="{StaticResource ContentRoot}">
-        <TextBlock TextWrapping="Wrap" Text="{Binding Game.Quiz.Title}" Style="{StaticResource Heading2}"/>
+        <TextBlock TextWrapping="Wrap" Text="{Binding GameAggregator.Quiz.Title}" Style="{StaticResource Heading2}"/>
         <ContentControl Content="{Binding ContentControlView}"></ContentControl>
     </StackPanel>
 </mui:ModernWindow>

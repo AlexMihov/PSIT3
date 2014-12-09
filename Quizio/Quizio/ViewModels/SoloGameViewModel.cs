@@ -264,8 +264,12 @@ namespace Quizio.ViewModels
         #endregion
 
         #region EventHandlers for VM
-        internal void OnWindowClosing(object sender, CancelEventArgs e)
+        internal virtual void OnWindowClosing(object sender, CancelEventArgs e)
         {
+            if (ContentControlView.GetType().IsInstanceOfType(new SoloGameResult()))
+            {
+                CloseAndSave.Execute(sender);
+            }
             App.Current.MainWindow.Show();
         }
 

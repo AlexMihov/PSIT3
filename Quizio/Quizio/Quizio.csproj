@@ -114,6 +114,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Aggregators\GameResultAggregator.cs" />
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
@@ -154,6 +155,7 @@
     <Compile Include="ViewModels\ChallengeGameViewModel.cs" />
     <Compile Include="ViewModels\FriendViewModel.cs" />
     <Compile Include="ViewModels\GameHistoryViewModel.cs" />
+    <Compile Include="ViewModels\GameResultViewModel.cs" />
     <Compile Include="ViewModels\HomeViewModel.cs" />
     <Compile Include="ViewModels\MainViewModel.cs" />
     <Compile Include="ViewModels\ProfileViewModel.cs" />
@@ -175,8 +177,17 @@
     <Compile Include="Views\HomeViews\GameResult.xaml.cs">
       <DependentUpon>GameResult.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Views\HomeViews\ResultView\GameResultTabControl.xaml.cs">
+      <DependentUpon>GameResultTabControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\HomeViews\ResultView\Overview.xaml.cs">
+      <DependentUpon>Overview.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\HomeViews\ResultView\ResultWindow.xaml.cs">
       <DependentUpon>ResultWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\HomeViews\ResultView\SplitResult.xaml.cs">
+      <DependentUpon>SplitResult.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\MultiplayerGame\MultiplayerGamePlay.xaml.cs">
       <DependentUpon>MultiplayerGamePlay.xaml</DependentUpon>
@@ -226,9 +237,21 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Views\HomeViews\ResultView\GameResultTabControl.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\HomeViews\ResultView\Overview.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="Views\HomeViews\ResultView\ResultWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\HomeViews\ResultView\SplitResult.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </Page>
     <Page Include="Views\MultiplayerGame\MultiplayerGamePlay.xaml">
       <SubType>Designer</SubType>
