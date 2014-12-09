@@ -1,45 +1,13 @@
 "use strict";
 
 var async = require('async');
-
-
-var connection = {};
-
-
+var crypto = require('crypto');
 
 exports.router = function (router, connection) {
 
-  var async = require('async');
-  var crypto = require('crypto');
 
 
-
-  router.post('/friend', function(req, res) {
-    printLogStart("insert friend", req);
-    var playerId = req.user.id;
-    var friendId = parseInt(req.body.friendId, 10);
-
-    var sql = "INSERT INTO friend (player_player_id, player_friend_id) " +
-                   "VALUES (" + connection.escape(playerId) + ", " + connection.escape(friendId) +")";
-
-
-    connection.query(sql, function(err, rows, fields) {
-      if(err) {
-        if (err.code == 'ER_DUP_ENTRY') {
-          res.status(409).send({error: "You have this friend already added!"});
-          err = null;
-        } else throw err;
-      } else {
-        res.json({
-        status: "OK",
-        affectedRows: rows.affectedRows,
-        });
-        printLogSuccess("friend successfully added");
-      }
-    });
-  });
-
-     /***
+ /***
   *      ______________________________
   *     /  _____/\_   _____/\__    ___/
   *    /   \  ___ |    __)_   |    |
@@ -47,86 +15,74 @@ exports.router = function (router, connection) {
   *     \______  /_______  /  |____|
   *            \/        \/
   */
-  router.get('/player/:playerID', function(req, res) {
-     printLogStart("get player", req);
-     var player = req.params.player;
 
-     connection.query('SELECT * FROM player WHERE player_id= ' + connection.escape(player), function(err, rows, fields) {
-         if (err) throw err;
-         res.json(rows);
-         printLogSuccess("Plyer successfully fetched");
-     });
+  router.get('/player/by-name/:playername', function(req, res, next) {
+    printLogStart('get player by name', req);
+    var input = [req.user.id, '%' + req.params.playername + '%', req.user.id];
 
+    var sql = 'SELECT player_id as id, name, origin as location, status ' +
+                'FROM player ' +
+               'WHERE player_id != ? ' +
+                 'AND name LIKE ? ' +
+                 'AND player_id NOT IN ('+
+                     'SELECT p.player_id ' +
+                       'FROM friend f ' +
+                 'INNER JOIN player p ON (p.player_id = f.player_friend_id) ' +
+                      'WHERE f.player_player_id = ?)';
+
+    connection.query(sql, input, function(err, rows, fields) {
+      if (err) next(err);
+      res.json(rows);
+      printLogSuccess('Plyers successfully fetched');
+    });
   });
 
-  router.get('/player/by-name/:playername', function(req, res) {
-     printLogStart("get player by name", req);
-     var input = [req.user.id, "%" + req.params.playername + "%", req.user.id];
+  router.get('/categories', function(req, res, next) {
+    printLogStart('get categories', req);
 
-     var sql = "SELECT player_id as id, name, origin as location, status " +
-                 "FROM player " +
-                "WHERE player_id != ? " +
-                  "AND name LIKE ? " +
-                  "AND player_id NOT IN ("+
-                      "SELECT p.player_id " +
-                        "FROM friend f " +
-                  "INNER JOIN player p ON (p.player_id = f.player_friend_id)" +
-                       "WHERE f.player_player_id = ?)";
+    connection.query('SELECT category_id as id, name, description FROM category', function(err, rows, fields) {
+      if (err) next(err);
+      var result = rows;
 
-     connection.query(sql, input, function(err, rows, fields) {
-         if (err) throw err;
-         res.json(rows);
-         printLogSuccess("Plyers successfully fetched");
-     });
-
-  });
-
-  router.get('/categories', function(req, res) {
-     printLogStart("get categories", req);
-
-     connection.query('SELECT category_id as id, name, description FROM category', function(err, rows, fields) {
-         if (err) throw err;
-           var result = rows;
-
-           result.map(function(item){
-            item.quizies = [];
-           });
+      result.map(function(item){
+        item.quizies = [];
+      });
           
-           connection.query('SELECT quiz_id as id, title, description, category_category_id as category FROM quiz', function(err, rows, fields) {
-              if (err) throw err;
-              rows.forEach(function(quiz){
-                result.forEach(function(category){
-                  if(category.id == quiz.category){
-                    category.quizies.push({id:quiz.id,title:quiz.title,description:quiz.description});
-                  }
-                });
-              });
-              res.json(result);
-              printLogSuccess("Categories successfully fetched");
-            });
-     });
-
+      connection.query('SELECT quiz_id as id, title, description, category_category_id as category FROM quiz', function(err, rows, fields) {
+        if (err) next(err);
+        rows.forEach(function(quiz){
+          result.forEach(function(category){
+            if(category.id == quiz.category){
+              category.quizies.push({ 'id':quiz.id, 
+                                      'title':quiz.title, 
+                                      'description':quiz.description });
+            }
+          });
+        });
+        printLogSuccess('Categories successfully fetched');
+        res.json(result);
+      });
+    });
   });
 
-  router.get('/quiz/:quizID/questions', function(req,res){
-    printLogStart("get questions from quiz "+ req.params.quizID, req);
+  router.get('/quiz/:quizID/questions', function(req,res, next){
+    printLogStart('get questions from quiz ' + req.params.quizID, req);
     var sql = 'SELECT question_id as id, question, hint ' +
-            'FROM question '+
-            'WHERE quiz_quiz_id = ' + connection.escape(req.params.quizID);
+                'FROM question ' +
+               'WHERE quiz_quiz_id = ?';
 
-    connection.query(sql, function(err, rows, fields){
-      if(err) throw err;
+    connection.query(sql, [req.params.quizID], function(err, rows, fields){
+      if(err) next(err);
       var questions = rows;
 
       var getAnswers = function(item, callback){
         item.answers = [];
         var itemsql = 'SELECT a.answer_id as id, a.answer, q.value ' +
-                  'FROM answer a ' +
-            'INNER JOIN answerofquestion q ' +
-                    'ON (a.answer_id = q.answer_answer_id)' +
-                 'WHERE q.question_question_id = ' + connection.escape(item.id);
-        connection.query(itemsql, function(err, rows, fields){
-          if(err) throw err;
+                        'FROM answer a ' +
+                  'INNER JOIN answerofquestion q ON (a.answer_id = q.answer_answer_id) ' +
+                       'WHERE q.question_question_id = ?';
+        connection.query(itemsql, [item.id], function(err, rows, fields){
+          if(err) next(err);
           rows.forEach(function(answer){
             if(answer.value == 0){ answer.value = false;}
             else {answer.value = true;}
@@ -138,21 +94,21 @@ exports.router = function (router, connection) {
 
       async.map(questions, getAnswers, function(err, results){
         res.json(results);
-        printLogSuccess("Questions successfully fetched");
+        printLogSuccess('Questions successfully fetched');
       });
     });
   });
 
 
   router.get('/friends', function(req,res){
-    printLogStart("get friends for user " + req.params.userID, req);
+    printLogStart('get friends for user ', req);
     var sql = 'SELECT  p.player_id as Id, p.name, p.origin as location, p.status ' +
               'FROM friend f ' +
               'INNER JOIN player p ' +
               'ON (p.player_id = f.player_friend_id) ' +
-              'WHERE f.player_player_id = ' + connection.escape(req.user.id);
+              'WHERE f.player_player_id = ?' + connection.escape(req.user.id);
 
-    connection.query(sql, function(err, rows, fields){
+    connection.query(sql, [req.user.id], function(err, rows, fields){
       if(err) throw err;
       res.json(rows);
       printLogSuccess("Friends successfully fetched");
@@ -250,7 +206,28 @@ exports.router = function (router, connection) {
     });
   });
 
+  router.post('/friend', function(req, res, next) {
+    printLogStart('insert friend', req);
+    var input = [req.user.id, parseInt(req.body.friendId, 10)];
 
+    var sql = 'INSERT INTO friend (player_player_id, player_friend_id) ' +
+                   'VALUES ( ?, ?)';
+
+    connection.query(sql, input, function(err, rows, fields) {
+      if(err) {
+        if (err.code == 'ER_DUP_ENTRY') {
+          res.status(409).send({ 'error': 'You have this friend already added!' });
+          err = null;
+        } else next(err);
+      } else {
+        res.json({
+        'status': 'OK',
+        'affectedRows': rows.affectedRows,
+        });
+        printLogSuccess('friend successfully added');
+      }
+    });
+  });
 
   router.post('/player', function(req, res) {
     printLogStart("insert player", req);
@@ -599,13 +576,7 @@ var getRounds = function(gameId, con, callback){
 
 
 
-function getChallenge(challengeId, con, callback){
-
-  if(arguments.length == 3) {
-    connection = con;
-  } else if(arguments.length == 2) {
-    callback = con;
-  }
+function getChallenge(challengeId, connection, callback){
 
   var sql = 'SELECT c.challenge_id as id' +
                  ', c.challenge_text as text ' +
@@ -651,14 +622,14 @@ function getChallenge(challengeId, con, callback){
         if(err) callback(err);
         else {
           challenge.response = result;
-          getRounds(challenge.challenge.id, function(err, answers){
+          getRounds(challenge.challenge.id, connection, function(err, answers){
             challenge.challenge.rounds = answers;
             callback(null, challenge);
           }); 
         }
       });
     } else {
-      getRounds(challenge.challenge.id, function(err, answers){
+      getRounds(challenge.challenge.id, connection, function(err, answers){
         challenge.challenge.rounds = answers;
         callback(null, challenge);
       });  
@@ -667,7 +638,7 @@ function getChallenge(challengeId, con, callback){
 };
 
 
-function getChallengesOfUser(userId, status, con, callback){
+function getChallengesOfUser(userId, status, connection, callback){
 
   var sql = 'SELECT c.challenge_id as id' +
                  ', c.challenge_text as text ' +
@@ -692,19 +663,17 @@ function getChallengesOfUser(userId, status, con, callback){
              'INNER JOIN category ca ON (ca.category_id = q.category_category_id) ' +
              'WHERE challenged_player_id = ? ';
              
-
   var input = [userId];
 
   if(arguments.length == 4) {
-    connection = con;
     sql += 'AND c.status = ? ';
     input.push(status);
   } else if(arguments.length == 3) {
     sql += 'OR g.player_id = ? ';
     sql += 'LIMIT 20';
     input.push(userId);
+    var callback = connection;
     var connection = status;
-    var callback = con;
   } else if(arguments.length == 2) {
     var callback = status;
   }
@@ -729,29 +698,6 @@ function getChallengesOfUser(userId, status, con, callback){
     callback(null, challenges);
   });
 };
-
-/*
-function getOpenChallenge(userId, con, callback) {
-
-  if(arguments.length == 3) {
-    connection = con;
-  } else if(arguments.length == 2) {
-    var callback = con;
-  }
-
-  var sql = 'SELECT c.challenge_id as id, c.challenge_game_id as challengeId , c.challenge_text as text ' +
-              'FROM challenge c ' +
-             'WHERE challenged_player_id = ? ' + 
-               'AND status = ?';
-
-  connection.query(sql, [userId, 'OPEN'], function(err, rows, fields){
-    if(err) throw err;
-    async.map(rows, addGameToChallenge, function(err, result){        
-      callback(null, result);
-    });
-
-  });
-};*/
 
 function updateChallenge(challenge, con, callback){
 
@@ -781,10 +727,6 @@ function updateChallenge(challenge, con, callback){
       callback(null, result);
     });
   }
-
-
-
-
 }
 
 function addGameToChallenge(challenge, callback){

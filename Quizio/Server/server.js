@@ -38,7 +38,13 @@ passport.deserializeUser(function(user, done) {
 });
 
 var connection = mysql.createConnection(config.db);
-connection.connect(); 
+connection.connect();
+
+connection.on('error', function(err) {
+  console.log(err.code); // 'ER_BAD_DB_ERROR'
+  connection = mysql.createConnection(config.db);
+  connection.connect();
+});
 
 var port = process.env.PORT || 10300;
 var router = express.Router();
