@@ -46,6 +46,19 @@ connection.on('error', function(err) {
   connection.connect();
 });
 
+//Polls the mysql db every 3 minutes to keep the connection alive.
+setInterval(function(){
+  connection.query('SELECT 1', function(err, result){
+    if (err) {
+      console.log('DB polling failed ', err);
+      connection = mysql.createConnection(config.db);
+      connection.connect();
+    } else {
+      console.log('Connection to db open.');
+    }
+  });
+}, 180000)
+
 var port = process.env.PORT || 10300;
 var router = express.Router();
 
@@ -79,7 +92,7 @@ require('./routes').router(router, connection);
 
 // START THE SERVER
 // =============================================================================
-app.use('/', router);
+app.use('/', isLoggedIn, router);
 app.listen(port);
 console.log('Server is running on port ' + port);
 
