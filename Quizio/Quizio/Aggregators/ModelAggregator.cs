@@ -185,11 +185,6 @@ namespace Quizio.Aggregators
         {
             userDao.updateUserSettings(this.User);
         }
-
-        public void resetUserSettings(User toReset)
-        {
-            this.User = toReset;
-        }
         #endregion
 
         #region related to RankingViewModel

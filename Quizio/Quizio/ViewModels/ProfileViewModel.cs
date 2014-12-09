@@ -13,7 +13,6 @@ namespace Quizio.ViewModels
     {
         #region ButtonCommands
         public ICommand UpdateUserSettings { get; set; }
-        public ICommand ResetUserSettings { get; set; }
         #endregion
 
         private User toReset;
@@ -25,7 +24,6 @@ namespace Quizio.ViewModels
         {
             this.Aggregator = aggregator;
             this.UpdateUserSettings = new DelegateCommand<object>(updateUserSettings);
-            this.ResetUserSettings = new DelegateCommand(resetUserSettings);
 
             this.bw = new BackgroundWorker();
             this.bw.DoWork += bw_DoWork;
@@ -64,13 +62,6 @@ namespace Quizio.ViewModels
             {
                 bw.RunWorkerAsync();
             }
-            //(this.toReset = Aggregator.User;
         }
-
-        private void resetUserSettings()
-        {
-            Aggregator.resetUserSettings(toReset);
-        }
-
     }
 }
