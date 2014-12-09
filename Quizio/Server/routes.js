@@ -106,7 +106,7 @@ exports.router = function (router, connection) {
               'FROM friend f ' +
               'INNER JOIN player p ' +
               'ON (p.player_id = f.player_friend_id) ' +
-              'WHERE f.player_player_id = ?' + connection.escape(req.user.id);
+              'WHERE f.player_player_id = ?';
 
     connection.query(sql, [req.user.id], function(err, rows, fields){
       if(err) throw err;
@@ -667,11 +667,9 @@ function getChallengesOfUser(userId, status, connection, callback){
 
   if(arguments.length == 4) {
     sql += 'AND c.status = ? ';
-    sql += 'ORDER BY c.challenge_id DESC ';
     input.push(status);
   } else if(arguments.length == 3) {
     sql += 'OR g.player_id = ? ';
-    sql += 'ORDER BY c.challenge_id DESC ';
     sql += 'LIMIT 20';
     input.push(userId);
     var callback = connection;
@@ -683,7 +681,7 @@ function getChallengesOfUser(userId, status, connection, callback){
 
 
   connection.query(sql, input, function(err, rows, fields){
-    if(err) throw err;
+    if(err) callback(err);
     var challenges = [];
     if(rows != null){
       rows.forEach(function(item){
