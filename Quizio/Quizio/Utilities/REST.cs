@@ -12,7 +12,7 @@ namespace Quizio.Utilities
 {
     public static class REST
     {
-        public const string APIURL = "http://localhost:10300";
+        public const string APIURL = "http://178.62.157.155:10300";
         public static CookieContainer cookieContainer = new CookieContainer();
         public static string get(string url)
         {
