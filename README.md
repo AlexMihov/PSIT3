@@ -2,8 +2,10 @@ PSIT3 - Quizio
 =====
 
 Project of A-Team
+##Istallation guide for players
+You can automatically install the application from [this website](http://mihov.ch/Quizio/publish.htm).
 
-##Installation guide
+##Installation guide for developers
 
 1. Install [Node](http://nodejs.org/)
 2. Make sure you have Visual Studio 2013 installed
