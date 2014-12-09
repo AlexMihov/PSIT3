@@ -2,7 +2,7 @@ PSIT3 - Quizio
 =====
 
 Project of A-Team
-##Istallation guide for players
+##Installation guide for players
 You can automatically install the application from [this website](http://mihov.ch/Quizio/publish.htm).
 
 ##Installation guide for developers
