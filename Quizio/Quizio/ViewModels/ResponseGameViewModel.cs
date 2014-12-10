@@ -77,7 +77,7 @@ namespace Quizio.ViewModels
         {
             if (ContentControlView.GetType().IsInstanceOfType(new MultiplayerGameResult()))
             {
-                CloseAndSave.Execute(sender);
+                base.save();
             }
             App.Current.MainWindow.Show();
         }

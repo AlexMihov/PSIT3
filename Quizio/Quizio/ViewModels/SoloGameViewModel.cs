@@ -249,7 +249,7 @@ namespace Quizio.ViewModels
             }
         }
 
-        private void save()
+        internal void save()
         {
             if (!bw.IsBusy)
             {
