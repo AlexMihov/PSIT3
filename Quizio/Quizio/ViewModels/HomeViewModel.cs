@@ -226,6 +226,10 @@ namespace Quizio.ViewModels
                     {
                         ShowChallengeListEmpty = Visibility.Visible;
                     }
+                    else
+                    {
+                        ShowChallengeListEmpty = Visibility.Collapsed;
+                    }
                 }
             }
             catch (Exception ex)

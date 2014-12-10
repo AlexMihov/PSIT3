@@ -120,7 +120,7 @@ namespace Quizio.ViewModels
             TimedOutUserInputs = new List<Round>();
 
             NextQuestion = new DelegateCommand<object>(this.GetNextQuestion);
-            CloseAndSave = new DelegateCommand<object>(this.SaveAndClose);
+            CloseAndSave = new DelegateCommand<object>(this.closeWindow);
 
             TimerTickCount = 0;
             TimerTickCountDown = ANSWERTIME;
@@ -165,16 +165,6 @@ namespace Quizio.ViewModels
                 ModernDialog.ShowMessage("Deine Punkte konnten leider nicht hochgeladen werden.\n" + 
                     e.Result + "\n\nVersuche es bitte erneut oder schliesse das Fenster manuell.",
                     "Fehler", MessageBoxButton.OK);
-            }
-            else if(gameWindow != null)
-            {
-                this.ShowOrHide = false;
-                gameWindow.Close();
-            }
-            else
-            {
-                this.ShowOrHide = false;
-                ModernDialog.ShowMessage("Interner Fehler, bitte schliesse das Spiel manuell. Deine Punkte wurden aber hochgeladen!", "Fehler", MessageBoxButton.OK);
             }
         }
         internal virtual void reloadHomeView(){
@@ -249,13 +239,18 @@ namespace Quizio.ViewModels
             getRandomQuestion();
         }
 
-        private void SaveAndClose(object parameter)
+        private void closeWindow(object parameter)
         {
             this.ShowOrHide = true;
             if (parameter is System.Windows.Window)
             {
                 this.gameWindow = parameter as System.Windows.Window;
+                this.gameWindow.Close();
             }
+        }
+
+        private void save()
+        {
             if (!bw.IsBusy)
             {
                 bw.RunWorkerAsync();
@@ -268,7 +263,7 @@ namespace Quizio.ViewModels
         {
             if (ContentControlView.GetType().IsInstanceOfType(new SoloGameResult()))
             {
-                CloseAndSave.Execute(sender);
+                save();
             }
             App.Current.MainWindow.Show();
         }
